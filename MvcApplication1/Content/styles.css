@@ -1,0 +1,164 @@
+﻿body{
+		font: 62.5% "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+
+.left-pane {
+    width: 50%;
+    vertical-align: top;
+}
+
+.inventory-list {
+    border: 1px solid #eee;
+    width: 250px;
+    min-height: 20px;
+    max-height: 100px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+
+.combined-list-ul {
+    border: 1px solid #eee;
+    width: 320px;
+    min-height: 20px;
+    max-height: 200px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+
+.available-storage-list-ul {
+    border: 1px solid #eee;
+    width: 320px;
+    min-height: 20px;
+    max-height: 200px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+.total-combined-list-ul {
+    border: 1px solid #eee;
+    width: 320px;
+    min-height: 20px;
+    max-height: 200px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+.storage-list-ul {
+    border: 1px solid #eee;
+    width: 320px;
+    min-height: 20px;
+    max-height: 120px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+
+.inventory-list-container {
+    height: 500px;
+    width: 100%;
+}
+
+.inventory-item-name {
+    float: left;
+    width: 150px;
+}
+
+
+
+.inventory-item-type {
+    display: none
+}
+.inventory-item-quantity {
+    display: none
+}
+.inventory-item-count-spinner {
+    width: 20px;
+}
+
+.bottom-right-toolbox {
+    text-align: right;
+}
+
+.upgrade-list-title-container {
+    white-space: nowrap;
+}
+
+.upgrade-list-accordion a span.title {
+    float: left;
+    display: block;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.upgrade-list-accordion a span.ui-icon {
+    position: static;   
+    height: 20px;
+    margin-top: 0px; 
+    margin-top: 3px;
+}
+
+.inventory-list-template {
+    display: none
+}
+
+.btn-add {
+    background-image: url('../Images/document.png');
+}
+
+.btn-trash {
+    background-image: url('../Images/trash.png');
+}
+
+.property-upgrade-hidden {
+    display: none
+}
