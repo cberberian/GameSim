@@ -10,6 +10,7 @@
         FarmersMarket,
         FashionStore,
         DonutShop,
-        FastFoodRestaurant
+        FastFoodRestaurant,
+        HomeAppliances
     }
 }

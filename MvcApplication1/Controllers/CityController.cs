@@ -1,19 +1,72 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
+using MvcApplication1.Interfaces;
+using HandlerEntities = SimGame.Handler.Entities;
+using SimGame.Handler.Interfaces;
+using MvcApplication1.Models;
+using SimGame.Data;
+using SimGame.Data.Interface;
 using SimGame.Handler.Entities.Legacy;
 
 namespace MvcApplication1.Controllers
 {
     public class CityController : ApiController
     {
-        // GET api/city
-        public IEnumerable<City> Get()
+        private readonly ICityUpdateHandler _cityUpdateHandler;
+        private readonly GameSimContext _db = new GameSimContext();
+        private readonly IBuildingUpgradeHandler _buildingUpgradeHandler;
+        private IBuildingUiInfoUpdater _buildingUiInfoUpdater;
+
+        public CityController(ICityUpdateHandler cityUpdateHandler, IBuildingUpgradeHandler buildingUpgradeHandler, IBuildingUiInfoUpdater buildingUiInfoUpdater)
         {
-            return new  City[]{};
+            _cityUpdateHandler = cityUpdateHandler;
+            _buildingUpgradeHandler = buildingUpgradeHandler;
+            _buildingUiInfoUpdater = buildingUiInfoUpdater;
+        }
+
+        // GET api/city
+        public City Get()
+        {
+            var currentInventory = _db.Products.Where(x=>x.IsCityStorage)
+                .OrderBy(y=>y.ProductType.ManufacturerTypeId)
+                .ThenBy(z=>z.ProductTypeId).AsEnumerable()
+                .ToArray()
+                .Select(Mapper.Map<Product>)
+                .ToArray();
+
+            var city = new City
+            {
+                CurrentCityStorage = new CityStorage
+                {
+                    CurrentInventory = currentInventory
+                },
+                BuildingUpgrades = _db.BuildingUpgrades.Where(x=>!x.Completed)
+                    .OrderBy(y=>y.Name)
+                    .ToArray()
+                    .Select(Mapper.Map<BuildingUpgrade>)
+                    .ToArray()
+            };
+            var request = new BuildingUpgradeHandlerRequest
+            {
+                CalculateBuidingUpgradeStatistics = true,
+                ReturnFaciltiyAssignment = false,
+                ReturnInventory = true,
+                City = Mapper.Map<HandlerEntities.City>(city)
+            };
+            var ret = _buildingUpgradeHandler.CalculateBuildQueue(request);
+            
+            city.CurrentCityStorage = Mapper.Map<CityStorage>(ret.CityStorage);
+            city.BuildingUpgrades =
+                ret.OrderedUpgrades.Select(Mapper.Map<BuildingUpgrade>).OrderBy(x => x.Name).ToArray();
+            city.RequiredProducts = ret.RequiredProductQueue.Select(Mapper.Map<Product>).ToArray();
+            city.AvailableStorage = ret.AvailableStorage.Select(Mapper.Map<Product>).ToArray();
+//            city.PendingInventory = ret.PendingInventory.Select(Mapper.Map<Product>).ToArray();
+            city.TotalProductsRequired = ret.TotalProductQueue.Select(Mapper.Map<Product>).ToArray();
+            _buildingUiInfoUpdater.Update(city.BuildingUpgrades, city.CurrentCityStorage, _db.ProductTypes.ToArray());
+            return city;
         }
 
         // GET api/city/5
@@ -23,8 +76,16 @@ namespace MvcApplication1.Controllers
         }
 
         // POST api/city
-        public void Post([FromBody]City value)
+        public City Post([FromBody]City value)
         {
+            if (value==null)
+                throw new ApplicationException("Null Data passed to save city.");
+            var request = new HandlerEntities.CityUpdateRequest
+            {
+                City = Mapper.Map<SimGame.Handler.Entities.City>(value)
+            };
+            _cityUpdateHandler.UpdateCity(request);
+            return Get();
         }
 
         // PUT api/city/5

@@ -19,13 +19,20 @@ namespace MvcApplication1.Controllers
         }
 
         // GET api/InventoryItems
-        public IEnumerable<ManufacturerType> Get()
+        public IQueryable<ManufacturerType> Get()
         {
             try
             {
                 var request = new HandlerEntities.ManufacturerTypeSearchHandlerRequest();
                 var manufacturerTypeSearchHandlerResponse = _manufacturerTypeHandler.Get(request);
-                return manufacturerTypeSearchHandlerResponse.Results.Select(Mapper.Map<ManufacturerType>);
+                var manufacturerTypes = manufacturerTypeSearchHandlerResponse.Results.Select(Mapper.Map<ManufacturerType>).ToList();
+                manufacturerTypes.Insert(0, new ManufacturerType
+                {
+                    Name = "All",
+                    ProductTypes = manufacturerTypeSearchHandlerResponse.Results.SelectMany(x => x.ProductTypes).OrderBy(x => x.Name).Select(Mapper.Map<ProductType>).ToArray()
+                });
+                
+                return manufacturerTypes.AsQueryable();
             }
             catch (Exception ex)
             {

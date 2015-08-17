@@ -27,7 +27,10 @@ namespace SimGame.Handler.Calculators
             if (request==null || request.BuildingUpgrades == null)
                 return new BuildingUpgradeProductConsolidatorResponse
                 {
-                    ConsolidatedRequiredProductQueue = new Queue<Product>(new Product[]{})
+                    ConsolidatedTotalProductQueue = new Queue<Product>(),
+                    ConsolidatedRequiredProductQueue = new Queue<Product>(new Product[]{}),
+                    ConsolidatedRequiredProductsInStorage = new List<Product>(),
+                    AvailableStorage = new List<Product>()
                 };
 
             SetupProductTypes(request);
@@ -39,17 +42,69 @@ namespace SimGame.Handler.Calculators
                 {
                     ConsolidatedRequiredProductQueue = new Queue<Product>(),
                     ConsolidatedTotalProductQueue = new Queue<Product>(),
-                    AvailableStorage = new List<Product>()
+                    AvailableStorage = new List<Product>(),
+                    ConsolidatedRequiredProductsInStorage = new List<Product>()
                 };
 
-            //now combine the redundant queued products into one productToRemove per productToRemove type
+            CombineDuplicateProductInstances(flattenerResponse, combinedProductList);
+
+            //now remove products we have in storage including the dependents. 
+            var cityStorage = request.CityStorage ?? new CityStorage
+            {
+                CurrentInventory = new Product[0]
+            };
+            var requiredProductList = combinedProductList.Select(x=>x.Clone()).ToList();
+            foreach (var storageProduct in cityStorage.CurrentInventory)
+            {
+                DecreaseProductQuantity(storageProduct, ref requiredProductList);
+            }
+
+            //return the list in order by manufacturer type id then by how long to fulfill the item. 
+            var availableStorageList = GetAvailableStorageList(cityStorage, combinedProductList);
+            var requiredInStorage = GetRequiredInStorageList(cityStorage, combinedProductList);
+
+            var ret = new BuildingUpgradeProductConsolidatorResponse
+            {
+                ConsolidatedRequiredProductQueue = new Queue<Product>(requiredProductList.OrderBy(x => x.ManufacturerTypeId).ThenBy(y => y.TimeToFulfill)),
+                ConsolidatedTotalProductQueue = new Queue<Product>(combinedProductList.OrderBy(x => x.ManufacturerTypeId).ThenBy(y => y.TimeToFulfill)),
+                AvailableStorage = availableStorageList,
+                ConsolidatedRequiredProductsInStorage = requiredInStorage
+                
+            };
+            return ret;
+        }
+
+        private List<Product> GetRequiredInStorageList(CityStorage cityStorage, List<Product> combinedProductList)
+        {
+            var ret = new List<Product>();
+            foreach (var product in combinedProductList)
+            {
+                var storedProduct = cityStorage.CurrentInventory.FirstOrDefault(x => x.ProductTypeId == product.ProductTypeId);
+                if (storedProduct != null && storedProduct.Quantity >= product.Quantity)
+                {
+                    ret.Add(product);
+                }
+            }
+            return ret; 
+        }
+
+        /// <summary>
+        /// Takes duplicated products and totals them into 1 product with total quantity. 
+        /// </summary>
+        /// <param name="flattenerResponse"></param>
+        /// <param name="combinedProductList"></param>
+        private void CombineDuplicateProductInstances(InventoryFlattenerResponse flattenerResponse, List<Product> combinedProductList)
+        {
+
             foreach (var productType in _productTypes)
             {
                 var productTypeId = productType.Id;
                 Product combinedItem = null;
                 var itemAdded = false;
-                var queuedProducts = flattenerResponse.Products.Where(x => x.ProductTypeId.HasValue && x.ProductTypeId.Value == productTypeId).ToArray();
-                
+                var queuedProducts =
+                    flattenerResponse.Products.Where(x => x.ProductTypeId.HasValue && x.ProductTypeId.Value == productTypeId)
+                        .ToArray();
+
                 foreach (var queuedProduct in queuedProducts)
                 {
                     if (combinedItem == null)
@@ -62,7 +117,7 @@ namespace SimGame.Handler.Calculators
                     var quantityToAdd = newTotalQuantity;
                     if (quantityToAdd <= 0)
                         break; //done with productToRemove type because we have the rest in storage.
-                    
+
                     combinedItem.Quantity = quantityToAdd;
 
                     if (combinedItem.ProductType.ManufacturerType.SupportsParallelManufacturing)
@@ -74,35 +129,13 @@ namespace SimGame.Handler.Calculators
                     }
                     else
                     {
-                        combinedItem.TotalDuration += productType.TimeToManufacture * quantityToAdd;
+                        combinedItem.TotalDuration += productType.TimeToManufacture*quantityToAdd;
                     }
                 }
-                    
+
                 if (combinedItem != null && combinedItem.Quantity > 0)
                     combinedProductList.Add(combinedItem);
-
             }
-
-            //now remove products we have in storage including the dependents. 
-            var cityStorage = request.CityStorage ?? new CityStorage();
-            var requiredProductList = combinedProductList.Select(x=>x.Clone()).ToList();
-            foreach (var product in cityStorage.CurrentInventory)
-            {
-                DecreaseProductQuantity(product, ref requiredProductList);
-            }
-
-            //Available Storage = availablestorage - whatsneeded
-
-
-            //return the list in order by manufacturer type id then by how long to fulfill the item. 
-            var ret = new BuildingUpgradeProductConsolidatorResponse
-            {
-                ConsolidatedRequiredProductQueue = new Queue<Product>(requiredProductList.OrderBy(x => x.ManufacturerTypeId).ThenBy(y => y.TimeToFulfill)),
-                ConsolidatedTotalProductQueue = new Queue<Product>(combinedProductList.OrderBy(x => x.ManufacturerTypeId).ThenBy(y => y.TimeToFulfill)),
-                AvailableStorage = GetAvailableStorageList(cityStorage, combinedProductList)
-                
-            };
-            return ret;
         }
 
         private List<Product> GetAvailableStorageList(CityStorage cityStorage, IEnumerable<Product> combinedProductList)
@@ -139,35 +172,58 @@ namespace SimGame.Handler.Calculators
         /// <summary>
         /// Decreases the quanity of the list product. if the quanity is drained then remove the list product 
         /// </summary>
-        /// <param name="productToRemove"></param>
-        /// <param name="listToDescreaseQuantity"></param>
-        private void DecreaseProductQuantity(Product productToRemove, ref List<Product> listToDescreaseQuantity)
+        /// <param name="productInStorage"></param>
+        /// <param name="requiredProducts"></param>
+        private void DecreaseProductQuantity(Product productInStorage, ref List<Product> requiredProducts)
         {
-            if (!productToRemove.Quantity.HasValue || productToRemove.Quantity < 1)
+            //if we don't have in storage then no need to decrement quanities of required list.
+            if (ProductIsNotInStorage(productInStorage))
                 return;
-            var productToDecreaseQuantity = listToDescreaseQuantity.FirstOrDefault(x => x.ProductTypeId == productToRemove.ProductTypeId);
-            if (productToDecreaseQuantity == null) return;
+
+            var requiredProduct = GetMatchingProductByProductType(productInStorage, requiredProducts);
+            //no required products are in the list for this storage product. 
+            if (requiredProduct == null) return;
             
-            productToDecreaseQuantity.Quantity = productToDecreaseQuantity.Quantity - productToRemove.Quantity;
-            if (productToDecreaseQuantity.Quantity < 1)
-                listToDescreaseQuantity.Remove(productToDecreaseQuantity);
+            //decrement the required product by the amount in storage.
+            requiredProduct.Quantity = requiredProduct.Quantity - productInStorage.Quantity;
             
-            var productTypeBeingRemoved = _productTypes.FirstOrDefault(x => x.Id == productToDecreaseQuantity.ProductTypeId);
+            //if no required products are now required then remove the product from the list and 
+            if (requiredProduct.Quantity < 1)
+            {
+                requiredProducts.Remove(requiredProduct);
+                //no need to process children since we don't need this product anymore.
+                return;
+            }
+            
+            //now get the producttype of that 
+            var productTypeBeingRemoved = _productTypes.FirstOrDefault(x => x.Id == requiredProduct.ProductTypeId);
             
             if (productTypeBeingRemoved == null) return;
-            //remove required products for each item in the product to remove. 
-            for (var a = 0; a < productToRemove.Quantity; a++)
-            foreach (var product in productTypeBeingRemoved.RequiredProducts)
+            //for each required product decrement by amount  
+            for (var a = 0; a < productInStorage.Quantity; a++)
             {
-                DecreaseProductQuantity(product, ref listToDescreaseQuantity);
+                foreach (var product in productTypeBeingRemoved.RequiredProducts)
+                {
+                    DecreaseProductQuantity(product, ref requiredProducts);
+                }
             }
+        }
+
+        private static Product GetMatchingProductByProductType(Product productInStorage, List<Product> requiredProducts)
+        {
+            return requiredProducts.FirstOrDefault(x => x.ProductTypeId == productInStorage.ProductTypeId);
+        }
+
+        private static bool ProductIsNotInStorage(Product productInStorage)
+        {
+            return !productInStorage.Quantity.HasValue || productInStorage.Quantity < 1;
         }
 
         private InventoryFlattenerResponse GetFlattenedInventory(BuildingUpgradeProductConsoldatorRequest request)
         {
             var inventoryFlattenerRequest = new InventoryFlattenerRequest
             {
-                BuildingUpgrades = request.BuildingUpgrades,
+                Products = request.BuildingUpgrades.SelectMany(x=>x.Products).ToArray(),
                 ProductTypes = _productTypes
             };
             return _inventoryFlattener.GetFlattenedInventory(inventoryFlattenerRequest);

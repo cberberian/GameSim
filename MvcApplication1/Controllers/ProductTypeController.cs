@@ -1,37 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
+using System.Web.Http.OData.Query;
+using AutoMapper;
+using MvcApplication1.Models;
+using SimGame.Data;
 
 namespace MvcApplication1.Controllers
 {
     public class ProductTypeController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        private readonly GameSimContext _db = new GameSimContext();
+        // GET api/producttype
+        [Queryable()]
+        public IQueryable<ProductType> Get(ODataQueryOptions<SimGame.Domain.ProductType> paramters)
         {
-            return new string[] { "value1", "value2" };
+            var resultset = paramters.ApplyTo(_db.ProductTypes).AsQueryable() as IQueryable<SimGame.Domain.ProductType>;
+            // ReSharper disable once AssignNullToNotNullAttribute
+            return resultset.ToArray().Select(Mapper.Map<ProductType>).AsQueryable();
         }
 
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/values
+        // POST api/producttype
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT api/values/5
+        // PUT api/producttype/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/producttype/5
         public void Delete(int id)
         {
         }

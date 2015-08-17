@@ -1,0 +1,59 @@
+﻿@model MvcApplication2.Models.Product
+@{
+    ViewBag.Title = "Create Line Item Product";
+    Layout = "~/Views/Shared/_MvcLayout.cshtml";
+}
+<script>
+    $(document).ready(
+        function () {
+            $("#cityManagerContainer").fadeIn();
+        }
+    );
+</script>
+<h2>Create Line Item Product</h2>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Product Type</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductTypeId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ProductTypeId, new SelectList(ViewBag.ProductTypes, 
+                               "Id", "Name"))
+            
+        </div>
+         <div class="editor-label">
+            @Html.LabelFor(model => model.Quantity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Quantity)
+            @Html.ValidationMessageFor(model => model.Quantity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RequiredBy)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.RequiredByTypeId, new SelectList(ViewBag.ProductTypes, 
+                               "Id", "Name", Request["rbid"]))
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsCityStorage)
+        </div>
+         <div class="editor-field">
+             @Html.TextBoxFor(model => model.IsCityStorage, new { disabled = "disabled", @readonly = "readonly", value="false" })
+        </div>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    <a href="@TempData["ReturnURL"]">Back</a>
+</div>
+

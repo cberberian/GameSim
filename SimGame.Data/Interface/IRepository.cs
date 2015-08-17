@@ -8,5 +8,7 @@ namespace SimGame.Data.Interface
         IGameSimContext Context { get; set; }
         IQueryable<T> Get();
         IQueryable<T> Get(RepositoryRequest<T> request);
+        void Add(T entity);
+        void SetValues(T dest, T chng);
     }
 }

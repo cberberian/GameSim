@@ -41,7 +41,7 @@
 	}
 
 .left-pane {
-    width: 50%;
+    width: 460px;
     vertical-align: top;
 }
 
@@ -57,6 +57,9 @@
     overflow-x: hidden;
 }
 
+.main-accordian {
+    width: 550px
+}
 .combined-list-ul {
     border: 1px solid #eee;
     width: 320px;
@@ -80,6 +83,19 @@
     margin-right: 10px;
     overflow-x: hidden;
 }
+
+.required-in-storage-list-ul {
+    border: 1px solid #eee;
+    width: 320px;
+    min-height: 20px;
+    max-height: 200px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+
 .total-combined-list-ul {
     border: 1px solid #eee;
     width: 320px;
@@ -91,7 +107,20 @@
     margin-right: 10px;
     overflow-x: hidden;
 }
+
 .storage-list-ul {
+    border: 1px solid #eee;
+    width: 320px;
+    min-height: 20px;
+    max-height: 120px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+
+.cargo-ship-list-ul {
     border: 1px solid #eee;
     width: 320px;
     min-height: 20px;
@@ -161,4 +190,10 @@
 
 .property-upgrade-hidden {
     display: none
+}
+
+.progress-bar-container {
+    width: 350px;
+    height: 10px;
+    display: inline-block;
 }

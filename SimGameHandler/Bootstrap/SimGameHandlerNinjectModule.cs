@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using Ninject.Modules;
 using SimGame.Handler.Calculators;
+using SimGame.Handler.Entities;
 using SimGame.Handler.Handlers;
 using SimGame.Handler.Interfaces;
 using SimGame.Handler.Mock;
@@ -12,14 +13,14 @@ namespace SimGame.Handler.Bootstrap
         public override void Load()
         {
             bool mock;
-            if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockPropertyUpgradeDurationCalculator"), out mock) && mock)
-                Bind<IPropertyUpgradeDurationCalculator>().To<MockPropertyUpgradeDurationCalculator>();
+            if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockBuildingUpgradeDurationCalculator"), out mock) && mock)
+                Bind<IBuildingUpgradeDurationCalculator>().To<MockBuildingUpgradeDurationCalculator>();
             else
-                Bind<IPropertyUpgradeDurationCalculator>().To<PropertyUpgradeDurationCalculator>();
-            if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockPropertyUpgradeHandler"), out mock) && mock)
-                Bind<IPropertyUpgradeHandler>().To<MockPropertyUpgradeHandler>();
+                Bind<IBuildingUpgradeDurationCalculator>().To<BuildingUpgradeDurationCalculator>();
+            if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockBuildingUpgradeHandler"), out mock) && mock)
+                Bind<IBuildingUpgradeHandler>().To<MockBuildingUpgradeHandler>();
             else
-                Bind<IPropertyUpgradeHandler>().To<PropertyUpgradeHandler>();
+                Bind<IBuildingUpgradeHandler>().To<BuildingUpgradeHandler>();
 
             if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockManufacturerTypeSearchHandler"), out mock) && mock)
                 Bind<IManufacturerTypeSearchHandler>().To<MockManufacturerTypeSearchHandler>();
@@ -30,10 +31,42 @@ namespace SimGame.Handler.Bootstrap
                 Bind<IBuildingUpgradProductConsolidator>().To<MockBuildingUpgradProductConsolidator>();
             else
                 Bind<IBuildingUpgradProductConsolidator>().To<BuildingUpgradProductConsolidator>();
-            Bind<IPropertyUpgradeHandler>().To<PropertyUpgradeHandler>();
+
+            if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockCityUpdateHandler"), out mock) && mock)
+                Bind<ICityUpdateHandler>().To<MockCityUpdateHandler>();
+            else
+                Bind<ICityUpdateHandler>().To<CityUpdateHandler>();
+
+            if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockBuildingUpgradeStatisticsCalculator"), out mock) && mock)
+                Bind<IBuildingUpgradeStatisticsCalculator>().To<MockBuildingUpgradeStatisticsCalculator>();
+            else
+                Bind<IBuildingUpgradeStatisticsCalculator>().To<BuildingUpgradeStatisticsCalculator>();
+
+            if (bool.TryParse(ConfigurationManager.AppSettings.Get("MockCityStorageCalculator"), out mock) && mock)
+                Bind<ICityStorageCalculator>().To<MockCityStorageCalculator>();
+            else
+                Bind<ICityStorageCalculator>().To<CityStorageCalculator>();
+
             Bind<IInventoryFlattener>().To<InventoryFlattener>();
 
 
+        }
+    }
+
+    public class MockCityStorageCalculator : ICityStorageCalculator
+    {
+        public CalculateStorageResponse CalculateNewStorageAmounts(CalculateStorageRequest calculateStorageRequest)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+    public class MockBuildingUpgradeStatisticsCalculator : IBuildingUpgradeStatisticsCalculator
+    {
+        public BuildingUpgradeStatisticsCalculatorResponse CalculateStatistics(
+            BuildingUpgradeStatisticsCalculatorRequest statisticsRequest)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

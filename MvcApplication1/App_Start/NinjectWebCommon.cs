@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using MvcApplication1;
+using MvcApplication1.Helpers;
 using Ninject;
 using Ninject.Web.Common;
 using SimGame.Data.Bootstrap;
@@ -74,7 +75,8 @@ namespace MvcApplication1
             kernel.Load(
 //                new WebCommonNinjectModule(), 
                 new SimGameDataNinjectModule(), 
-                new SimGameHandlerNinjectModule());
+                new SimGameHandlerNinjectModule(),
+                new WebApplication1NinjectModule());
         }        
     }
 }

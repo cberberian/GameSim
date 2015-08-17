@@ -16,6 +16,8 @@ namespace SimGame.Data.Mock
             set { throw new System.NotImplementedException(); }
         }
 
+        public IDbSet<User> Users { get; set; }
+
         public IDbSet<Product> Products
         {
             get { throw new System.NotImplementedException(); }
@@ -76,7 +78,19 @@ namespace SimGame.Data.Mock
             set { throw new System.NotImplementedException(); }
         }
 
+        public IDbSet<BuildingUpgrade> BuildingUpgrades { get; set; }
+
         public void Commit()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetValues<T>(T domainUpgrade, T changedUpgrade) where T : class
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete<T>(T domainObject) where T : class
         {
             throw new System.NotImplementedException();
         }

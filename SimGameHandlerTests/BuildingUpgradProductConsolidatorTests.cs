@@ -46,19 +46,45 @@ namespace SimGameHandlerTests
         public void scenario_1()
         {
             //1 product quantity 1 returned from flattener
-            var flattenerResult = new InventoryFlattenerResponse
-            {
-                Products = new[]
-                {
-                    new Product
-                    {
-                        ProductTypeId = 1,
-                        Quantity = 1,
-                    }, 
-                }
-            };
+            var flattenerResult = GetFlattenerResponse();
             //product type matched time to manufacture 1
-            var productTypes = new[]
+            var productTypes = GetProductTypes();
+            var cityStorage = GetCityStorage();
+            var uow = new Mock<IPropertyUpgradeUoW>();
+            var invFlattener = new Mock<IInventoryFlattener>();
+
+            invFlattener
+                .Setup(x => x.GetFlattenedInventory(It.IsAny<InventoryFlattenerRequest>()))
+                .Returns(flattenerResult);
+
+            var consolidator = new BuildingUpgradProductConsolidator(uow.Object, invFlattener.Object);
+
+            var request = new BuildingUpgradeProductConsoldatorRequest
+            {
+                BuildingUpgrades = new BuildingUpgrade[0],
+                ProductTypes = productTypes,
+                CityStorage = cityStorage
+                
+            };
+            var ret = consolidator.GetConsolidatedProductQueue(request);
+
+            ret.ConsolidatedRequiredProductQueue.Count.ShouldEqual(1);
+            ret.ConsolidatedRequiredProductQueue.First().Quantity.ShouldEqual(1);
+            ret.ConsolidatedRequiredProductQueue.First().TotalDuration.ShouldEqual(1);
+
+        }
+
+        private CityStorage GetCityStorage()
+        {
+            return new CityStorage
+            {
+                CurrentInventory = new Product[0]
+            };
+        }
+
+        private static ProductType[] GetProductTypes()
+        {
+            return new[]
             {
                 new ProductType
                 {
@@ -73,29 +99,21 @@ namespace SimGameHandlerTests
                         
                 }
             };
+        }
 
-            var uow = new Mock<IPropertyUpgradeUoW>();
-            var invFlattener = new Mock<IInventoryFlattener>();
-            invFlattener
-                .Setup(x => x.GetFlattenedInventory(It.IsAny<InventoryFlattenerRequest>()))
-                .Returns(flattenerResult);
-            
-            
-            
-            var consolidator = new BuildingUpgradProductConsolidator(uow.Object, invFlattener.Object);
-            
-            var request = new BuildingUpgradeProductConsoldatorRequest
+        private static InventoryFlattenerResponse GetFlattenerResponse()
+        {
+            return new InventoryFlattenerResponse
             {
-                BuildingUpgrades = new BuildingUpgrade[0],
-                ProductTypes = productTypes,
-                
+                Products = new[]
+                {
+                    new Product
+                    {
+                        ProductTypeId = 1,
+                        Quantity = 1,
+                    }, 
+                }
             };
-            var ret = consolidator.GetConsolidatedProductQueue(request);
-
-            ret.ConsolidatedRequiredProductQueue.Count.ShouldEqual(1);
-            ret.ConsolidatedRequiredProductQueue.First().Quantity.ShouldEqual(1);
-            ret.ConsolidatedRequiredProductQueue.First().TotalDuration.ShouldEqual(1);
-
         }
 
 

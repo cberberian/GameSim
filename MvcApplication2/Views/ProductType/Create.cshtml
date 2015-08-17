@@ -1,0 +1,59 @@
+﻿@model MvcApplication2.Models.ProductType
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_MvcLayout.cshtml";
+}
+<script>
+    $(document).ready(
+        function () {
+            $("#cityManagerContainer").fadeIn();
+        }
+    );
+</script>
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>ProductType</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TimeToManufacture)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TimeToManufacture)
+            @Html.ValidationMessageFor(model => model.TimeToManufacture)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ManufacturerTypeId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ManufacturerTypeId, 
+                new SelectList(ViewBag.ManufacturerTypes, 
+                               "Id", "Name"))
+            @Html.ValidationMessageFor(model => model.ManufacturerTypeId)
+        </div>
+        <div>
+            
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

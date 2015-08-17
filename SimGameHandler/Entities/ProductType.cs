@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using SimGame.Domain;
 
 namespace SimGame.Handler.Entities
 {
     [Serializable]
-    public class ProductType
+    public class ProductType : DomainObject
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public string Name { get; set; }
         public int? TimeToManufacture { get; set; }
         public ManufacturerType ManufacturerType { get; set; }

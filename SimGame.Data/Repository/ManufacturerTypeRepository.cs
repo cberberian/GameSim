@@ -27,5 +27,15 @@ namespace SimGame.Data.Repository
         {
             return _context.ManufacturerTypes.Where(request.Expression);
         }
+
+        public void Add(ManufacturerType entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetValues(ManufacturerType dest, ManufacturerType chng)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

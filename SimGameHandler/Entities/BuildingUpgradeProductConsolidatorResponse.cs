@@ -9,5 +9,6 @@ namespace SimGame.Handler.Entities
         public Queue<Product> ConsolidatedRequiredProductQueue { get; set; }
         public Queue<Product> ConsolidatedTotalProductQueue { get; set; }
         public List<Product> AvailableStorage { get; set; }
+        public List<Product> ConsolidatedRequiredProductsInStorage { get; set; }
     }
 }

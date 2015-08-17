@@ -1,11 +1,12 @@
 ﻿using System;
+using SimGame.Domain;
 
 namespace SimGame.Handler.Entities
 {
     [Serializable]
-    public class ManufacturerType
+    public class ManufacturerType : DomainObject
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public string Name { get; set; }
         public int QueueSize { get; set; }
         public bool HasFixedQueueSize { get; set; }

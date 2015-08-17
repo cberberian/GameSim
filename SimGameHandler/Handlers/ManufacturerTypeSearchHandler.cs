@@ -19,13 +19,17 @@ namespace SimGame.Handler.Handlers
         public ManufacturerTypeSearchHandlerResponse Get(ManufacturerTypeSearchHandlerRequest request)
         {
             if (request.Id.HasValue || !string.IsNullOrWhiteSpace(request.Name))
+            {
+                var queryable = _manufacturerTypeUnitOfWork.ManufacturerTypeRepository.Get(CreateRepositoryRequest(request));
                 return new ManufacturerTypeSearchHandlerResponse
                 {
-                    Results = Enumerable.ToArray(_manufacturerTypeUnitOfWork.ManufacturerTypeRepository.Get(CreateRepositoryRequest(request)).Select(Mapper.Map<ManufacturerType>))
+                    Results = queryable.Select(Mapper.Map<ManufacturerType>).ToArray()
                 };
+            }
+            var manufacturerTypes = _manufacturerTypeUnitOfWork.ManufacturerTypeRepository.Get().ToArray();
             return new ManufacturerTypeSearchHandlerResponse
             {
-                Results = Enumerable.ToArray(_manufacturerTypeUnitOfWork.ManufacturerTypeRepository.Get().Select(Mapper.Map<ManufacturerType>))
+                Results = manufacturerTypes.Select(Mapper.Map<ManufacturerType>).ToArray()
             };
         }
 

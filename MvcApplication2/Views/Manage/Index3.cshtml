@@ -1,0 +1,212 @@
+﻿@{
+    ViewBag.Title = "Building Manager 3";
+}
+@Scripts.Render("~/bundles/angular")
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/simGame.css" rel="stylesheet" />
+    
+<div ng-app="cityManagerApp" id="cityManagerContainer">
+    <div ng-controller="CityManagerCtrl">
+        <tabset>
+            <tab heading="Manage Upgrade jquery" ng-click="Goto('http://localhost:59153/Manage/Index')"></tab>
+            <tab heading="Manage Upgrade asp.net MVC" ng-click="Goto('http://localhost:59153/Manage/Index2')"></tab>
+            <tab heading="Manage Upgrade asp.net Angular" active="true" ng-click="Goto('http://localhost:59153/Manage/Index3')"></tab>
+            <tab heading="Product Types" ng-click="Goto('http://localhost:59153/ProductType/Index')"></tab>
+        </tabset>
+        <div> <!-- full view container div -->
+            <div><!-- content div has all visible content -->
+                <div>
+                    <div id="buildingUpgrades">
+                        <table class="city-manager-table">
+                            <tr>
+                                <td class="city-manager-section-header">
+                                    <h4>Available Products</h4></td>
+                                <td class="city-manager-section-header">
+                                    <h4>Building Upgrades</h4>
+                                </td>
+                                <td class="city-manager-nav-bar">
+                                    <a title="Save City" style="cursor: pointer" id="btnSave" ng-click="SaveCity()">
+                                        <img class="city-manager-nav-icon" id="divSave" src="~/Images/save.png"/>
+                                    </a>
+                                    <img class="city-manager-nav-icon" title="Trash" id="divTrash" src="~/Images/delete.png" alt=""
+                                         data-drop="true"
+                                         data-jqyoui-options="{tolerance: 'touch'}"
+                                         jqyoui-droppable="{ onDrop: 'DropDelete()' }"/>
+                                    <a title="New Building Upgrade" style="cursor: pointer" ng-click="NewBuildingUpgrade()">
+                                        <img class="city-manager-nav-icon" src="~/Images/add.png"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="city-manager-left-pane">
+                                    <div class="inventory-list-container">
+                                        <div id="factoryItemsAccordian" class="city-manager-accordion">
+                                            <accordion close-others="true">
+                                                <accordion-group heading="{{manufacturer.Name}}" ng-repeat="manufacturer in manufacturers">
+                                                    <div class="product-list-container">
+                                                        <div class="product-list">
+                                                            <div class="product-list-item product-list-item-draggable"
+                                                                 ng-repeat="productType in manufacturer.ProductTypes"
+                                                                 data-drag="true"
+                                                                 data-jqyoui-options="{revert: true, helper: 'clone', appendTo: 'body'}"
+                                                                 jqyoui-draggable>
+                                                                {{productType.Name}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </accordion-group>
+                                            </accordion>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td id="upgradeListContainer" class="city-manager-right-pane" colspan="2">
+                                    <div class="city-manager-accordion">
+                                        <accordion close-others="true">
+                                            <accordion-group ng-model="city">
+                                                <accordion-heading>Products To Produce <span style="float: right">filter: <input ng-model="query"></span></accordion-heading>
+                                                <div class="bottom-right-toolbox">
+                                                    <button type="button" ng-click="UpdateSupplyChain()">Update Inventory</button>
+                                                </div>
+                                                <div class="product-list-container">
+                                                    <div class="product-list">
+                                                        <div class="product-list-item" ng-repeat="product in city.RequiredProducts | filter:query">
+                                                            <span class="product-name">{{product.Name}}</span>
+                                                            <span class="product-name">Qty: {{product.Quantity}} Duration: {{product.TotalDurationString}}</span>
+                                                            <input type="number" class="product-list-item-counter" ng-model="product.AdjustedQuantity" ng-change="RequiredProductQuantityChange(this.product)"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </accordion-group>
+                                            <accordion-group heading="Total Upgrade Products" ng-model="city">
+                                                <div class="product-list-container">
+                                                    <div class="product-list">
+                                                        <div class="product-list-item"ng-repeat="product in city.TotalProductsRequired | filter:availableQuery">
+                                                            <span class="product-name">{{product.Name}}</span>
+                                                            <span class="product-name">Qty: {{product.Quantity}} Duration: {{product.TotalDurationString}}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </accordion-group>
+                                            <accordion-group heading="Storage Overstock" ng-model="city">
+                                                <div class="bottom-right-toolbox">
+                                                    <button id="btnUpdateStorage" type="button" ng-click="onUpdateStorage()">Update Storage</button>
+                                                </div>
+                                                <div class="product-list-container">
+                                                    <div class="product-list">
+                                                        <div class="product-list-item" ng-repeat="product in city.AvailableStorage | filter:availableQuery" product="product">
+                                                            <span class="product-name">{{product.Name}}</span>
+                                                            <span class="product-name">Qty: {{product.Quantity}}</span>
+                                                            <input type="number" class="product-list-item-counter" ng-model="product.AdjustedQuantity" ng-change="AvailableProductQuantityChange(this.product)"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </accordion-group>
+                                            <accordion-group ng-model="city">
+                                                <accordion-heading>City Storage <span style="float: right"><input ng-model="storageQuery"></span></accordion-heading>
+                                                <div class="product-list-container">
+                                                    <div class="product-list">
+                                                        <div class="product-list-item" ng-repeat="product in city.CurrentCityStorage.CurrentInventory | filter:storageQuery" product="product">
+                                                            <span 
+                                                                class="product-name" 
+                                                                tooltip-template="'/scripts/pages/index3/templates/buildingUpgradeProductTooltip.html'"
+                                                                tooltip-placement="bottom"
+                                                                tooltip-trigger="mouseenter">{{product.Name}}</span>&nbsp;&nbsp;
+                                                            <input class="product-list-item-counter" type="number" ng-model="product.Quantity"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </accordion-group>
+                                            <accordion-group ng-repeat="buildingUpgrade in city.BuildingUpgrades">
+                                                <accordion-heading>
+                                                    <div style="vertical-align: middle; white-space: nowrap"
+                                                         data-drag="true"
+                                                         data-jqyoui-options="{revert: true, helper: 'clone', appendTo: 'body'}"
+                                                         jqyoui-draggable>
+                                                        <input class="building-upgrade-name-input" ng-model="buildingUpgrade.Name"/>&nbsp;&nbsp;
+                                                        <span class="building-upgrade-index" style="display: none">{{$index}}</span>
+                                                        <span class="progress-bar-tooltip" title="">
+                                                        <span class="progress-bar-container">
+                                                            <progressbar 
+                                                                class="progress-striped"
+                                                                max="buildingUpgrade.TotalUpgradeTime" 
+                                                                value="buildingUpgrade.TotalUpgradeTime - buildingUpgrade.RemainingUpgradeTime">
+                                                                <span style="font-size: 10px; color: black; white-space: nowrap;">{{buildingUpgrade.RemainingUpgradeTimeString}} / {{buildingUpgrade.TotalUpgradeTimeString}}</span>
+                                                            </progressbar>
+                                                        </span>
+                                                    </span>
+                                                        <a class="btn-complete-upgrade" ng-click="CompleteUpgradeClick($index)">
+                                                            Complete
+                                                            @*                                                        <span style="display: inline-block; height: 20px; width: 20px">*@
+                                                            @*                                                            <span class="ui-icon ui-icon-check" title="Complete Upgrade"></span>*@
+                                                            @*                                                        </span>*@
+                                                        </a>
+                                                    </div>
+                                                </accordion-heading>
+                                                <div class="product-list-container" ng-model="buildingUpgrade.Products" data-drop="true" data-jqyoui-options="{tolerance: 'touch'}" jqyoui-droppable="{onDrop: 'DropBuildingUpgradProduct(buildingUpgrade)'}">
+                                                    <div class="product-list">
+                                                        <div class="product-list-item" ng-repeat="product in buildingUpgrade.Products"
+                                                             data-drag="true"
+                                                             data-jqyoui-options="{revert: true, helper: 'clone', appendTo: 'body'}"
+                                                             jqyoui-draggable>
+                                                            <span 
+                                                                class="product-name" 
+                                                                tooltip-template="'/scripts/pages/index3/templates/buildingUpgradeProductTooltip.html'"
+                                                                tooltip-placement="bottom"
+                                                                tooltip-trigger="mouseenter" 
+                                                                tooltip-append-to-body="true"
+                                                                product-quantity-warning >{{product.Name}}</span>
+                                                            <input class="product-list-item-counter" type="number" ng-model="product.Quantity"/> of {{product.StorageQuantity}} in storage
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </accordion-group>
+                                        </accordion>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="facilities">
+
+                    </div>
+                </div>
+            </div>
+
+            <!--
+            legacy jquery content to copy for adding new
+            buiding upgrade accordian items.
+            -->
+            <div id="upgradeListTemplate" style="display: none">
+                <h3 class="property-upgrade-h3 accordian-definition">
+                    <span class="property-upgrade-name" title=""></span>&nbsp;&nbsp;
+                    <span class="progress-bar-tooltip" title=""><span class="progress-bar-container"></span></span>
+                    <a class="btn-complete-upgrade" onclick="onBtnCompleteUpgradeClick(this)">
+                        <span style="display: inline-block; height: 20px; width: 20px">
+                        <span class="ui-icon ui-icon-check" title="Complete Upgrade"></span>
+                    </span>
+                    </a>
+                    <a class="btn-move-up" onclick="onMoveUpClick(this)">
+                        <span style="display: inline-block; height: 20px; width: 20px">
+                        <span class="ui-icon ui-icon-arrow-1-n" title="Move Up"></span>
+                    </span>
+                    </a>
+                    <a class="btn-move-down" onclick="onMoveDownClick(this)">
+                        <span style="display: inline-block; height: 20px; width: 20px">
+                        <span class="ui-icon ui-icon-arrow-1-s" title="Move Down"></span>
+                    </span>
+                    </a>
+                </h3>
+                <div class="upgrade-list-div accordian-definition">
+                    <span class="upgrade-list-template-id"></span>
+                    @*        <span class="ui-icon ui-icon-trash" onclick="RemoveUpgrade(this);"></span>*@
+                    <span class="property-upgrade-name property-upgrade-hidden"></span>
+                    <ul class="inventory-list upgrade-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    

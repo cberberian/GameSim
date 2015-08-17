@@ -45,6 +45,14 @@
         Drill           = 41,
         AnimalFeed      = 42,
         IceCreamSandwich    = 43,
-        Pizza           = 44
+        Pizza           = 44,
+        BBQGrill           = 45,
+        Burger          = 46,
+        BusinessSuit = 47,
+        CheeseFries = 48,
+        Refrigerator = 49,
+        GardenGnome = 50,
+        Couch = 51,
+        LightingSystem = 52
     }
 }

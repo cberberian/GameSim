@@ -2,21 +2,11 @@
 
 namespace SimGame.Domain
 {
-    public class BuildingUpgrade
+    public class BuildingUpgrade : DomainObject
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
+        public string Name { get; set; }
+        public bool Completed { get; set; }
         public virtual ICollection<Product> Products { get; set; }
-        public void AddProduct(ICollection<Product> products)
-        {
-            foreach(var prod in products)
-                AddProduct(prod);
-        }
-
-        private void AddProduct(Product product)
-        {
-            if (Products == null)
-                Products = new List<Product>();
-            Products.Add(product);
-        }
     }
 }

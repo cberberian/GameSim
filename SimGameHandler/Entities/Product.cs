@@ -1,9 +1,10 @@
 ﻿using System;
+using SimGame.Domain;
 
 namespace SimGame.Handler.Entities
 {
     [Serializable]
-    public class Product
+    public class Product : DomainObject
     {
         public Product()
         {
@@ -20,7 +21,7 @@ namespace SimGame.Handler.Entities
 
         }
 
-        public int? Id { get; set; }
+        public override int Id { get; set; }
         public string Name { get; set; }
         public int? Quantity { get; set; }
         public int? ProductTypeId { get; set; }
@@ -28,7 +29,17 @@ namespace SimGame.Handler.Entities
         public ProductType ProductType { get; set; }
         public int? ManufacturerTypeId { get; set; }
         public int? ManufacturerId { get; set; }
+        public int? BuildingUpgradeId { get; set; }
         public int? TimeToFulfill { get; set; }
         public int? OrderId { get; set; }
+        public bool IsCityStorage { get; set; }
+        /// <summary>
+        /// Quantity After City Storage is taken into account. 
+        /// </summary>
+        public int? RemainingQuantity { get; set; }
+
+        public int? RemainingDuration { get; set; }
+        public Product[] RequiredProducts { get; set; }
+        public string ParentContext { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace SimGameHandlerTests
             };
             var inventoryFlattenerRequest = new InventoryFlattenerRequest
             {
-                BuildingUpgrades = buildingUpgrades,
+                Products = buildingUpgrades.SelectMany(x=>x.Products).ToArray(),
                 ProductTypes = productTypes
             };
             var ret = flattener.GetFlattenedInventory(inventoryFlattenerRequest);
@@ -96,13 +96,24 @@ namespace SimGameHandlerTests
             };
             var inventoryFlattenerRequest = new InventoryFlattenerRequest
             {
-                BuildingUpgrades = buildingUpgrades,
+                Products = buildingUpgrades.SelectMany(x=>x.Products).ToArray(),
                 ProductTypes = productTypes
             };
             var ret = flattener.GetFlattenedInventory(inventoryFlattenerRequest);
             ret.Products.Count().ShouldEqual(2);
             ret.Products.Any(x=>x.ProductTypeId==1).ShouldBeTrue();
             ret.Products.Any(x=>x.ProductTypeId==2).ShouldBeTrue();
+        }
+
+        [Test]
+        public void findDupes()
+        {
+            var ar1 = new int[]
+            {
+                1, 2, 3, 3, 4
+            };
+            var hsh1 = new HashSet<int>(ar1);
+            Assert.True(hsh1.Count < ar1.Length);
         }
 
     }

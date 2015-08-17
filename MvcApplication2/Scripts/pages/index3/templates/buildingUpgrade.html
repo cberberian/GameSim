@@ -1,0 +1,32 @@
+﻿<div>
+    <h3 building-upgrade-draggable>
+        <input class="property-upgrade-name" value="{{buildingUpgrade.Name}}"/>&nbsp;&nbsp;
+        <span class="building-upgrade-index" style="display: none">{{$index}}</span>
+        <span class="progress-bar-tooltip" title="" building-upgrade-tooltip>
+            <span class="progress-bar-container" building-upgrade-progress-bar></span>
+        </span>
+        <a class="btn-complete-upgrade" ng-click="CompleteUpgradeClick($index)">
+            <span style="display: inline-block; height: 20px; width: 20px">
+                <span class="ui-icon ui-icon-check" title="Complete Upgrade"></span>
+            </span>
+        </a>
+        <a class="btn-move-up" onclick="onMoveUpClick(this)">
+            <span style="display: inline-block; height: 20px; width: 20px">
+            <span class="ui-icon ui-icon-arrow-1-n" title="Move Up"></span>
+        </span>
+        </a>
+        <a class="btn-move-down" onclick="onMoveDownClick(this)">
+            <span style="display: inline-block; height: 20px; width: 20px">
+                <span class="ui-icon ui-icon-arrow-1-s" title="Move Down"></span>
+            </span>
+        </a>
+    </h3>
+    <div>
+        <ul class="inventory-list combined-list-ul" product-menu>
+            <li ng-repeat="product in buildingUpgrade.Products">
+                <product-tooltip product="product"></product-tooltip>
+                <input type="number" value="{{product.Quantity}}" />
+            </li>
+        </ul>    
+    </div>
+</div>

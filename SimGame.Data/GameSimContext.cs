@@ -1,20 +1,42 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using SimGame.Data.Interface;
 using SimGame.Domain;
 
 namespace SimGame.Data
 {
+
     public class GameSimContext : DbContext, IGameSimContext
     {
+        public GameSimContext()
+            : base("GameSimContextConnection")
+        {
+        }
+
         public IDbSet<ProductType> ProductTypes { get; set; }
+        public IDbSet<User> Users { get; set; }
         public IDbSet<Product> Products { get; set; }
         public IDbSet<Manufacturer> Manufacturers { get; set; }
         public IDbSet<ManufacturerType> ManufacturerTypes { get; set; }
         public IDbSet<Order> Orders { get; set; }
+        public IDbSet<BuildingUpgrade> BuildingUpgrades { get; set; }
+
         public void Commit()
         {
             SaveChanges();
+        }
+
+        public void SetValues<T>(T domainUpgrade, T changedUpgrade) where T : class
+        {
+            var entry = Entry(domainUpgrade);
+            entry.CurrentValues.SetValues(changedUpgrade);
+        }
+
+        public void Delete<T>(T domainObject) where T : class
+        {
+            var entry = Entry(domainObject);
+            entry.State = EntityState.Deleted;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -40,6 +62,11 @@ namespace SimGame.Data
                 .HasForeignKey(x => x.ProductTypeId);
 
             modelBuilder.Entity<Product>()
+                .HasOptional(y => y.BuildingUpgrade)
+                .WithMany(z => z.Products)
+                .HasForeignKey(x => x.BuildingUpgradeId);
+
+            modelBuilder.Entity<Product>()
                 .HasOptional(x => x.RequiredBy)
                 .WithMany(y => y.RequiredProducts)
                 .HasForeignKey(z => z.RequiredByTypeId);
@@ -48,11 +75,13 @@ namespace SimGame.Data
                 .HasOptional(y => y.Order)
                 .WithMany(z => z.Products)
                 .HasForeignKey(x => x.OrderId);
+            
             modelBuilder.Entity<ManufacturingQueueSlot>()
-                .HasRequired(t => t.Manufacturer)
+                .HasOptional(t => t.Manufacturer)
                 .WithMany(x=>x.ManufacturingQueueSlots)
                 .HasForeignKey(z=>z.ManufacturerId)
                 .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<ManufacturingQueueSlot>()
                 .HasOptional(x => x.Product)
                 .WithMany(y => y.ManufacturingQueues)

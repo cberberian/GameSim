@@ -19,6 +19,7 @@ namespace SimGame.Data.Migrations
         private static ManufacturerType _fashionStoreManufacturerType;
         private static ManufacturerType _donutShopManufacturerType;
         private static ManufacturerType _fastFoodRestaurantManufacturerType;
+        private static ManufacturerType _homeAppliancesManufacturerType;
         private static ProductType _metalProductType;
         private static ProductType _wooProductType;
         private static ProductType _plasticProductType;
@@ -48,6 +49,7 @@ namespace SimGame.Data.Migrations
         private static ProductType _brickProductType;
         private static ProductType _beefProductType;
         
+
 
         public Configuration()
         {
@@ -201,6 +203,14 @@ namespace SimGame.Data.Migrations
                 QueueSize = 2,
                 SupportsParallelManufacturing = false
             };// InitializeManufacturerType(GetDonutShopProductTypes(), "Donut Shop", false, 2, false);
+            _homeAppliancesManufacturerType = new ManufacturerType
+            {
+                Id = (int)ManufacturerTypeEnum.HomeAppliances,
+                Name = "Home Appliances",
+                HasFixedQueueSize = false,
+                QueueSize = 2,
+                SupportsParallelManufacturing = false
+            };// InitializeManufacturerType(GetDonutShopProductTypes(), "Donut Shop", false, 2, false);
 
             _factoryManufacturerType.ProductTypes = GetFactoryProductTypes();
             _hardwareStoreManufacturerType.ProductTypes = GetHardwareStoreProductTypes();
@@ -211,7 +221,7 @@ namespace SimGame.Data.Migrations
             _fashionStoreManufacturerType.ProductTypes = GetFashionStoreProductTypes();
             _donutShopManufacturerType.ProductTypes = GetDonutShopProductTypes();
             _fastFoodRestaurantManufacturerType.ProductTypes = GetFastFoodRestaurantProductTypes();
-            
+            _homeAppliancesManufacturerType.ProductTypes = GetHomeApplianceProductTypes();
             context.ManufacturerTypes.AddOrUpdate(x => x.Id,
                 _factoryManufacturerType,
                 _hardwareStoreManufacturerType,
@@ -221,9 +231,195 @@ namespace SimGame.Data.Migrations
                 _farmersMarketManufacturerType,
                 _fashionStoreManufacturerType,
                 _donutShopManufacturerType,
-                _fastFoodRestaurantManufacturerType
+                _fastFoodRestaurantManufacturerType,
+                _homeAppliancesManufacturerType
              );
+            //Add City Storage defaults. 
+            foreach (var ptype in _factoryManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true, 
+                    ProductTypeId = ptype.Id
+                });
+            }
+            foreach (var ptype in _hardwareStoreManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+            foreach (var ptype in _buildingSuppliesStoreManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+            foreach (var ptype in _furnitureStoreManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+            foreach (var ptype in _gardeningSuppliesManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+
+            foreach (var ptype in _farmersMarketManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+
+            foreach (var ptype in _fashionStoreManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+
+            foreach (var ptype in _donutShopManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+
+            foreach (var ptype in _fastFoodRestaurantManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+
+            foreach (var ptype in _homeAppliancesManufacturerType.ProductTypes)
+            {
+                context.Products.Add(new Product
+                {
+                    IsCityStorage = true,
+                    ProductTypeId = ptype.Id
+                });
+            }
+
         }
+
+        #region Home Appliances
+
+        private static ICollection<ProductType> GetHomeApplianceProductTypes()
+        {
+            return new List<ProductType>
+            {
+                new ProductType
+                {
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.HomeAppliances,
+                    Id = (int) ProductTypeEnum.BBQGrill,
+                    Name = "BBQ Grill",
+                    TimeToManufacture = 165,
+                    RequiredProducts = RequiredBBQGrillProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.HomeAppliances,
+                    Id = (int) ProductTypeEnum.Refrigerator,
+                    Name = "Refrigerator",
+                    TimeToManufacture = 210,
+                    RequiredProducts = RequiredRefrigeratorProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.HomeAppliances,
+                    Id = (int) ProductTypeEnum.LightingSystem,
+                    Name = "Lighting System",
+                    TimeToManufacture = 210,
+                    RequiredProducts = RequiredLightingSystemProducts()
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredLightingSystemProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Chemical
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.ElectricalComponent
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Glass
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredRefrigeratorProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Plastic
+                },
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Chemical
+                },
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.ElectricalComponent
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredBBQGrillProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 3,
+                    ProductTypeId = (int) ProductTypeEnum.Metal
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.KitchenUtensils
+                }
+            };
+        }
+
+        #endregion
+
+        #region Fast Food Restaurant
 
         private static ICollection<ProductType> GetFastFoodRestaurantProductTypes()
         {
@@ -231,7 +427,7 @@ namespace SimGame.Data.Migrations
             {
                 new ProductType
                 {
-                    ManufacturerTypeId = (int)ManufacturerTypeEnum.FastFoodRestaurant,
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.FastFoodRestaurant,
                     Id = (int) ProductTypeEnum.IceCreamSandwich,
                     Name = "Ice Cream Sandwich",
                     TimeToManufacture = 45,
@@ -239,11 +435,66 @@ namespace SimGame.Data.Migrations
                 },
                 new ProductType
                 {
-                    ManufacturerTypeId = (int)ManufacturerTypeEnum.FastFoodRestaurant,
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.FastFoodRestaurant,
                     Id = (int) ProductTypeEnum.Pizza,
                     Name = "Pizza",
                     TimeToManufacture = 30,
                     RequiredProducts = RequiredPizzaProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.FastFoodRestaurant,
+                    Id = (int) ProductTypeEnum.Burger,
+                    Name = "Burger",
+                    TimeToManufacture = 30,
+                    RequiredProducts = RequiredBurgerProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.FastFoodRestaurant,
+                    Id = (int) ProductTypeEnum.CheeseFries,
+                    Name = "Cheese Fries",
+                    TimeToManufacture = 20,
+                    RequiredProducts = RequiredCheeseFriesProducts()
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredCheeseFriesProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Vegetable
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Cheese // _creamProductType
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredBurgerProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Beef
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.BBQGrill // _creamProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.BreadRoll // _sugarAndSpiceProductType
                 }
             };
         }
@@ -286,6 +537,8 @@ namespace SimGame.Data.Migrations
                 }
             };
         }
+
+        #endregion
 
         #region Donut Shop
 
@@ -466,6 +719,36 @@ namespace SimGame.Data.Migrations
                     Name = "Watch",
                     TimeToManufacture = 90,
                     RequiredProducts = RequiredWatchProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int)ManufacturerTypeEnum.FashionStore,
+                    Id = (int) ProductTypeEnum.BusinessSuit,
+                    Name = "Business Suit",
+                    TimeToManufacture = 210,
+                    RequiredProducts = RequiredBusinessSuitProducts()
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredBusinessSuitProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 3,
+                    ProductTypeId = (int) ProductTypeEnum.Textiles //glassProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.MeasuringTape //plasticProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Glue //chemicalProductType
                 }
             };
         }
@@ -718,6 +1001,31 @@ namespace SimGame.Data.Migrations
                     Name = "Fire Pit",
                     TimeToManufacture = 240,
                     RequiredProducts = RequiredFirePitProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int)ManufacturerTypeEnum.GardeningSupplies,
+                    Id = (int) ProductTypeEnum.GardenGnome,
+                    Name = "Garden Gnome",
+                    TimeToManufacture = 90,
+                    RequiredProducts = RequiredGardenGnomeProducts()
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredGardenGnomeProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Cement //brickProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Glue //shovelProductType
                 }
             };
         }
@@ -831,6 +1139,36 @@ namespace SimGame.Data.Migrations
                     Name = "Home Textiles",
                     TimeToManufacture = 75,
                     RequiredProducts = RequiredHomeTextilesProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int)ManufacturerTypeEnum.FurnitureStore,
+                    Id = (int) ProductTypeEnum.Couch,
+                    Name = "Couch",
+                    TimeToManufacture = 150,
+                    RequiredProducts = RequiredCouchProducts()
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredCouchProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 3,
+                    ProductTypeId = (int) ProductTypeEnum.Textiles //measuringTapeProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Drill //textileProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.Glue //textileProductType
                 }
             };
         }
@@ -1065,7 +1403,8 @@ namespace SimGame.Data.Migrations
                 Id = (int)ProductTypeEnum.Drill,
                 ManufacturerTypeId = (int)ManufacturerTypeEnum.HardwareStore,
                 Name = "Drill",
-                TimeToManufacture = 60
+                TimeToManufacture = 60,
+                RequiredProducts = RequiredDrillProducts()
             };
             return new Collection<ProductType>
             {
@@ -1074,6 +1413,29 @@ namespace SimGame.Data.Migrations
                 _shovelProductType,
                 _cookingUtensilsProductType,
                 _drillProductType
+            };
+        }
+
+        private static ICollection<Product> RequiredDrillProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Metal //metalProductType
+                },
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Plastic //wooProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.ElectricalComponent //plasticProductType
+                }
+
             };
         }
 
@@ -1254,19 +1616,6 @@ namespace SimGame.Data.Migrations
                 _animalFeedProductType,
                 _electricalComponentProductType
             };
-        }
-
-        private static ManufacturerType InitializeManufacturerType(ICollection<ProductType> productTypes, string name, bool hasFixedQueueSize, int queueSize, bool supportsParallelManufacturing)
-        {
-            var factoryType = new ManufacturerType
-            {
-                Name = name,
-                HasFixedQueueSize = hasFixedQueueSize,
-                QueueSize = queueSize,
-                SupportsParallelManufacturing = supportsParallelManufacturing
-            };
-            factoryType.AddProductType(productTypes);
-            return factoryType;
         }
     }
 }

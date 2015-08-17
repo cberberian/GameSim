@@ -2,10 +2,11 @@
 
 namespace SimGame.Domain
 {
-    public class Order
+    public class Order : DomainObject
     {
-        public int Id { get; set; }
+        public override int Id { get; set; }
         public string OrderDescription { get; set; }
         public ICollection<Product> Products { get; set; }
+        
     }
 }

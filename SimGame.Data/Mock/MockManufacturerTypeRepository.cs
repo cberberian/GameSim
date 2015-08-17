@@ -73,5 +73,15 @@ namespace SimGame.Data.Mock
                 } 
             });
         }
+
+        public void Add(ManufacturerType entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetValues(ManufacturerType dest, ManufacturerType chng)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

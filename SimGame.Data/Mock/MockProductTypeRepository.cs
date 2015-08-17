@@ -18,5 +18,15 @@ namespace SimGame.Data.Mock
         {
             throw new System.NotImplementedException();
         }
+
+        public void Add(ProductType entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetValues(ProductType dest, ProductType chng)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

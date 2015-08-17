@@ -1,0 +1,86 @@
+﻿@model MvcApplication2.Models.ProductType
+
+@{
+    ViewBag.Title = "Edit Product Type";
+    Layout = "~/Views/Shared/_MvcLayout.cshtml";
+}
+<script>
+    $(document).ready(
+        function () {
+            $("#cityManagerContainer").fadeIn();
+        }
+    );
+</script>
+<h2>Edit Product Type</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Product Type</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TimeToManufacture)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TimeToManufacture)
+            @Html.ValidationMessageFor(model => model.TimeToManufacture)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ManufacturerTypeId)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.ManufacturerTypeId,new SelectList(ViewBag.ManufacturerTypes, 
+                               "Id", "Name"))
+            @Html.ValidationMessageFor(model => model.ManufacturerTypeId)
+        </div>
+        <fieldset>
+             <legend>@Html.LabelFor(model => model.RequiredProducts)</legend>
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+                @foreach (var childitem in Model.RequiredProducts)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(cd => childitem.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(cd => childitem.Quantity)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Product", new {id = childitem.Id}, null) |
+                            @Html.ActionLink("Details", "Details", "Product", new {id = childitem.Id}, null) |
+                            @Html.ActionLink("Delete", "Delete", "Product", new {id = childitem.Id}, null)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            @Html.ActionLink("New Required Product", "Create", "Product", new {rbid = Model.Id}, null)
+        </fieldset>
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink( "Back To Index", "Index")
+</div>
+

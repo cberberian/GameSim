@@ -8,6 +8,7 @@ namespace MvcApplication1.Models
         public string Name { get; set; }
         public int TimeToManufacture { get; set; }
         public int ManufacturerTypeId { get; set; }
+        public string RequiredProductsToolTip { get; set; }
         public ICollection<Product> Products { get; set; } 
     }
 }
