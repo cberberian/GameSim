@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SimGame.Domain
 {
     public class Product : DomainObject
     {
-        
+        public DateTime? StartManufactureDateTime { get; set; }
         public override int Id { get; set; }
         public int? Quantity { get; set; }
         public int ProductTypeId { get; set; }

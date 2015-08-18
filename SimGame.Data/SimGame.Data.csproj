@@ -61,9 +61,9 @@
   <ItemGroup>
     <Compile Include="DataCollectionMapper.cs" />
     <Compile Include="Interface\IBuildingUpgradeRepository.cs" />
-    <Compile Include="Migrations\201508171559456_Migration1.cs" />
-    <Compile Include="Migrations\201508171559456_Migration1.Designer.cs">
-      <DependentUpon>201508171559456_Migration1.cs</DependentUpon>
+    <Compile Include="Migrations\201508181925583_migration1.cs" />
+    <Compile Include="Migrations\201508181925583_migration1.Designer.cs">
+      <DependentUpon>201508181925583_migration1.cs</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWork\AbstractUnitOfWork.cs" />
     <Compile Include="UnitOfWork\CityUpdateUnitOfWork.cs" />
@@ -107,8 +107,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508171559456_Migration1.resx">
-      <DependentUpon>201508171559456_Migration1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201508181925583_migration1.resx">
+      <DependentUpon>201508181925583_migration1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

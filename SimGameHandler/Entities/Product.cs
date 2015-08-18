@@ -20,7 +20,7 @@ namespace SimGame.Handler.Entities
             Quantity = 0;
 
         }
-
+        public DateTime? StartManufactureDateTime { get; set; }
         public override int Id { get; set; }
         public string Name { get; set; }
         public int? Quantity { get; set; }

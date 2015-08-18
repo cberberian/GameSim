@@ -3,7 +3,7 @@ namespace SimGame.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Migration1 : DbMigration
+    public partial class migration1 : DbMigration
     {
         public override void Up()
         {
@@ -22,6 +22,7 @@ namespace SimGame.Data.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        StartManufactureDateTime = c.DateTime(),
                         Quantity = c.Int(),
                         ProductTypeId = c.Int(nullable: false),
                         RequiredByTypeId = c.Int(),

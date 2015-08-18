@@ -1,4 +1,6 @@
-﻿namespace MvcApplication1.Models
+﻿using System;
+
+namespace MvcApplication1.Models
 {
     public class Product
     {
@@ -6,6 +8,29 @@
         public int? Id { get; set; }
         public string Name { get; set; }
         public string RequiredProductsToolTip { get; set; }
+        public DateTime? StartManufactureDateTime { get; set; }
+        public DateTime? EndManufactureTime {
+            get
+            {
+                if (StartManufactureDateTime.HasValue && TotalDuration.HasValue)
+                    return StartManufactureDateTime.Value.AddHours(TotalDuration.Value);
+                return null;
+            }
+        }
+
+        public string Status
+        {
+            get
+            {
+                if (!EndManufactureTime.HasValue)
+                    return "Pending Manufacture";
+                if (EndManufactureTime.Value < DateTime.Now)
+                    return "Manufacturing";
+                if (EndManufactureTime >= DateTime.Now)
+                    return "Complete";
+                return "Pending Manufacture";
+            }
+        }
         public int? Quantity { get; set; }
         public int AdjustedQuantity { get; set; }
         public int? ProductTypeId { get; set; }
