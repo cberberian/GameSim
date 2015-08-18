@@ -331,6 +331,7 @@
     <Content Include="Scripts\pages\index3\functions.js" />
     <Content Include="Scripts\pages\index3\Index3.js" />
     <Content Include="Scripts\pages\index3\partials\buildingManager.html" />
+    <Content Include="Scripts\pages\index3\partials\manufacturingQueue.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgrade.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgradeProductTooltip.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgradeTooltip.html" />

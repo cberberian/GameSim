@@ -13,13 +13,24 @@ cityManagerApp.config(["$routeProvider",
             templateUrl: "/scripts/pages/index3/partials/productTypes.html",
             controller: "ProductTypeCtrl"
         }).
+        when("/manufacturingQueue", {
+            templateUrl: "/scripts/pages/index3/partials/manufacturingQueue.html",
+            controller: "ManufacturingQueueCtrl"
+        }).
         otherwise({
             redirectTo: "/buildingManager"
         });
   }]);
 
 var cityManagerControllers = angular.module("cityManagerControllers", []);
-cityManagerControllers.controller("ProductTypeCtrl", function($scope, $http, $timeout, $window) {
+
+cityManagerControllers.controller("ManufacturingQueueCtrl", function ($scope, $http, $timeout, $window) {
+    $http.get("http://localhost:59892/api/City").success(function (data) {
+        $scope.city = data;
+    });
+});
+
+cityManagerControllers.controller("ProductTypeCtrl", function ($scope, $http, $timeout, $window) {
     $scope.manufacturers = [];
     $scope.productTypes = [];
     $scope.gridOptions = {
