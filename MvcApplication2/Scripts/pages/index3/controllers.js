@@ -6,12 +6,12 @@ cityManagerApp.config(["$routeProvider",
   function ($routeProvider) {
       $routeProvider.
         when("/buildingManager", {
-            templateUrl: "/scripts/pages/index3/templates/buildingManager.html",
+            templateUrl: "/scripts/pages/index3/partials/buildingManager.html",
             controller: "CityManagerCtrl"
         }).
-        when("/productTypes/:productTypeId", {
-            templateUrl: "/scripts/pages/index3/templates/productTypeDetail.html",
-            controller: "PhoneDetailCtrl"
+        when("/productTypes", {
+            templateUrl: "/scripts/pages/index3/partials/productTypes.html",
+            controller: "ProductTypeCtrl"
         }).
         otherwise({
             redirectTo: "/buildingManager"
@@ -19,7 +19,30 @@ cityManagerApp.config(["$routeProvider",
   }]);
 
 var cityManagerControllers = angular.module("cityManagerControllers", []);
+cityManagerControllers.controller("ProductTypeCtrl", function($scope, $http, $timeout, $window) {
+    $scope.manufacturers = [];
+    $scope.productTypes = [];
+    $http.get("http://localhost:59892/api/ProductType").success(function (data) {
+        $scope.productTypes = data;
+        if (data.length > 0)
+            $scope.currentProduct = data[1];
+    });
+    $http.get("http://localhost:59892/api/ManufacturerType").success(function (data) {
+        $scope.manufacturers = data;
+    });
+    $scope.setProductType = function (prod) {
+        $scope.currentProduct = prod;
+    }
+    $scope.Goto = function (where) {
+        $window.location.href = where;
+    }
+});
+cityManagerControllers.controller("TabsCtrl", function ($scope, $http, $timeout, $location) {
 
+    $scope.Goto = function (where) {
+        $location.path(where);
+    }
+});
 cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $timeout, $window) {
     $scope.dataloading = true;
     $scope.datafinished = false;
@@ -35,7 +58,6 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
         $scope.manufacturers = data;
         $http.get("http://localhost:59892/api/City").success(function (data) {
             $scope.city = data;
-            $scope.dataLoaded = true;
         });
     });
     $scope.Goto = function(where) {
@@ -192,38 +214,3 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
     }
 
 });
-
-function GetBuildingUpgradesForPost(originalUpgrades) {
-    var buildingUpgrades = [];
-    $.each(originalUpgrades, function (index, bu) {
-        buildingUpgrades.push(
-        {
-            Id: bu.Id,
-            Name: bu.Name,
-            Products: GetProductUpgradesForPost(bu.Products)
-        });
-    });
-    return buildingUpgrades;
-}
-
-function GetProductUpgradesForPost(originalProducts) {
-    var products = [];
-    $.each(originalProducts, function (index, prod) {
-        var productQuantity = prod.Quantity ? prod.Quantity : 0;
-        products.push(
-        {
-            Id: prod.Id,
-            BuildingUpgradeId: prod.BuildingUpgradeId,
-            ProductTypeId: prod.ProductTypeId,
-            Quantity: productQuantity,
-            Name: prod.Name
-        });
-    });
-    return products;
-}
-
-function GetCurrentCityStorageForPost(currentCityStorage) {
-    return {
-        CurrentInventory: GetProductUpgradesForPost(currentCityStorage.CurrentInventory)
-    }
-}

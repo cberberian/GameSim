@@ -321,8 +321,9 @@
     <Content Include="Scripts\pages\index2\Index2.js" />
     <Content Include="Scripts\pages\index3\controllers.js" />
     <Content Include="Scripts\pages\index3\directives.js" />
+    <Content Include="Scripts\pages\index3\functions.js" />
     <Content Include="Scripts\pages\index3\Index3.js" />
-    <Content Include="Scripts\pages\index3\templates\buildingManager.html" />
+    <Content Include="Scripts\pages\index3\partials\buildingManager.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgrade.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgradeProductTooltip.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgradeTooltip.html" />
@@ -357,7 +358,7 @@
     <Content Include="Scripts\angular-ui\template\tooltip\tooltip-template-popup.html" />
     <Content Include="Scripts\angular-ui\template\typeahead\typeahead-match.html" />
     <Content Include="Scripts\angular-ui\template\typeahead\typeahead-popup.html" />
-    <Content Include="Scripts\pages\index3\templates\productTypes.html" />
+    <Content Include="Scripts\pages\index3\partials\productTypes.html" />
     <Content Include="Scripts\pages\index\create-supply-chain.js" />
     <Content Include="Scripts\pages\index\index.js" />
     <Content Include="Scripts\pages\index\initialize-manufacturers.js" />

@@ -26,11 +26,13 @@ namespace MvcApplication1.Controllers
                 var request = new HandlerEntities.ManufacturerTypeSearchHandlerRequest();
                 var manufacturerTypeSearchHandlerResponse = _manufacturerTypeHandler.Get(request);
                 var manufacturerTypes = manufacturerTypeSearchHandlerResponse.Results.Select(Mapper.Map<ManufacturerType>).ToList();
-                manufacturerTypes.Insert(0, new ManufacturerType
+                var manufacturerType = new ManufacturerType
                 {
+                    Id = manufacturerTypes.Count,
                     Name = "All",
                     ProductTypes = manufacturerTypeSearchHandlerResponse.Results.SelectMany(x => x.ProductTypes).OrderBy(x => x.Name).Select(Mapper.Map<ProductType>).ToArray()
-                });
+                };
+                manufacturerTypes.Insert(0, manufacturerType);
                 
                 return manufacturerTypes.AsQueryable();
             }

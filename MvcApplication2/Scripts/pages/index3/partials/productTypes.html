@@ -1,0 +1,35 @@
+﻿<div>
+    <h4>Product Types</h4>
+    <div class="product-list-container">
+        <div class="product-list">
+            <div ngClick="setProductType(product)" class="product-list-item product-list-item-draggable" ng-repeat="productType in productTypes">
+                {{productType.Name}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <h4>Product Type Detail</h4>
+        <div class="product-detail-container">
+            <div class="product-detail">
+                <div><span class="item-label">Name:</span><span class="item-input"><input type="text" ng-model="currentProduct.Name" /></span></div><br/>
+            </div>
+            <div class="product-detail">
+                <div><span class="item-label">Duration (mins):</span><span class="item-input"><input type="number" ng-model="currentProduct.TimeToManufacture" /></span></div>
+            </div>
+            <div class="product-detail">
+                <div><span class="item-label">Tmp MF ID:</span><span class="item-input">{{currentProduct.ManufacturerTypeId}}</span></div>
+            </div>
+            <div class="product-detail">
+                <div>
+                    <span class="item-label">Manufacturer:</span>
+                    <span class="item-input">
+                        <select name="manufacturersSelect" 
+                                ng-model="currentProduct.ManufacturerTypeWrapper"
+                                ng-options="mf as mf.Name for mf in manufacturers track by mf.Id">
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
