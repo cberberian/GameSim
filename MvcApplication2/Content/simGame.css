@@ -122,13 +122,15 @@
 }
 .item-label {
     float: left;
-    height: 20px;
+    height: 25px;
     width: 150px;
     display: block;
     vertical-align: bottom;
     font-size: 12px;
 }
-
+.item-label-bold {
+    text-decoration: underline;
+}
 .item-input {
     float: left;
     height: 20px;
@@ -145,4 +147,9 @@
 .btn-complete-upgrade {
     font-size: 10px
 }
+
+.product-Grid {
+    width: 450px;
+    height: 100px;
+  }
 

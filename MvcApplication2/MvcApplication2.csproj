@@ -261,6 +261,11 @@
     <Content Include="Scripts\angular-route\angular-route.js" />
     <Content Include="Scripts\angular-route\angular-route.min.js" />
     <Content Include="Scripts\angular-route\index.js" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls-0.12.1.js" />
+    <Content Include="Content\ui-grid.css" />
+    <Content Include="Scripts\angular-ui\ui-grid.js" />
+    <Content Include="Content\ui-grid.min.css" />
+    <Content Include="Scripts\angular-ui\ui-grid.min.js" />
     <Content Include="Scripts\angular\angular-csp.css" />
     <Content Include="Scripts\angular\angular-dragdrop.js" />
     <Content Include="Scripts\angular\angular-dragdrop.min.js" />
@@ -274,6 +279,8 @@
     <Content Include="Scripts\angular-route\README.md" />
     <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap\bootstrap.css.map" />
+    <Content Include="Content\ui-grid.ttf" />
+    <Content Include="Content\ui-grid.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="images\accent.png" />
     <Content Include="images\add.gif" />

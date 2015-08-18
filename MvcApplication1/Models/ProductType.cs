@@ -30,7 +30,8 @@ namespace MvcApplication1.Models
                     ManufacturerTypeId = _manufacturerType.Id;
             }
         }
-        public ICollection<Product> Products { get; set; } 
+        public ICollection<Product> Products { get; set; }
+        public ICollection<Product> RequiredProducts { get; set; } 
     }
 
     public class ManufacturerTypeWrapper

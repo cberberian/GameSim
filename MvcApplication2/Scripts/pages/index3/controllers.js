@@ -1,7 +1,7 @@
 "use strict";
 
 /* Controllers */
-var cityManagerApp = angular.module("cityManagerApp", ["ngRoute", "cityManagerControllers", "ui.bootstrap", "ngDragDrop"]);
+var cityManagerApp = angular.module("cityManagerApp", ["ngRoute", "cityManagerControllers", "ui.bootstrap", "ngDragDrop", "ngTouch", "ui.grid"]);
 cityManagerApp.config(["$routeProvider",
   function ($routeProvider) {
       $routeProvider.
@@ -22,16 +22,40 @@ var cityManagerControllers = angular.module("cityManagerControllers", []);
 cityManagerControllers.controller("ProductTypeCtrl", function($scope, $http, $timeout, $window) {
     $scope.manufacturers = [];
     $scope.productTypes = [];
+    $scope.gridOptions = {
+        columnDefs: [
+          { name: "Name", field: "Name" },
+          { name: "Quantity", field: "Quantity" }
+        ],
+        data: []
+    };
+    $scope.currentProduct = {
+        RequiredProducts: []
+    }
     $http.get("http://localhost:59892/api/ProductType").success(function (data) {
         $scope.productTypes = data;
-        if (data.length > 0)
-            $scope.currentProduct = data[1];
+        if (data.length > 0) {
+            $scope.currentProduct = data[0];
+            $scope.gridOptions = {
+                columnDefs: [
+                  { name: "Name", field: "Name" },
+                  { name: "Quantity", field: "Quantity" }
+                ],
+                data: $scope.currentProduct.RequiredProducts
+            };
+        }
     });
     $http.get("http://localhost:59892/api/ManufacturerType").success(function (data) {
         $scope.manufacturers = data;
     });
+
+    
+
     $scope.setProductType = function (prod) {
         $scope.currentProduct = prod;
+    }
+    $scope.newRequiredProduct = function () {
+        $scope.currentProduct.RequiredProducts.push({});
     }
     $scope.Goto = function (where) {
         $window.location.href = where;

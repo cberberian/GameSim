@@ -27,6 +27,7 @@ namespace MvcApplication2
                                     "~/Scripts/angular/angular.js",
                                     "~/Scripts/angular/angular-dragdrop.js",
                                     "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+                                    "~/Scripts/angular-ui/ui-grid.js",
                                     "~/Scripts/angular-route/angular-route.js",
                                     "~/Scripts/pages/index3/functions.js",
                                     "~/Scripts/pages/index3/controllers.js",

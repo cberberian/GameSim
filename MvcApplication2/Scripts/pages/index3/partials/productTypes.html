@@ -1,8 +1,8 @@
-﻿<div>
-    <h4>Product Types</h4>
+﻿<div style="width: 60%">
+    <h4>Product Types</h4>filter:<input ng-model="query"/>
     <div class="product-list-container">
         <div class="product-list">
-            <div ngClick="setProductType(product)" class="product-list-item product-list-item-draggable" ng-repeat="productType in productTypes">
+            <div ng-click="setProductType(productType)" class="product-list-item product-list-item-draggable" ng-repeat="productType in productTypes | filter:query">
                 {{productType.Name}}
             </div>
         </div>
@@ -17,9 +17,6 @@
                 <div><span class="item-label">Duration (mins):</span><span class="item-input"><input type="number" ng-model="currentProduct.TimeToManufacture" /></span></div>
             </div>
             <div class="product-detail">
-                <div><span class="item-label">Tmp MF ID:</span><span class="item-input">{{currentProduct.ManufacturerTypeId}}</span></div>
-            </div>
-            <div class="product-detail">
                 <div>
                     <span class="item-label">Manufacturer:</span>
                     <span class="item-input">
@@ -30,6 +27,25 @@
                     </span>
                 </div>
             </div>
+            <div>
+                <table>
+                    <tr>
+                        <td><span class="item-label-bold">Required Products:</span>&nbsp;&nbsp;&nbsp;<a ng-click="newRequiredProduct" style="cursor: pointer">Add Required Product</a></td>
+                    </tr>
+                    <tr ng-repeat="product in currentProduct.RequiredProducts">
+                        <td>
+                            <span class="item-label">
+                                <select name="manufacturersSelect" 
+                                        ng-model="product.ProductTypeWrapper"
+                                        ng-options="pt as pt.Name for pt in productTypes track by pt.Id">
+                                </select>
+                            </span>
+                            <span class="item-input"><input type="number" ng-model="product.Quantity"></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+

@@ -2,12 +2,32 @@
 {
     public class Product
     {
+        private ProductTypeWrapper _productTypeWrapper;
         public int? Id { get; set; }
         public string Name { get; set; }
         public string RequiredProductsToolTip { get; set; }
         public int? Quantity { get; set; }
         public int AdjustedQuantity { get; set; }
         public int? ProductTypeId { get; set; }
+
+        public ProductTypeWrapper ProductTypeWrapper
+        {
+            get
+            {
+                return _productTypeWrapper ?? (_productTypeWrapper = new ProductTypeWrapper
+                {
+                    Id = ProductTypeId,
+                    Name = Name
+                });
+            }
+            set
+            {
+                _productTypeWrapper = value;
+                if (_productTypeWrapper == null) return;
+                Name = _productTypeWrapper.Name;
+                ProductTypeId = _productTypeWrapper.Id;
+            }
+        }
         public int? BuildingUpgradeId { get; set; }
         public int? TotalDuration { get; set; }
         public string TotalDurationString {
@@ -27,5 +47,11 @@
         public int? StorageQuantity { get; set; }
         public Product[] RequiredProducts { get; set; }
         public Product[] NextProducts { get; set; }
+    }
+
+    public class ProductTypeWrapper
+    {
+        public int? Id { get; set; }
+        public string Name { get; set; }
     }
 }
