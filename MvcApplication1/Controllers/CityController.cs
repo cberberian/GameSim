@@ -18,7 +18,7 @@ namespace MvcApplication1.Controllers
         private readonly ICityUpdateHandler _cityUpdateHandler;
         private readonly GameSimContext _db = new GameSimContext();
         private readonly IBuildingUpgradeHandler _buildingUpgradeHandler;
-        private IBuildingUiInfoUpdater _buildingUiInfoUpdater;
+        private readonly IBuildingUiInfoUpdater _buildingUiInfoUpdater;
 
         public CityController(ICityUpdateHandler cityUpdateHandler, IBuildingUpgradeHandler buildingUpgradeHandler, IBuildingUiInfoUpdater buildingUiInfoUpdater)
         {
@@ -65,6 +65,7 @@ namespace MvcApplication1.Controllers
             city.AvailableStorage = ret.AvailableStorage.Select(Mapper.Map<Product>).ToArray();
 //            city.PendingInventory = ret.PendingInventory.Select(Mapper.Map<Product>).ToArray();
             city.TotalProductsRequired = ret.TotalProductQueue.Select(Mapper.Map<Product>).ToArray();
+            city.Manufacturers = _db.Manufacturers.ToArray().Select(Mapper.Map<Manufacturer>).ToArray();
             _buildingUiInfoUpdater.Update(city.BuildingUpgrades, city.CurrentCityStorage, _db.ProductTypes.ToArray());
             return city;
         }

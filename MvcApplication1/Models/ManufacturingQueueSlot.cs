@@ -8,10 +8,9 @@ namespace MvcApplication1.Models
         public bool Active { get; set; }
         public int SlotNumber { get; set; }
         public int? ProductId { get; set; }
-        public Product Product { get; set; }
+        public string ProductName { get; set; }
         public DateTime? DateTimeQueued { get; set; }
         public int? DurationItMuniutes { get; set; }
-        public Manufacturer Manufacturer { get; set; }
         public int ManufacturerId { get; set; } 
     }
 }

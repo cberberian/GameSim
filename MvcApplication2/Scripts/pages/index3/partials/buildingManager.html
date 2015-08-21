@@ -5,23 +5,27 @@
                 <div id="buildingUpgrades">
                     <table class="city-manager-table">
                         <tr>
-                            <td class="city-manager-section-header">
-                                <h4>Available Products</h4></td>
-                            <td class="city-manager-section-header">
-                                <h4>Building Upgrades</h4>
-                            </td>
-                            <td class="city-manager-nav-bar">
-                                <a title="Save City" style="cursor: pointer" id="btnSave" ng-click="SaveCity()">
-                                    <img class="city-manager-nav-icon" id="divSave" src="/Images/save.png"/>
-                                </a>
-                                <img class="city-manager-nav-icon" title="Trash" id="divTrash" src="/Images/delete.png" alt=""
-                                        data-drop="true"
-                                        data-jqyoui-options="{tolerance: 'touch'}"
-                                        jqyoui-droppable="{ onDrop: 'DropDelete()' }"/>
-                                <a title="New Building Upgrade" style="cursor: pointer" ng-click="NewBuildingUpgrade()">
-                                    <img class="city-manager-nav-icon" src="/Images/add.png"/>
-                                </a>
-                                filter: <input ng-model="query">
+                            <td class="city-manager-floating-bar-container" colspan="3">
+                                <div class="city-manager-floating-bar">
+                                    <span id="hdrAvailableProducts"><h4>Available Products</h4></span>
+                                    <span id="hdrBuildingUpgrades"><h4>Building Upgrades</h4></span>
+                                    <span id="hdrToolbar">
+                                        <a title="Save City" style="cursor: pointer" id="A1" ng-click="CalculateView()">
+                                            <img class="city-manager-nav-icon" id="btnRefresh" src="/Images/refresh.png"/>
+                                         </a>
+                                         <a title="Save City" style="cursor: pointer" id="btnSave" ng-click="SaveCity()">
+                                            <img class="city-manager-nav-icon" id="divSave" src="/Images/save.png"/>
+                                         </a>
+                                         <img class="city-manager-nav-icon" title="Trash" id="divTrash" src="/Images/delete.png" alt=""
+                                             data-drop="true"
+                                             data-jqyoui-options="{tolerance: 'touch'}"
+                                             jqyoui-droppable="{ onDrop: 'DropDelete()' }"/>
+                                         <a title="New Building Upgrade" style="cursor: pointer" ng-click="NewBuildingUpgrade()">
+                                         <img class="city-manager-nav-icon" src="/Images/add.png"/>
+                                         </a>
+                                         filter: <input ng-model="query">
+                                    </span>
+                                </div>
                             </td>
                         </tr>
                         <tr>
@@ -50,10 +54,7 @@
                                 <div class="city-manager-accordion">
                                     <accordion close-others="true">
                                         <accordion-group ng-model="city">
-                                            <accordion-heading>Products To Produce</accordion-heading>
-                                            <div class="bottom-right-toolbox">
-                                                <button type="button" ng-click="UpdateSupplyChain()">Update Inventory</button>
-                                            </div>
+                                            <accordion-heading>Products To Produce <span style="color: red" ng-if="RequiredProductQuantityDirty">*</span></accordion-heading>
                                             <div class="entity-list-container">
                                                 <div class="entity-list">
                                                     <div class="entity-list-item" ng-repeat="product in city.RequiredProducts | filter:query">
@@ -74,22 +75,20 @@
                                                 </div>
                                             </div>
                                         </accordion-group>
-                                        <accordion-group heading="Storage Overstock" ng-model="city">
-                                            <div class="bottom-right-toolbox">
-                                                <button id="btnUpdateStorage" type="button" ng-click="onUpdateStorage()">Update Storage</button>
-                                            </div>
+                                        <accordion-group ng-model="city">
+                                            <accordion-heading>Storage Overstock <span style="color: red" ng-if="AvailableProductQuantityDirty">*</span></accordion-heading>
                                             <div class="entity-list-container">
                                                 <div class="entity-list">
                                                     <div class="entity-list-item" ng-repeat="product in city.AvailableStorage | filter:query" product="product">
                                                         <span class="product-name">{{product.Name}}</span>
                                                         <span class="product-name">Qty: {{product.Quantity}}</span>
-                                                        <input type="number" class="product-list-item-counter" ng-model="product.AdjustedQuantity" ng-change="AvailableProductQuantityChange(this.product)"/>
+                                                        <input type="number" class="product-list-item-counter" ng-model="product.AdjustedQuantity" ng-change="AvailableProductQuantityChange(product)"/>
                                                     </div>
                                                 </div>
                                             </div>
                                         </accordion-group>
                                         <accordion-group ng-model="city">
-                                            <accordion-heading>City Storage</accordion-heading>
+                                            <accordion-heading>City Storage <span style="color: red" ng-if="CityStorageQuantityDirty">*</span></accordion-heading>
                                             <div class="entity-list-container">
                                                 <div class="entity-list">
                                                     <div class="entity-list-item" ng-repeat="product in city.CurrentCityStorage.CurrentInventory | filter:query" product="product">
@@ -98,7 +97,7 @@
                                                             tooltip-template="'/scripts/pages/index3/templates/buildingUpgradeProductTooltip.html'"
                                                             tooltip-placement="bottom"
                                                             tooltip-trigger="mouseenter">{{product.Name}}</span>&nbsp;&nbsp;
-                                                        <input class="product-list-item-counter" type="number" ng-model="product.Quantity"/>
+                                                        <input class="product-list-item-counter" type="number" ng-model="product.Quantity" ng-change="CityStorageQuantityChanged(product, '{{product.Quantity}}')"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -112,7 +111,11 @@
                                                     <input class="building-upgrade-name-input" ng-model="buildingUpgrade.Name"/>&nbsp;&nbsp;
                                                     <span class="building-upgrade-index" style="display: none">{{$index}}</span>
                                                     <span class="progress-bar-tooltip" title="">
-                                                    <span class="progress-bar-container">
+                                                    <span class="progress-bar-container"
+                                                            tooltip="{{buildingUpgrade.RemainingUpgradeTimeString}} / {{buildingUpgrade.TotalUpgradeTimeString}}"
+                                                            tooltip-placement="bottom"
+                                                            tooltip-trigger="mouseenter" 
+                                                            tooltip-append-to-body="true">
                                                         <progressbar 
                                                             class="progress-striped"
                                                             max="buildingUpgrade.TotalUpgradeTime" 

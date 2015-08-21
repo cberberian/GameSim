@@ -21,8 +21,8 @@
     <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
 </head>
 <body>
-<div class="ui-widget-content">
-    <div ng-controller="TabsCtrl">
+<div id="layoutContainer" class="ui-widget-content">
+    <div id="rootTabs-tab-container"ng-controller="TabsCtrl">
         <tabset>
             <tab heading="Manage Upgrade jquery" ng-click="Goto('http://localhost:59153/Manage/Index')"></tab>
             <tab heading="Manage Upgrade asp.net MVC" ng-click="Goto('http://localhost:59153/Manage/Index2')"></tab>

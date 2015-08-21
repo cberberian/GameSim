@@ -18,6 +18,7 @@ namespace MvcApplication1
                 .ForMember(x=>x.Id, opt=>opt.MapFrom(y=>y.Id ?? 0));
             Mapper.CreateMap<ManufacturerType, HandlerEntities.ManufacturerType>();
             Mapper.CreateMap<Manufacturer, HandlerEntities.ManufacturerType>();
+            Mapper.CreateMap<ManufacturingQueueSlot, HandlerEntities.ManufacturingQueueSlot>();
             Mapper.CreateMap<ProductType, HandlerEntities.ProductType>();
             Mapper.CreateMap<Product, HandlerEntities.Product>();
             Mapper.CreateMap<City, HandlerEntities.City>().ConvertUsing<ModelToHandlerCityConverter>();
@@ -27,6 +28,7 @@ namespace MvcApplication1
             Mapper.CreateMap<HandlerEntities.BuildingUpgrade, BuildingUpgrade>();
             Mapper.CreateMap<HandlerEntities.ManufacturerType, ManufacturerType>();
             Mapper.CreateMap<HandlerEntities.Manufacturer, Manufacturer>();
+            Mapper.CreateMap<HandlerEntities.ManufacturingQueueSlot, ManufacturingQueueSlot>();
             Mapper.CreateMap<HandlerEntities.ProductType, ProductType>()
                 .ForMember(x=>x.RequiredProductsToolTip, opt=>opt.ResolveUsing<RequiredProductTypeTooltipResolve>());
             Mapper.CreateMap<HandlerEntities.Product, Product>();
@@ -42,6 +44,8 @@ namespace MvcApplication1
             Mapper.CreateMap<DomainEntities.ProductType, ProductType>();
             Mapper.CreateMap<DomainEntities.ManufacturerType, ManufacturerType>();
             Mapper.CreateMap<DomainEntities.Manufacturer, Manufacturer>();
+            Mapper.CreateMap<DomainEntities.ManufacturingQueueSlot, ManufacturingQueueSlot>()
+                .ForMember(x => x.ProductName, opt => opt.MapFrom(y => y.Product == null ? "--available--" : y.Product.ProductType.Name));
             Mapper.CreateMap<DomainEntities.BuildingUpgrade, BuildingUpgrade>();
             HandlerAutomapper.Configure();
         }

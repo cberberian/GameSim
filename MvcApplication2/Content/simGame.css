@@ -12,13 +12,50 @@
     overflow: scroll; 
     height: 540px
 }
+
 .building-manager-accordion {
     float: right;
 }
-.city-manager-nav-bar {
-    text-align: right; 
-    white-space: nowrap
+
+#layoutContainer {
+    position: absolute;
+    top: 10px
 }
+#rootTabs-tab-container {
+    position: fixed;
+    width: 100%;
+    background-color: white
+}
+
+
+/*Floating header bar classes */
+.city-manager-floating-bar-container {
+    empty-cells: show;
+    white-space: nowrap;
+    height:80px;
+}
+.city-manager-floating-bar {
+    white-space: nowrap;
+    position: fixed;
+    width: 100%;
+    background-color: #FFFFFF;
+    top: 50px;
+}
+#hdrAvailableProducts {
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    width:46%
+}
+#hdrBuildingUpgrades {
+    display: inline-block;
+    width:170px
+}
+#hdrToolbar {
+    display: inline-block;
+}
+
+/**/
 .progress-bar-container {
     width: 300px;
     height: 8px;

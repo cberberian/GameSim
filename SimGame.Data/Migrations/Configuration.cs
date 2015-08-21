@@ -59,7 +59,7 @@ namespace SimGame.Data.Migrations
         protected override void Seed(GameSimContext context)
         {
             InitializeManufacturerTypes(context);
-            //InitializeManufacturers(context);
+            InitializeManufacturers(context);
         }
 
         private static void InitializeManufacturers(GameSimContext context)
@@ -71,19 +71,22 @@ namespace SimGame.Data.Migrations
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(massProductionQueueSize, "Mass Production Factory 4", GetManufacturerQueueSlots(massProductionQueueSize), _factoryManufacturerType, false));
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(massProductionQueueSize, "Mass Production Factory 5", GetManufacturerQueueSlots(massProductionQueueSize), _factoryManufacturerType, false));
             const int basicFactoryQueueSize = 3;
-            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(basicFactoryQueueSize, "Basic Factory 1", GetManufacturerQueueSlots(basicFactoryQueueSize), _factoryManufacturerType, false));
-            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(basicFactoryQueueSize, "Basic Factory 2", GetManufacturerQueueSlots(basicFactoryQueueSize), _factoryManufacturerType, false));
-            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(basicFactoryQueueSize, "Basic Factory 3", GetManufacturerQueueSlots(basicFactoryQueueSize), _factoryManufacturerType, false));
+            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(massProductionQueueSize, "Mass Production Factory 6", GetManufacturerQueueSlots(basicFactoryQueueSize), _factoryManufacturerType, false));
+            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(massProductionQueueSize, "Mass Production Factory 7", GetManufacturerQueueSlots(basicFactoryQueueSize), _factoryManufacturerType, false));
+            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(massProductionQueueSize, "Mass Production Factory 8", GetManufacturerQueueSlots(basicFactoryQueueSize), _factoryManufacturerType, false));
+            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(massProductionQueueSize, "Mass Production Factory 9", GetManufacturerQueueSlots(basicFactoryQueueSize), _factoryManufacturerType, false));
             
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(5, "Hardware Store", GetManufacturerQueueSlots(5), _hardwareStoreManufacturerType, false));
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(5, "Building Supplies", GetManufacturerQueueSlots(5), _buildingSuppliesStoreManufacturerType, false));
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(4, "Furniture Store", GetManufacturerQueueSlots(4), _furnitureStoreManufacturerType, false));
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(5, "Gardening Supplies Store", GetManufacturerQueueSlots(5), _gardeningSuppliesManufacturerType, false));
-            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(4, "Farmers Market", GetManufacturerQueueSlots(4), _farmersMarketManufacturerType, false));
+            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(6, "Farmers Market", GetManufacturerQueueSlots(6), _farmersMarketManufacturerType, false));
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(4, "Fashion Store", GetManufacturerQueueSlots(4), _fashionStoreManufacturerType, false));
             context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(4, "Donut Shop", GetManufacturerQueueSlots(4), _donutShopManufacturerType, false));
-            var totalNumberOfProducts = GetTotalNumberOfProducts();
-            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(totalNumberOfProducts, "City Storage", GetManufacturerQueueSlots(totalNumberOfProducts), _donutShopManufacturerType, true));
+            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(3, "Fast Food Restaurant", GetManufacturerQueueSlots(3), _fastFoodRestaurantManufacturerType, false));
+            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(2, "Home Appliances", GetManufacturerQueueSlots(2), _homeAppliancesManufacturerType, false));
+//            var totalNumberOfProducts = GetTotalNumberOfProducts();
+//            context.Manufacturers.AddOrUpdate(x => x.Id, CreateManufacturer(totalNumberOfProducts, "City Storage", GetManufacturerQueueSlots(totalNumberOfProducts), _donutShopManufacturerType, true));
 
 
         }
@@ -120,7 +123,7 @@ namespace SimGame.Data.Migrations
             var manufacturer = new Manufacturer
             {
                     
-                ManufacturerType = factoryManufacturerType,
+                ManufacturerTypeId = factoryManufacturerType.Id,
                 QueueSize = queueSize,
                 Description = massProductionFactory,
                 IsCityStorage = isCityStorage
@@ -456,6 +459,36 @@ namespace SimGame.Data.Migrations
                     Name = "Cheese Fries",
                     TimeToManufacture = 20,
                     RequiredProducts = RequiredCheeseFriesProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.FastFoodRestaurant,
+                    Id = (int) ProductTypeEnum.LemonadeBottle,
+                    Name = "Lemonade Bottle",
+                    TimeToManufacture = 60,
+                    RequiredProducts = RequiredLemonadeBottleProducts()
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredLemonadeBottleProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Glass
+                },
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.SugarAndSpice // _creamProductType
+                },
+                new Product
+                {
+                    Quantity = 1,
+                    ProductTypeId = (int) ProductTypeEnum.FruitsAndBerries // _creamProductType
                 }
             };
         }
