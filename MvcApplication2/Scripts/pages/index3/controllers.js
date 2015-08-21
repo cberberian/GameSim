@@ -1,7 +1,7 @@
 "use strict";
 
 /* Controllers */
-var cityManagerApp = angular.module("cityManagerApp", ["ngRoute", "cityManagerControllers", "ui.bootstrap", "ngDragDrop", "ngTouch", "ui.grid"]);
+var cityManagerApp = angular.module("cityManagerApp", ["ngRoute", "cityManagerControllers", "ui.bootstrap", "ngDragDrop"]);
 cityManagerApp.config(["$routeProvider",
   function ($routeProvider) {
       $routeProvider.

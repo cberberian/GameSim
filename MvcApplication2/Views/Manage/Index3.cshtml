@@ -45,9 +45,9 @@
                                         <div id="factoryItemsAccordian" class="city-manager-accordion">
                                             <accordion close-others="true">
                                                 <accordion-group heading="{{manufacturer.Name}}" ng-repeat="manufacturer in manufacturers">
-                                                    <div class="product-list-container">
-                                                        <div class="product-list">
-                                                            <div class="product-list-item product-list-item-draggable"
+                                                    <div class="entity-list-container">
+                                                        <div class="entity-list">
+                                                            <div class="entity-list-item product-list-item-draggable"
                                                                  ng-repeat="productType in manufacturer.ProductTypes"
                                                                  data-drag="true"
                                                                  data-jqyoui-options="{revert: true, helper: 'clone', appendTo: 'body'}"
@@ -69,9 +69,9 @@
                                                 <div class="bottom-right-toolbox">
                                                     <button type="button" ng-click="UpdateSupplyChain()">Update Inventory</button>
                                                 </div>
-                                                <div class="product-list-container">
-                                                    <div class="product-list">
-                                                        <div class="product-list-item" ng-repeat="product in city.RequiredProducts | filter:query">
+                                                <div class="entity-list-container">
+                                                    <div class="entity-list">
+                                                        <div class="entity-list-item" ng-repeat="product in city.RequiredProducts | filter:query">
                                                             <span class="product-name">{{product.Name}}</span>
                                                             <span class="product-name">Qty: {{product.Quantity}} Duration: {{product.TotalDurationString}}</span>
                                                             <input type="number" class="product-list-item-counter" ng-model="product.AdjustedQuantity" ng-change="RequiredProductQuantityChange(this.product)"/>
@@ -80,9 +80,9 @@
                                                 </div>
                                             </accordion-group>
                                             <accordion-group heading="Total Upgrade Products" ng-model="city">
-                                                <div class="product-list-container">
-                                                    <div class="product-list">
-                                                        <div class="product-list-item"ng-repeat="product in city.TotalProductsRequired | filter:availableQuery">
+                                                <div class="entity-list-container">
+                                                    <div class="entity-list">
+                                                        <div class="entity-list-item"ng-repeat="product in city.TotalProductsRequired | filter:availableQuery">
                                                             <span class="product-name">{{product.Name}}</span>
                                                             <span class="product-name">Qty: {{product.Quantity}} Duration: {{product.TotalDurationString}}</span>
                                                         </div>
@@ -93,9 +93,9 @@
                                                 <div class="bottom-right-toolbox">
                                                     <button id="btnUpdateStorage" type="button" ng-click="onUpdateStorage()">Update Storage</button>
                                                 </div>
-                                                <div class="product-list-container">
-                                                    <div class="product-list">
-                                                        <div class="product-list-item" ng-repeat="product in city.AvailableStorage | filter:availableQuery" product="product">
+                                                <div class="entity-list-container">
+                                                    <div class="entity-list">
+                                                        <div class="entity-list-item" ng-repeat="product in city.AvailableStorage | filter:availableQuery" product="product">
                                                             <span class="product-name">{{product.Name}}</span>
                                                             <span class="product-name">Qty: {{product.Quantity}}</span>
                                                             <input type="number" class="product-list-item-counter" ng-model="product.AdjustedQuantity" ng-change="AvailableProductQuantityChange(this.product)"/>
@@ -105,9 +105,9 @@
                                             </accordion-group>
                                             <accordion-group ng-model="city">
                                                 <accordion-heading>City Storage <span style="float: right"><input ng-model="storageQuery"></span></accordion-heading>
-                                                <div class="product-list-container">
-                                                    <div class="product-list">
-                                                        <div class="product-list-item" ng-repeat="product in city.CurrentCityStorage.CurrentInventory | filter:storageQuery" product="product">
+                                                <div class="entity-list-container">
+                                                    <div class="entity-list">
+                                                        <div class="entity-list-item" ng-repeat="product in city.CurrentCityStorage.CurrentInventory | filter:storageQuery" product="product">
                                                             <span 
                                                                 class="product-name" 
                                                                 tooltip-template="'/scripts/pages/index3/templates/buildingUpgradeProductTooltip.html'"
@@ -144,9 +144,9 @@
                                                         </a>
                                                     </div>
                                                 </accordion-heading>
-                                                <div class="product-list-container" ng-model="buildingUpgrade.Products" data-drop="true" data-jqyoui-options="{tolerance: 'touch'}" jqyoui-droppable="{onDrop: 'DropBuildingUpgradProduct(buildingUpgrade)'}">
-                                                    <div class="product-list">
-                                                        <div class="product-list-item" ng-repeat="product in buildingUpgrade.Products"
+                                                <div class="entity-list-container" ng-model="buildingUpgrade.Products" data-drop="true" data-jqyoui-options="{tolerance: 'touch'}" jqyoui-droppable="{onDrop: 'DropBuildingUpgradProduct(buildingUpgrade)'}">
+                                                    <div class="entity-list">
+                                                        <div class="entity-list-item" ng-repeat="product in buildingUpgrade.Products"
                                                              data-drag="true"
                                                              data-jqyoui-options="{revert: true, helper: 'clone', appendTo: 'body'}"
                                                              jqyoui-draggable>

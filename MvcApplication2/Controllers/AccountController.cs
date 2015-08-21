@@ -64,8 +64,8 @@ namespace MvcApplication2.Controllers
 
         private bool UserIsValid(string username, string password)
         {
-//            return true;
-            return _gameSimContext.Users.Any(x => x.UserName.Equals(username) && x.Password.Equals(password));
+            return true;
+//            return _gameSimContext.Users.Any(x => x.UserName.Equals(username) && x.Password.Equals(password));
         }
 
         [AllowAnonymous]

@@ -1,1 +1,39 @@
-﻿<div>Manufacturing Queue</div>
+﻿<div style="width: 60%">
+    <h3>Manufacturing Queues</h3>filter:<input ng-model="query"/>
+    <table class="city-manager-table">
+        <tr>
+            <td class="city-manager-left-pane">
+                <h4>Required Products</h4>
+                <div class="entity-list-container">
+                    <div class="entity-list">
+                        <div class="entity-list-item" ng-repeat="product in city.RequiredProducts">
+                            <span class="product-name">{{product.Name}}</span>
+                            <span class="product-name">Qty: {{product.Quantity}} Duration: {{product.TotalDurationString}}</span>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="city-manager-right-pane">
+                <div class="city-manager-accordion">
+                    <accordion close-others="true">
+                        <accordion-group heading="{{manufacturer.Description}}" ng-repeat="manufacturer in city.Manufacturers">
+                            <div>
+                                <table>
+                                    <tr ng-repeat="queue in manufacturer.ManufacturingQueueSlots">
+                                        <td>
+                                            <span class="item-label">
+                                                {{queue.ProductName}}
+                                            </span>
+                                            <span class="item-input"><input type="text" ng-model="queue.DateTimeQueued"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+

@@ -1,8 +1,8 @@
 ﻿<div style="width: 60%">
     <h4>Product Types</h4>filter:<input ng-model="query"/>
-    <div class="product-list-container">
-        <div class="product-list">
-            <div ng-click="setProductType(productType)" class="product-list-item product-list-item-draggable" ng-repeat="productType in productTypes | filter:query">
+    <div class="entity-list-container">
+        <div class="entity-list">
+            <div ng-click="setProductType(productType)" class="entity-list-item product-list-item-draggable" ng-repeat="productType in productTypes | filter:query">
                 {{productType.Name}}
             </div>
         </div>
