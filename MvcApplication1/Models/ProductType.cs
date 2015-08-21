@@ -7,6 +7,7 @@ namespace MvcApplication1.Models
 
         private ManufacturerTypeWrapper _manufacturerType;
         public int Id { get; set; }
+        public int SalePriceInDollars { get; set; }
         public string Name { get; set; }
         public int TimeToManufacture { get; set; }
         public int ManufacturerTypeId { get; set; }

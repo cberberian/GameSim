@@ -53,6 +53,7 @@
         Refrigerator = 49,
         GardenGnome = 50,
         Couch = 51,
-        LightingSystem = 52
+        LightingSystem = 52,
+        LemonadeBottle = 53
     }
 }

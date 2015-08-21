@@ -8,6 +8,7 @@ namespace SimGame.Handler.Entities
     public class ProductType : DomainObject
     {
         public override int Id { get; set; }
+        public int SalePriceInDollars { get; set; }
         public string Name { get; set; }
         public int? TimeToManufacture { get; set; }
         public ManufacturerType ManufacturerType { get; set; }

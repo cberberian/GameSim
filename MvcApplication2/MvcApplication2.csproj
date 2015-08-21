@@ -257,6 +257,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="images\add.png" />
     <Content Include="images\delete.png" />
+    <Content Include="images\refresh.png" />
     <Content Include="images\save.png" />
     <Content Include="Scripts\angular-route\angular-route.js" />
     <Content Include="Scripts\angular-route\angular-route.min.js" />

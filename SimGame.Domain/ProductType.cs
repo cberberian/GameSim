@@ -6,6 +6,7 @@ namespace SimGame.Domain
     {
         public override int Id { get; set; }
         public int? TimeToManufacture { get; set; }
+        public int SalePriceInDollars { get; set; }
         public string Name { get; set; }
         public int? ManufacturerTypeId { get; set; }
         public virtual ManufacturerType ManufacturerType { get; set; }

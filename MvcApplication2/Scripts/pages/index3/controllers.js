@@ -82,6 +82,7 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
     $scope.dataloading = true;
     $scope.datafinished = false;
     $scope.manufacturers = [];
+    
     $scope.city = {
         CurrentCityStorage: {
             CurrentInventory: []
@@ -97,6 +98,10 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
     });
     $scope.Goto = function(where) {
         $window.location.href = where;
+    }
+    $scope.CalculateView = function () {
+        $scope.UpdateStorageFromOverstock();
+        $scope.UpdateSupplyChain();
     }
     $scope.UpdateSupplyChain = function (postUpdateCallback) {
 
@@ -139,15 +144,26 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
     }
 
     $scope.RequiredProductQuantityChange = function (product) {
-        if (!product.OriginalQuanity)
-            product.OriginalQuanity = product.Quantity;
-        product.Quantity = product.OriginalQuanity - product.AdjustedQuantity;
+        if (typeof product.OriginalQuantity === "undefined")
+            product.OriginalQuantity = product.Quantity;
+        var newQuantity = product.OriginalQuantity - product.AdjustedQuantity;
+        $scope.RequiredProductQuantityDirty = newQuantity !== product.OriginalQuantity;
+        product.Quantity = newQuantity;
+    }
+
+    $scope.CityStorageQuantityChanged = function (product, originalQuantity) {
+        if (typeof product.OriginalQuantity === "undefined")
+            product.OriginalQuantity = GetInt(originalQuantity);
+        console.log(product.OriginalQuantity);
+        $scope.CityStorageQuantityDirty = product.OriginalQuantity !== product.Quantity;
     }
 
     $scope.AvailableProductQuantityChange = function (product) {
-        if (!product.OriginalQuanity)
-            product.OriginalQuanity = product.Quantity;
-        product.Quantity = product.OriginalQuanity - product.AdjustedQuantity;
+        if (typeof product.OriginalQuantity === "undefined")
+            product.OriginalQuantity = product.Quantity;
+        var newQuantity = product.OriginalQuantity - product.AdjustedQuantity;
+        $scope.AvailableProductQuantityDirty = newQuantity !== product.OriginalQuantity;
+        product.Quantity = newQuantity;
     }
 
     $scope.NewBuildingUpgrade = function() {
@@ -187,6 +203,9 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
             .then(function (data) {
                     $scope.city = data;
                     $scope.$apply();
+                    $scope.CityStorageQuantityDirty = false;
+                    $scope.AvailableProductQuantityDirty = false;
+                    $scope.RequiredProductQuantityDirty = false;
                     alert("Save Complete");
                 });
         });
