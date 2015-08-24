@@ -130,16 +130,24 @@
     color: #0099CC;
     background-color: #0D1764;
 }
+
+/* for product type view */
+.product-type-floating-bar {
+
+}
+
 .product-list-item-counter {
     float: right;
     width: 70px
 }
 .product-detail-container {
+    width: 400px;
     border-radius: 25px;
     padding: 10px;
     background-color: #E1F0FF;
     text-align: center;
 }
+
 .product-detail {
     width: 90%;
     margin: 0;
@@ -157,6 +165,18 @@
     vertical-align: bottom;
     font-size: 12px;
 }
+
+/* Labels and input for tabular and detail input */
+.item-header1 {
+    text-decoration: underline;
+    font-size: 12px
+}
+
+.item-cell {
+    padding: 2px;
+    margin: 2px;
+}
+
 .item-label {
     float: left;
     height: 25px;

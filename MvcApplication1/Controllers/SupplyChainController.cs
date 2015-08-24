@@ -117,9 +117,8 @@ namespace MvcApplication1.Controllers
 
         private static City ConvertRequestToHandlerCity(SupplyChainRequest request)
         {
-
-            
-            var cityStorageUpgrade = request.BuildingUpgrades.FirstOrDefault(x => x.Name.Equals("City Storage"));
+            var buildingUpgrades = request.BuildingUpgrades ?? new BuildingUpgrade[0];
+            var cityStorageUpgrade = buildingUpgrades.FirstOrDefault(x => x.Name.Equals("City Storage"));
             var currentCityStorage = request.CurrentCityStorage ?? new CityStorage
             {
                 CurrentInventory = cityStorageUpgrade == null ? new Product[0] : cityStorageUpgrade.Products
@@ -128,7 +127,7 @@ namespace MvcApplication1.Controllers
             return new City
             {
                 Manufacturers = new Manufacturer[0],
-                BuildingUpgrades = request.BuildingUpgrades.Where(x => x.Name != "City Storage").ToArray(),
+                BuildingUpgrades = buildingUpgrades.Where(x => x.Name != "City Storage").ToArray(),
                 CurrentCityStorage = currentCityStorage
             };
         }

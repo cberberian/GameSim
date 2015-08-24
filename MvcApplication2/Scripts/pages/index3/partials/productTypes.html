@@ -1,5 +1,21 @@
-﻿<div style="width: 60%">
-    <h4>Product Types</h4>filter:<input ng-model="query"/>
+﻿<h4>Product Types</h4>
+<div style="width: 100%">
+<!--    <a title="Save City" style="cursor: pointer" id="A1" ng-click="CalculateView()">-->
+<!--        <img class="city-manager-nav-icon" id="btnRefresh" src="/Images/refresh.png"/>-->
+<!--        </a>-->
+        <a title="Save City" style="cursor: pointer" id="btnSave" ng-click="SaveProductType()">
+        <img class="city-manager-nav-icon" id="divSave" src="/Images/save.png"/>
+        </a>
+        <img class="city-manager-nav-icon" title="Trash" id="divTrash" src="/Images/delete.png" alt=""
+            data-drop="true"
+            data-jqyoui-options="{tolerance: 'touch'}"
+            jqyoui-droppable="{ onDrop: 'DropDelete()' }"/>
+        <a title="New Building Upgrade" style="cursor: pointer" ng-click="NewProductType()">
+        <img class="city-manager-nav-icon" src="/Images/add.png"/>
+        </a>
+        filter: <input ng-model="query">
+</div>
+<div style="width: 60%">
     <div class="entity-list-container">
         <div class="entity-list">
             <div ng-click="setProductType(productType)" class="entity-list-item product-list-item-draggable" ng-repeat="productType in productTypes | filter:query">
@@ -20,26 +36,37 @@
                 <div>
                     <span class="item-label">Manufacturer:</span>
                     <span class="item-input">
-                        <select name="manufacturersSelect" 
+                        <select style="font-size: 12px" name="manufacturersSelect" 
                                 ng-model="currentProduct.ManufacturerTypeWrapper"
                                 ng-options="mf as mf.Name for mf in manufacturers track by mf.Id">
                         </select>
                     </span>
                 </div>
             </div>
-            <div>
+            <div class="product-detail">
+                <div><span class="item-label">Price:</span><span class="item-input"><input type="number" ng-model="currentProduct.SalePriceInDollars" /></span></div>
+            </div>
+            <div style="min-height: 100px">
                 <table>
                     <tr>
-                        <td><span class="item-label-bold">Required Products:</span>&nbsp;&nbsp;&nbsp;<a ng-click="newRequiredProduct" style="cursor: pointer">Add Required Product</a></td>
+                        <td colspan="2"><span class="item-label-bold">Required Products:</span>&nbsp;&nbsp;&nbsp;<a ng-click="onNewRequiredProduct(currentProduct)" style="cursor: pointer; font-size: 12px">Add</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                           <span class="item-header1">Name</span> 
+                        </td>
+                        <td>
+                           <span class="item-header1">Quantity</span> 
+                        </td>
                     </tr>
                     <tr ng-repeat="product in currentProduct.RequiredProducts">
-                        <td>
-                            <span class="item-label">
-                                <select name="manufacturersSelect" 
+                        <td class="item-cell">
+                            <select name="manufacturersSelect" 
                                         ng-model="product.ProductTypeWrapper"
                                         ng-options="pt as pt.Name for pt in productTypes track by pt.Id">
-                                </select>
-                            </span>
+                            </select>
+                        </td>
+                        <td class="item-cell">
                             <span class="item-input"><input type="number" ng-model="product.Quantity"></span>
                         </td>
                     </tr>

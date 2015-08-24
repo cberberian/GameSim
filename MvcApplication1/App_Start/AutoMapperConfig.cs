@@ -125,22 +125,35 @@ namespace MvcApplication1
     {
         protected override HandlerEntities.City ConvertCore(City source)
         {
+            var upgrades = source.BuildingUpgrades;
+            if (upgrades==null)
+                return new HandlerEntities.City
+                {
+                    CargoShipOrder = GetCargoShipUpgrade(source),
+                    CurrentCityStorage = GetCityStorage(source),
+                    //Exclude the city storage from list
+                    BuildingUpgrades = new HandlerEntities.BuildingUpgrade[0]
+                };
+            var buildingUpgrades = upgrades
+                .Where(x=> !x.Name.Equals("City Storage"))
+                .Select(Mapper.Map<HandlerEntities.BuildingUpgrade>)
+                .ToArray();
             return new HandlerEntities.City
             {
                 CargoShipOrder = GetCargoShipUpgrade(source),
                 CurrentCityStorage = GetCityStorage(source),
                 //Exclude the city storage from list
-                BuildingUpgrades = source.BuildingUpgrades
-                    .Where(x=> !x.Name.Equals("City Storage"))
-                    .Select(Mapper.Map<HandlerEntities.BuildingUpgrade>)
-                    .ToArray()
+                BuildingUpgrades = buildingUpgrades
             };
         }
 
         private HandlerEntities.BuildingUpgrade GetCargoShipUpgrade(City source)
         {
+            var buildingUpgrades = source.BuildingUpgrades;
+            if (buildingUpgrades == null)
+                return null;
             return Mapper.Map<HandlerEntities.BuildingUpgrade>(
-                            source.BuildingUpgrades.FirstOrDefault(x => x.Name == "Cargo Ship"));
+                            buildingUpgrades.FirstOrDefault(x => x.Name == "Cargo Ship"));
         }
 
         private HandlerEntities.CityStorage GetCityStorage(City source)

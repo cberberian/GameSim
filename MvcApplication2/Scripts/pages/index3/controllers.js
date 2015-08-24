@@ -65,11 +65,17 @@ cityManagerControllers.controller("ProductTypeCtrl", function ($scope, $http, $t
     $scope.setProductType = function (prod) {
         $scope.currentProduct = prod;
     }
-    $scope.newRequiredProduct = function () {
-        $scope.currentProduct.RequiredProducts.push({});
+    $scope.onNewRequiredProduct = function (currentProduct) {
+        currentProduct.RequiredProducts.push({});
     }
     $scope.Goto = function (where) {
         $window.location.href = where;
+    }
+    $scope.SaveProductType = function() {
+        $.post("http://localhost:59892/api/productType", $scope.currentProduct)
+            .then(function (data) {
+                alert("Save Complete");
+            });
     }
 });
 cityManagerControllers.controller("TabsCtrl", function ($scope, $http, $timeout, $location) {
