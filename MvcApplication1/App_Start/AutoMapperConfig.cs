@@ -35,8 +35,13 @@ namespace MvcApplication1
             Mapper.CreateMap<HandlerEntities.City, City>()
                 .ForMember(x=>x.BuildingUpgrades, opt=>opt.ResolveUsing<ModelCityBuildingUpgradesResolver>());
             Mapper.CreateMap<HandlerEntities.CityStorage, CityStorage>();
+            
+            //Model to Domain
+            Mapper.CreateMap<ProductType, DomainEntities.ProductType>();
+            Mapper.CreateMap<Product, DomainEntities.Product>();
+            Mapper.CreateMap<ProductTypeWrapper, DomainEntities.Product>();
 
-
+            //Domain to Model
             Mapper.CreateMap<DomainEntities.Product, Product>()
                 .ForMember(x=>x.RequiredProductsToolTip, opt=>opt.ResolveUsing<RequiredProduct1TooltipResolve>())
                 .ForMember(x=>x.Name, opt=>opt.MapFrom(y=> y.ProductType==null ? string.Empty : y.ProductType.Name))
@@ -88,11 +93,12 @@ namespace MvcApplication1
         {
             var sb = new StringBuilder();
             sb.Append("<div>");
-            sb.AppendFormat("<b><u>{0}</u></b><br/>", source.ProductType.Name);
-            if (source.ProductType.RequiredProducts == null || source.ProductType.RequiredProducts.Count == 0)
+            var sourceProductType = source.ProductType ?? new DomainEntities.ProductType();
+            sb.AppendFormat("<b><u>{0}</u></b><br/>", sourceProductType.Name);
+            if (sourceProductType.RequiredProducts == null || sourceProductType.RequiredProducts.Count == 0)
                 sb.Append("No Dependent products");
             else
-                foreach (var x in source.ProductType.RequiredProducts)
+                foreach (var x in sourceProductType.RequiredProducts)
                 {
                     sb.AppendFormat("{0} {1}<br/>", x.Quantity, x.ProductType.Name);
                 }

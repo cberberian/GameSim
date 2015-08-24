@@ -141,7 +141,7 @@
     width: 70px
 }
 .product-detail-container {
-    width: 400px;
+    width: 500px;
     border-radius: 25px;
     padding: 10px;
     background-color: #E1F0FF;
@@ -188,6 +188,11 @@
 .item-label-bold {
     text-decoration: underline;
 }
+
+.item-input-nowrap, .item-input {
+    white-space: nowrap
+}
+
 .item-input {
     float: left;
     height: 20px;

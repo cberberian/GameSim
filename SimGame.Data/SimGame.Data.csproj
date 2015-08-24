@@ -65,6 +65,7 @@
     <Compile Include="Migrations\201508212041505_migration1.Designer.cs">
       <DependentUpon>201508212041505_migration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mock\FakeDbSet.cs" />
     <Compile Include="UnitOfWork\AbstractUnitOfWork.cs" />
     <Compile Include="UnitOfWork\CityUpdateUnitOfWork.cs" />
     <Compile Include="Repository\ProductRepository.cs" />

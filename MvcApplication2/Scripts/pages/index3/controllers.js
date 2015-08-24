@@ -72,10 +72,14 @@ cityManagerControllers.controller("ProductTypeCtrl", function ($scope, $http, $t
         $window.location.href = where;
     }
     $scope.SaveProductType = function() {
-        $.post("http://localhost:59892/api/productType", $scope.currentProduct)
-            .then(function (data) {
-                alert("Save Complete");
-            });
+        console.log($scope.currentProduct);
+        //        $.post("http://localhost:59892/api/productType", $scope.currentProduct)
+//            .then(function (data) {
+//                alert("Save Complete");
+//            });
+    }
+    $scope.RemoveRequiredProduct = function(curr, index) {
+        curr.RequiredProducts.splice(index, 1);
     }
 });
 cityManagerControllers.controller("TabsCtrl", function ($scope, $http, $timeout, $location) {

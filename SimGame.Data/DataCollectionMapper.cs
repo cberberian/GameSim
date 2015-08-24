@@ -10,6 +10,11 @@ namespace SimGame.Data
         public static void MapCollection<T>(ICollection<T> sourceCollection, ICollection<T> destinationCollection, CollectionMapperOptions options)
             where T: DomainObject
         {
+            if (sourceCollection == null)
+                return;
+            if (destinationCollection == null)
+                return;
+
             if (options.Add)
             {
                 foreach (var src in sourceCollection.Where(x => x.Id == 0))

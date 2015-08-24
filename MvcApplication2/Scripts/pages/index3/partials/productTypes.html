@@ -67,7 +67,7 @@
                             </select>
                         </td>
                         <td class="item-cell">
-                            <span class="item-input"><input type="number" ng-model="product.Quantity"></span>
+                            <span class="item-input-nowrap"><input type="number" ng-model="product.Quantity">&nbsp;&nbsp;<a style="cursor: pointer; font-size: 12px" ng-click="RemoveRequiredProduct(currentProduct, $index)">Remove</a></span>
                         </td>
                     </tr>
                 </table>
