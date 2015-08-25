@@ -81,7 +81,7 @@
                                                 <div class="entity-list">
                                                     <div class="entity-list-item" ng-repeat="product in city.AvailableStorage | filter:query" product="product">
                                                         <span class="product-name">{{product.Name}}</span>
-                                                        <span class="product-name">Qty: {{product.Quantity}}</span>
+                                                        <span class="product-name">Qty: {{product.Quantity}} ${{product.SalePriceInDollars}} (${{product.SalePriceInDollars * product.AdjustedQuantity}})</span>
                                                         <input type="number" class="product-list-item-counter" ng-model="product.AdjustedQuantity" ng-change="AvailableProductQuantityChange(product)"/>
                                                     </div>
                                                 </div>

@@ -7,6 +7,7 @@ namespace MvcApplication1.Models
         private ProductTypeWrapper _productTypeWrapper;
         public int? Id { get; set; }
         public string Name { get; set; }
+        public int SalePriceInDollars { get; set; }
         public string RequiredProductsToolTip { get; set; }
         public DateTime? StartManufactureDateTime { get; set; }
         public DateTime? EndManufactureTime {

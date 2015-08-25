@@ -23,6 +23,7 @@ namespace SimGame.Handler.Bootstrap
             Mapper.CreateMap<DataDomain.Manufacturer, Manufacturer>();
             Mapper.CreateMap<DataDomain.BuildingUpgrade, BuildingUpgrade>();
             Mapper.CreateMap<DataDomain.Product, Product>()
+                .ForMember(x => x.SalePriceInDollars, opt => opt.MapFrom(y => y.ProductType == null ? 0 : y.ProductType.SalePriceInDollars))
                 .ForMember(x => x.Name, opt => opt.MapFrom(y => y.ProductType == null ? string.Empty : y.ProductType.Name)); 
         }
     }

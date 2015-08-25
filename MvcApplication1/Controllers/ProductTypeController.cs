@@ -41,9 +41,12 @@ namespace MvcApplication1.Controllers
                 _db.ProductTypes.Add(domainObject);
             }
             else
-               _db.SetValues(mappedProductType, domainObject);
+               _db.SetValues(domainObject, mappedProductType);
 
-            DataCollectionMapper.MapCollection(mappedProductType.RequiredProducts, domainObject.RequiredProducts, new CollectionMapperOptions());
+            DataCollectionMapper.MapCollection(mappedProductType.RequiredProducts, domainObject.RequiredProducts, new CollectionMapperOptions
+            {
+                Context = _db
+            });
 
             _db.Commit();
 

@@ -73,10 +73,26 @@ cityManagerControllers.controller("ProductTypeCtrl", function ($scope, $http, $t
     }
     $scope.SaveProductType = function() {
         console.log($scope.currentProduct);
-        //        $.post("http://localhost:59892/api/productType", $scope.currentProduct)
-//            .then(function (data) {
-//                alert("Save Complete");
-//            });
+        var requiredProducts = [];
+        $.each($scope.currentProduct.RequiredProducts, function(index, obj) {
+            requiredProducts.push({
+                ProductTypeId: obj.ProductTypeId,
+                Quantity: obj.Quantity
+            });
+        });
+        $.post("http://localhost:59892/api/productType",
+                {
+                    Id: $scope.currentProduct.Id,
+                    SalePriceInDollars: $scope.currentProduct.SalePriceInDollars,
+                    Name: $scope.currentProduct.Name,
+                    TimeToManufacture: $scope.currentProduct.TimeToManufacture,
+                    RequiredProducts: requiredProducts,
+                    ManufacturerTypeId: $scope.currentProduct.ManufacturerTypeWrapper.Id
+                }
+            )
+            .then(function (data) {
+                alert("Save Complete");
+            });
     }
     $scope.RemoveRequiredProduct = function(curr, index) {
         curr.RequiredProducts.splice(index, 1);

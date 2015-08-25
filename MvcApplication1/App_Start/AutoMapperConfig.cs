@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using AutoMapper;
 using MvcApplication1.Models;
@@ -45,6 +46,7 @@ namespace MvcApplication1
             Mapper.CreateMap<DomainEntities.Product, Product>()
                 .ForMember(x=>x.RequiredProductsToolTip, opt=>opt.ResolveUsing<RequiredProduct1TooltipResolve>())
                 .ForMember(x=>x.Name, opt=>opt.MapFrom(y=> y.ProductType==null ? string.Empty : y.ProductType.Name))
+                .ForMember(x => x.SalePriceInDollars, opt => opt.MapFrom(y => y.ProductType == null ? 0 : y.ProductType.SalePriceInDollars))
                 .ForMember(x=>x.ManufacturerTypeId, opt=>opt.MapFrom(y=> y.ProductType==null ? 0 : y.ProductType.ManufacturerTypeId));
             Mapper.CreateMap<DomainEntities.ProductType, ProductType>();
             Mapper.CreateMap<DomainEntities.ManufacturerType, ManufacturerType>();
@@ -91,19 +93,27 @@ namespace MvcApplication1
     {
         protected override string ResolveCore(DomainEntities.Product source)
         {
-            var sb = new StringBuilder();
-            sb.Append("<div>");
-            var sourceProductType = source.ProductType ?? new DomainEntities.ProductType();
-            sb.AppendFormat("<b><u>{0}</u></b><br/>", sourceProductType.Name);
-            if (sourceProductType.RequiredProducts == null || sourceProductType.RequiredProducts.Count == 0)
-                sb.Append("No Dependent products");
-            else
-                foreach (var x in sourceProductType.RequiredProducts)
-                {
-                    sb.AppendFormat("{0} {1}<br/>", x.Quantity, x.ProductType.Name);
-                }
-            sb.Append("</div>");
-            return sb.ToString();
+            try
+            {
+                var sb = new StringBuilder();
+                sb.Append("<div>");
+                var sourceProductType = source.ProductType ?? new DomainEntities.ProductType();
+                sb.AppendFormat("<b><u>{0}</u></b><br/>", sourceProductType.Name);
+                if (sourceProductType.RequiredProducts == null || sourceProductType.RequiredProducts.Count == 0)
+                    sb.Append("No Dependent products");
+                else
+                    foreach (var x in sourceProductType.RequiredProducts)
+                    {
+                        sb.AppendFormat("{0} {1}<br/>", x.Quantity, x.ProductType.Name);
+                    }
+                sb.Append("</div>");
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return string.Empty;
         }
     }
 

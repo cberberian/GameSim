@@ -41,5 +41,6 @@ namespace SimGame.Handler.Entities
         public int? RemainingDuration { get; set; }
         public Product[] RequiredProducts { get; set; }
         public string ParentContext { get; set; }
+        public int SalePriceInDollars { get; set; }
     }
 }
