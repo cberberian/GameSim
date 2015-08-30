@@ -40,7 +40,7 @@ namespace SimGame.Handler.Calculators
                 item.TotalDuration = 0;
                 var productType = _productTypes.First(x => x.Id == item.ProductTypeId);
                 item.Name = productType.Name;
-                
+                item.ManufacturerTypeId = productType.ManufacturerTypeId;
                 if (item.Quantity == 0)
                     continue;
                 for (var a = 0; a < item.Quantity; a++)
@@ -61,7 +61,8 @@ namespace SimGame.Handler.Calculators
                         TimeToFulfillPrerequisites = grping.Sum(ttfp=>ttfp.TimeToFulfillPrerequisites),
                         TotalDuration = grping.Sum(ttm=>ttm.TotalDuration),
                         ProductTypeId = grping.Key,
-                        Name = grping.First().Name
+                        Name = grping.First().Name,
+                        ManufacturerTypeId = grping.First().ManufacturerTypeId
                     }).OrderBy(x => x.ManufacturerTypeId).ThenBy(y => y.TotalDuration)
                     .ToArray();
         }
