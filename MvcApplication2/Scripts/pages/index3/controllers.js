@@ -60,7 +60,12 @@ cityManagerControllers.controller("ProductTypeCtrl", function ($scope, $http, $t
         $scope.manufacturers = data;
     });
 
-    
+    $scope.NewProductType = function () {
+        $scope.currentProduct = {
+            Name: "New Product Type",
+            RequiredProducts: []
+        };
+    }
 
     $scope.setProductType = function (prod) {
         $scope.currentProduct = prod;

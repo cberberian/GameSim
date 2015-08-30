@@ -39,15 +39,23 @@ namespace MvcApplication1.Controllers
                 domainObject = Mapper.Map<SimGame.Domain.ProductType>(mappedProductType);
                 domainObject.Id = newId;
                 _db.ProductTypes.Add(domainObject);
+                _db.Products.Add(new SimGame.Domain.Product
+                {
+                    Quantity = 0,
+                    ProductTypeId = newId,
+                    IsCityStorage = true
+                });
+                foreach (var prod in domainObject.RequiredProducts)
+                    prod.RequiredByTypeId = newId;
             }
             else
-               _db.SetValues(domainObject, mappedProductType);
-
+            {
+                _db.SetValues(domainObject, mappedProductType);
+            }
             DataCollectionMapper.MapCollection(mappedProductType.RequiredProducts, domainObject.RequiredProducts, new CollectionMapperOptions
             {
                 Context = _db
             });
-
             _db.Commit();
 
             return Mapper.Map<ProductType>(domainObject);

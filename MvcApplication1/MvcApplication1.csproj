@@ -910,6 +910,7 @@
     <Content Include="Content\jquery-ui-1.9.2.custom\development-bundle\ui.tabs.jquery.json" />
     <Content Include="Content\jquery-ui-1.9.2.custom\development-bundle\ui.tooltip.jquery.json" />
     <Content Include="Content\jquery-ui-1.9.2.custom\development-bundle\ui.widget.jquery.json" />
+    <None Include="Properties\PublishProfiles\GameSim Webapi.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Images\add.gif" />
     <Content Include="Images\document.png" />

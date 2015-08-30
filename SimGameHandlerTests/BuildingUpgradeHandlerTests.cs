@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Moq;
-using NUnit.Framework;
-using SimGame.Handler.Entities;
-using SimGame.Handler.Entities.Legacy;
-using SimGame.Handler.Handlers;
-using SimGame.Handler.Interfaces;
+﻿using NUnit.Framework;
 
 namespace SimGameHandlerTests
 {

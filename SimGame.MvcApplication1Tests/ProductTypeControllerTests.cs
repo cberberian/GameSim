@@ -36,25 +36,65 @@ namespace SimGame.MvcApplication1Tests
             var gameSimContext = new Mock<IGameSimContext>();
             
 
-            var pDs = new List<ProductType>()
-            {
-                new ProductType
-                {
-                    Id = 1
-                }
-            };
+            var pDs = GetExistingDomainProductTypes();
             var productTypes = new FakeDbSet<ProductType>(pDs);
+            var products = new FakeDbSet<Domain.Product>();
             gameSimContext.Setup(x => x.ProductTypes).Returns(productTypes);
+            gameSimContext.Setup(x => x.Products).Returns(products);
             var controller = new ProductTypeController(gameSimContext.Object);
 
             var productTypeToSave = new MvcApplication1.Models.ProductType
             {
-                Name = "test"
+                Name = "test",
+                RequiredProducts = new List<Product>
+                {
+                    new Product
+                    {
+                        ProductTypeId = 1
+                    }
+                }
             };
             var ret = controller.Post(productTypeToSave);
-            productTypes.Count().ShouldEqual(2);
-            productTypes.ToArray()[1].Id.ShouldEqual(2);
+            productTypes.Count().ShouldEqual(3);
+            products.Count().ShouldEqual(1);
+            var productType = productTypes.ToArray()[1];
+            productType.Id.ShouldEqual(3);
+            productType.RequiredProducts.First().RequiredByTypeId.ShouldEqual(1);
+            productType.RequiredProducts.First().ProductTypeId.ShouldEqual(2);
+            productType.RequiredProducts.First().Quantity.ShouldEqual(1);
             ret.Id.ShouldEqual(2);
+        }
+
+        private static List<ProductType> GetExistingDomainProductTypes()
+        {
+            return new List<ProductType>
+            {
+                new ProductType
+                {
+                    Name = "product 1",
+                    Id = 1,
+                    ManufacturerTypeId = 1,
+                    TimeToManufacture = 1,
+                    SalePriceInDollars = 1
+                },
+                new ProductType
+                {
+                    Name = "product 2",
+                    Id = 2,
+                    ManufacturerTypeId = 2,
+                    TimeToManufacture = 2,
+                    SalePriceInDollars = 2,
+                    RequiredProducts = new List<Domain.Product>
+                    {
+                        new Domain.Product
+                        {
+                            ProductTypeId = 1,
+                            Quantity = 1,
+                            RequiredByTypeId = 2
+                        }
+                    }
+                }
+            };
         }
 
         [Test]
@@ -135,6 +175,7 @@ namespace SimGame.MvcApplication1Tests
             domainProductType.RequiredProducts.First().ProductTypeId.ShouldEqual(2);
             
         }
+
 
 
     }

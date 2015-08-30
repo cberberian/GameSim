@@ -31,6 +31,7 @@ namespace SimGame.Handler.Entities
         public int? ManufacturerId { get; set; }
         public int? BuildingUpgradeId { get; set; }
         public int? TimeToFulfill { get; set; }
+        public int? TimeToFulfillPrerequisites { get; set; }
         public int? OrderId { get; set; }
         public bool IsCityStorage { get; set; }
         /// <summary>

@@ -14,17 +14,17 @@ namespace SimGame.Data
                 return;
             if (destinationCollection == null)
                 return;
-
+            var localSrcCollection = sourceCollection.ToArray();
             if (options.Add)
             {
-                foreach (var src in sourceCollection.Where(x => x.Id == 0))
+                foreach (var src in localSrcCollection.Where(x => x.Id == 0))
                 {
                     destinationCollection.Add(src);
                 }
             }
             if (options.Update)
             {
-                foreach (var src in sourceCollection.Where(x=>x.Id > 0))
+                foreach (var src in localSrcCollection.Where(x => x.Id > 0))
                 {
                     var dest = destinationCollection.FirstOrDefault(x => x.Id == src.Id);
                     if (dest != null)
@@ -33,7 +33,7 @@ namespace SimGame.Data
             }
             if (options.Delete)
             {
-                foreach (var dest in destinationCollection.Where(dest => sourceCollection.All(x=>x.Id != dest.Id) && dest.Id > 0))
+                foreach (var dest in destinationCollection.Where(dest => localSrcCollection.All(x => x.Id != dest.Id) && dest.Id > 0))
                 {
                     dest.Deleted = true;
                 }

@@ -282,6 +282,7 @@
     <Content Include="Content\bootstrap\bootstrap.css.map" />
     <Content Include="Content\ui-grid.ttf" />
     <Content Include="Content\ui-grid.woff" />
+    <None Include="Properties\PublishProfiles\GameSim Local.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="images\accent.png" />
     <Content Include="images\add.gif" />
