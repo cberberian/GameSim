@@ -30,7 +30,9 @@ namespace MvcApplication2
                                     "~/Scripts/angular-ui/ui-grid.js",
                                     "~/Scripts/angular-route/angular-route.js",
                                     "~/Scripts/pages/index3/functions.js",
-                                    "~/Scripts/pages/index3/controllers.js",
+                                    "~/Scripts/pages/index3/app.js",
+                                    "~/Scripts/pages/index3/controllers/productTypeCtrl.js",
+                                    "~/Scripts/pages/index3/controllers/cityManagerCtrl.js",
                                     "~/Scripts/pages/index3/directives.js",
                                     "~/Scripts/pages/index3/index3.js"
                                 ));

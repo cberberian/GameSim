@@ -1,119 +1,8 @@
-"use strict";
-
-/* Controllers */
-var cityManagerApp = angular.module("cityManagerApp", ["ngRoute", "cityManagerControllers", "ui.bootstrap", "ngDragDrop"]);
-cityManagerApp.config(["$routeProvider",
-  function ($routeProvider) {
-      $routeProvider.
-        when("/buildingManager", {
-            templateUrl: "/scripts/pages/index3/partials/buildingManager.html",
-            controller: "CityManagerCtrl"
-        }).
-        when("/productTypes", {
-            templateUrl: "/scripts/pages/index3/partials/productTypes.html",
-            controller: "ProductTypeCtrl"
-        }).
-        when("/manufacturingQueue", {
-            templateUrl: "/scripts/pages/index3/partials/manufacturingQueue.html",
-            controller: "ManufacturingQueueCtrl"
-        }).
-        otherwise({
-            redirectTo: "/buildingManager"
-        });
-  }]);
-
-var cityManagerControllers = angular.module("cityManagerControllers", []);
-
-cityManagerControllers.controller("ManufacturingQueueCtrl", function ($scope, $http, $timeout, $window) {
-    $http.get("http://localhost:59892/api/City").success(function (data) {
-        $scope.city = data;
-    });
-});
-
-cityManagerControllers.controller("ProductTypeCtrl", function ($scope, $http, $timeout, $window) {
-    $scope.manufacturers = [];
-    $scope.productTypes = [];
-    $scope.gridOptions = {
-        columnDefs: [
-          { name: "Name", field: "Name" },
-          { name: "Quantity", field: "Quantity" }
-        ],
-        data: []
-    };
-    $scope.currentProduct = {
-        RequiredProducts: []
-    }
-    $http.get("http://localhost:59892/api/ProductType").success(function (data) {
-        $scope.productTypes = data;
-        if (data.length > 0) {
-            $scope.currentProduct = data[0];
-            $scope.gridOptions = {
-                columnDefs: [
-                  { name: "Name", field: "Name" },
-                  { name: "Quantity", field: "Quantity" }
-                ],
-                data: $scope.currentProduct.RequiredProducts
-            };
-        }
-    });
-    $http.get("http://localhost:59892/api/ManufacturerType").success(function (data) {
-        $scope.manufacturers = data;
-    });
-
-    $scope.NewProductType = function () {
-        $scope.currentProduct = {
-            Name: "New Product Type",
-            RequiredProducts: []
-        };
-    }
-
-    $scope.setProductType = function (prod) {
-        $scope.currentProduct = prod;
-    }
-    $scope.onNewRequiredProduct = function (currentProduct) {
-        currentProduct.RequiredProducts.push({});
-    }
-    $scope.Goto = function (where) {
-        $window.location.href = where;
-    }
-    $scope.SaveProductType = function() {
-        console.log($scope.currentProduct);
-        var requiredProducts = [];
-        $.each($scope.currentProduct.RequiredProducts, function(index, obj) {
-            requiredProducts.push({
-                ProductTypeId: obj.ProductTypeId,
-                Quantity: obj.Quantity
-            });
-        });
-        $.post("http://localhost:59892/api/productType",
-                {
-                    Id: $scope.currentProduct.Id,
-                    SalePriceInDollars: $scope.currentProduct.SalePriceInDollars,
-                    Name: $scope.currentProduct.Name,
-                    TimeToManufacture: $scope.currentProduct.TimeToManufacture,
-                    RequiredProducts: requiredProducts,
-                    ManufacturerTypeId: $scope.currentProduct.ManufacturerTypeWrapper.Id
-                }
-            )
-            .then(function (data) {
-                alert("Save Complete");
-            });
-    }
-    $scope.RemoveRequiredProduct = function(curr, index) {
-        curr.RequiredProducts.splice(index, 1);
-    }
-});
-cityManagerControllers.controller("TabsCtrl", function ($scope, $http, $timeout, $location) {
-
-    $scope.Goto = function (where) {
-        $location.path(where);
-    }
-});
-cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $timeout, $window) {
+﻿cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $timeout, $window) {
     $scope.dataloading = true;
     $scope.datafinished = false;
     $scope.manufacturers = [];
-    
+
     $scope.city = {
         CurrentCityStorage: {
             CurrentInventory: []
@@ -121,13 +10,13 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
         BuildingUpgrades: [],
         RequiredProducts: []
     };
-    $http.get("http://localhost:59892/api/ManufacturerType").success(function(data) {
+    $http.get("http://localhost:59892/api/ManufacturerType").success(function (data) {
         $scope.manufacturers = data;
         $http.get("http://localhost:59892/api/City").success(function (data) {
             $scope.city = data;
         });
     });
-    $scope.Goto = function(where) {
+    $scope.Goto = function (where) {
         $window.location.href = where;
     }
     $scope.CalculateView = function () {
@@ -137,7 +26,7 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
     $scope.UpdateSupplyChain = function (postUpdateCallback) {
 
         var requiredProductUpdates = [];
-        $.each($scope.city.RequiredProducts, function(idx, entity) {
+        $.each($scope.city.RequiredProducts, function (idx, entity) {
             if (entity.AdjustedQuantity > 0) {
 
                 requiredProductUpdates.push({
@@ -155,16 +44,16 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
         }
 
         $.ajax({
-                url: "http://localhost:59892/api/SupplyChain",
-                type: "POST",
-                data: supplyChainRequest,
-                dataType: "json",
-                error:
-                    function(xhr, ajaxOptions, thrownError) {
-                        alert(thrownError);
-                    }
-            })
-            .success(function(data) {
+            url: "http://localhost:59892/api/SupplyChain",
+            type: "POST",
+            data: supplyChainRequest,
+            dataType: "json",
+            error:
+                function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                }
+        })
+            .success(function (data) {
                 $scope.city = data;
 
                 if (postUpdateCallback)
@@ -197,7 +86,7 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
         product.Quantity = newQuantity;
     }
 
-    $scope.NewBuildingUpgrade = function() {
+    $scope.NewBuildingUpgrade = function () {
         $scope.city.BuildingUpgrades.push(
             {
                 Name: "Property Upgrade " + $scope.city.BuildingUpgrades.length,
@@ -226,23 +115,23 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
 
     $scope.SaveCity = function () {
         $scope.UpdateStorageFromOverstock();
-        $scope.UpdateSupplyChain(function() {
+        $scope.UpdateSupplyChain(function () {
             $.post("http://localhost:59892/api/city", {
                 "BuildingUpgrades": GetBuildingUpgradesForPost($scope.city.BuildingUpgrades),
                 "CurrentCityStorage": GetCurrentCityStorageForPost($scope.city.CurrentCityStorage)
             })
             .then(function (data) {
-                    $scope.city = data;
-                    $scope.$apply();
-                    $scope.CityStorageQuantityDirty = false;
-                    $scope.AvailableProductQuantityDirty = false;
-                    $scope.RequiredProductQuantityDirty = false;
-                    alert("Save Complete");
-                });
+                $scope.city = data;
+                $scope.$apply();
+                $scope.CityStorageQuantityDirty = false;
+                $scope.AvailableProductQuantityDirty = false;
+                $scope.RequiredProductQuantityDirty = false;
+                alert("Save Complete");
+            });
         });
     }
 
-    $scope.DropBuildingUpgradProduct = function(evt, ui, buildingUpgrade) {
+    $scope.DropBuildingUpgradProduct = function (evt, ui, buildingUpgrade) {
         var productType = angular.element(ui.draggable).scope().productType;
         var newProduct = {
             BuildingUpgradeId: buildingUpgrade.Id,
@@ -256,7 +145,7 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
         console.log(newProduct);
     }
 
-    $scope.DropDelete = function(evt, ui) {
+    $scope.DropDelete = function (evt, ui) {
         var draggableScope = angular.element(ui.draggable).scope();
         if (draggableScope.buildingUpgrade) {
             if (draggableScope.product) {
@@ -269,16 +158,16 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
         }
     }
 
-    $scope.onBuildingUpgradeProductChange = function() {
+    $scope.onBuildingUpgradeProductChange = function () {
         console.log("build upgrade product change");
     }
-    $scope.onUpdateStorage = function() {
+    $scope.onUpdateStorage = function () {
         $scope.UpdateStorageFromOverstock();
         alert("Product Adjustments Complete");
     }
     $scope.UpdateStorageFromOverstock = function () {
         var removes = [];
-        $.each($scope.city.AvailableStorage, function(index, product) {
+        $.each($scope.city.AvailableStorage, function (index, product) {
             if (product.AdjustedQuantity > 0) {
                 var productMatches = getObjects($scope.city.CurrentCityStorage.CurrentInventory, "ProductTypeId", product.ProductTypeId);
                 if (productMatches.length) {
@@ -292,10 +181,10 @@ cityManagerControllers.controller("CityManagerCtrl", function ($scope, $http, $t
                 }
             }
         });
-        $.each(removes, function(index, val) {
+        $.each(removes, function (index, val) {
             $scope.city.AvailableStorage.splice(index, 1);
         });
-        
+
     }
 
 });

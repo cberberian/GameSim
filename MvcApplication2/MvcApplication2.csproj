@@ -328,7 +328,9 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\pages\index2\Index2.js" />
-    <Content Include="Scripts\pages\index3\controllers.js" />
+    <Content Include="Scripts\pages\index3\app.js" />
+    <Content Include="Scripts\pages\index3\controllers\cityManagerCtrl.js" />
+    <Content Include="Scripts\pages\index3\controllers\productTypeCtrl.js" />
     <Content Include="Scripts\pages\index3\directives.js" />
     <Content Include="Scripts\pages\index3\functions.js" />
     <Content Include="Scripts\pages\index3\Index3.js" />
