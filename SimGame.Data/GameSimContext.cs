@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using cb.core.interfaces;
 using SimGame.Data.Interface;
 using SimGame.Domain;
 
@@ -21,6 +22,8 @@ namespace SimGame.Data
         public IDbSet<ManufacturerType> ManufacturerTypes { get; set; }
         public IDbSet<Order> Orders { get; set; }
         public IDbSet<BuildingUpgrade> BuildingUpgrades { get; set; }
+
+        public IEntityContext Context { get; set; }
 
         public void Commit()
         {

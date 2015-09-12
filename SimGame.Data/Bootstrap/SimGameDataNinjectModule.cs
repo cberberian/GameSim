@@ -1,8 +1,9 @@
 ﻿using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using cb.core.data;
+using cb.core.interfaces;
 using Ninject.Modules;
-using SimGame.Data.Entity;
 using SimGame.Data.Interface;
 using SimGame.Data.Mock;
 using SimGame.Data.Repository;
@@ -56,7 +57,7 @@ namespace SimGame.Data.Bootstrap
         }
     }
 
-    public class BuildingUpgradeRepository : AbstractRepository<BuildingUpgrade>, IBuildingUpgradeRepository
+    public class BuildingUpgradeRepository : AbstractRepository<IGameSimContext, BuildingUpgrade>, IBuildingUpgradeRepository
     {
         protected override IDbSet<BuildingUpgrade> RepositoryDbSet
         {
@@ -93,6 +94,8 @@ namespace SimGame.Data.Bootstrap
         public IProductRepository ProductRepository { get; set; }
         public IBuildingUpgradeRepository BuildingUpgradeRepository { get; set; }
         public IGameSimContext GameSimContext { get; set; }
+        public IGameSimContext EntityContext { get; set; }
+
         public void Commit()
         {
             throw new System.NotImplementedException();

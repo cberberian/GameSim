@@ -1,4 +1,6 @@
-﻿namespace SimGame.Domain
+﻿using cb.core.domain;
+
+namespace SimGame.Domain
 {
     public class User : DomainObject
     {

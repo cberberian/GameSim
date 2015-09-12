@@ -141,6 +141,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\cb.core.csproj">
+      <Project>{230F2023-AFDE-4246-993C-B9FE636D5109}</Project>
+      <Name>cb.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimGame.Data\SimGame.Data.csproj">
       <Project>{972cb355-aa66-4ea0-beb5-30e5a0478146}</Project>
       <Name>SimGame.Data</Name>

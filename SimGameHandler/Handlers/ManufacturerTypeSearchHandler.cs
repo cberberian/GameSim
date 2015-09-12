@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
-using SimGame.Data.Entity;
+using cb.core.data;
 using SimGame.Data.Interface;
 using SimGame.Handler.Entities;
 using SimGame.Handler.Interfaces;

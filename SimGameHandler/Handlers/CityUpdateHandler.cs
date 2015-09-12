@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using cb.core.data;
 using SimGame.Data;
-using SimGame.Data.Entity;
 using SimGame.Data.Interface;
 using SimGame.Domain;
 using SimGame.Handler.Entities;
@@ -51,14 +51,14 @@ namespace SimGame.Handler.Handlers
                 else
                 {
                     var changedUpgrade = Mapper.Map<BuildingUpgrade>(upgrade);
-                    _cityUpdateUnitOfWork.GameSimContext.SetValues(domainUpgrade, changedUpgrade);
+                    _cityUpdateUnitOfWork.EntityContext.SetValues(domainUpgrade, changedUpgrade);
                 }
 
                 if (domainUpgrade.Products == null)
                     domainUpgrade.Products = new List<Product>();
                 DataCollectionMapper.MapCollection(upgrade.Products.Select(Mapper.Map<Product>).ToList(), domainUpgrade.Products, new CollectionMapperOptions
                 {
-                    Context = _cityUpdateUnitOfWork.GameSimContext
+                    Context = _cityUpdateUnitOfWork.EntityContext
                 });
 //                foreach (var src in upgrade.Products)
 //                {

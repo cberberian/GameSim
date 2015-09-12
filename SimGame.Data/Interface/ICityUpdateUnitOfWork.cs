@@ -1,9 +1,8 @@
-using SimGame.Data.UnitOfWork;
-using SimGame.Domain;
+using cb.core.interfaces;
 
 namespace SimGame.Data.Interface
 {
-    public interface ICityUpdateUnitOfWork : IUnitOfWork
+    public interface ICityUpdateUnitOfWork : IUnitOfWork<IGameSimContext>
     {
         IProductRepository ProductRepository { get; set; }
         IBuildingUpgradeRepository BuildingUpgradeRepository { get; set; }

@@ -1,8 +1,9 @@
-﻿using SimGame.Data.Interface;
+﻿using cb.core.data;
+using SimGame.Data.Interface;
 
 namespace SimGame.Data.UnitOfWork
 {
-    public class CityUpdateUnitOfWork : AbstractUnitOfWork, ICityUpdateUnitOfWork
+    public class CityUpdateUnitOfWork : AbstractUnitOfWork<IGameSimContext>, ICityUpdateUnitOfWork
     {
         public CityUpdateUnitOfWork(IProductRepository productRepository, IBuildingUpgradeRepository buildingUpgradeRepositoryRepository, IGameSimContext context) : base(context)
         {
@@ -13,5 +14,6 @@ namespace SimGame.Data.UnitOfWork
         }
         public IProductRepository ProductRepository { get; set; }
         public IBuildingUpgradeRepository BuildingUpgradeRepository { get; set; }
+        
     }
 }

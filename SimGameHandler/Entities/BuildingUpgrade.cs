@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using SimGame.Domain;
+using cb.core.domain;
 
 namespace SimGame.Handler.Entities
 {
-    [Serializable]
+    [Serializable
+    ]
     public class BuildingUpgrade : DomainObject
     {
         public BuildingUpgrade()

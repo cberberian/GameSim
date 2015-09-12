@@ -1,5 +1,4 @@
-﻿using System.Data.Entity.Migrations;
-using SimGame.Data;
+﻿using SimGame.Data;
 using SimGame.Domain;
 
 namespace ConsoleApplication1

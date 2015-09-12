@@ -119,6 +119,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\cb.core.csproj">
+      <Project>{230F2023-AFDE-4246-993C-B9FE636D5109}</Project>
+      <Name>cb.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvcApplication1\MvcApplication1.csproj">
       <Project>{98C8EF2D-BF4D-4617-970B-D79BEC37BC2B}</Project>
       <Name>MvcApplication1</Name>

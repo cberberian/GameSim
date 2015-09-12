@@ -1,5 +1,5 @@
 ﻿using System;
-using SimGame.Domain;
+using cb.core.domain;
 
 namespace SimGame.Handler.Entities
 {

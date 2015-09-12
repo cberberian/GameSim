@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using cb.core.interfaces;
 using Moq;
 using SimGame.Data.Interface;
 using SimGame.Domain;
@@ -79,6 +80,8 @@ namespace SimGame.Data.Mock
         }
 
         public IDbSet<BuildingUpgrade> BuildingUpgrades { get; set; }
+
+        public IEntityContext Context { get; set; }
 
         public void Commit()
         {

@@ -2,6 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.OData.Query;
 using AutoMapper;
+using cb.core.data;
 using MvcApplication1.Models;
 using SimGame.Data;
 using SimGame.Data.Interface;

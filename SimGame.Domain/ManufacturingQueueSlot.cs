@@ -1,4 +1,5 @@
 ﻿using System;
+using cb.core.domain;
 
 namespace SimGame.Domain
 {

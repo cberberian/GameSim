@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using SimGame.Data.Entity;
+using cb.core.data;
 using SimGame.Data.Interface;
 using SimGame.Domain;
 

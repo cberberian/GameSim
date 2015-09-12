@@ -54,7 +54,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleCode", "SampleCode\Sa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "003 - Core", "003 - Core", "{B028125B-2554-4CE1-BACA-25E6BAC12F16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cb.core", "..\common\cb.core\cb.core\cb.core.csproj", "{230F2023-AFDE-4246-993C-B9FE636D5109}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cb.core", "..\common\cb.core.csproj", "{230F2023-AFDE-4246-993C-B9FE636D5109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,9 @@
-﻿using SimGame.Domain;
+﻿using cb.core.interfaces;
+using SimGame.Domain;
 
 namespace SimGame.Data.Interface
 {
-    public interface IManufacturerTypeRepository : IRepository<ManufacturerType>
+    public interface IManufacturerTypeRepository : IRepository<IGameSimContext, ManufacturerType>
     {
     }
 }

@@ -114,6 +114,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\cb.core.csproj">
+      <Project>{230F2023-AFDE-4246-993C-B9FE636D5109}</Project>
+      <Name>cb.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimGame.Data\SimGame.Data.csproj">
       <Project>{972CB355-AA66-4EA0-BEB5-30E5A0478146}</Project>
       <Name>SimGame.Data</Name>

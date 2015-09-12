@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using cb.core.interfaces;
 using SimGame.Domain;
 
 namespace SimGame.Data.Interface

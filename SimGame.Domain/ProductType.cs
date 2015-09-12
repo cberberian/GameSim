@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using cb.core.domain;
 
 namespace SimGame.Domain
 {

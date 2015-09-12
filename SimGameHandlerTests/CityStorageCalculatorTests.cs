@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using Moq;
 using NUnit.Framework;
 using Should;
-using SimGame.Data.Entity;
 using SimGame.Data.Interface;
 using SimGame.Handler.Calculators;
 using SimGame.Handler.Entities;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using SimGame.Data.Entity;
+using cb.core.data;
 using SimGame.Data.Interface;
 using SimGame.Domain;
 
