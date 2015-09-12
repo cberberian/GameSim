@@ -18,6 +18,7 @@ namespace SimGame.Handler.Entities
         public int BuildingUpgradeId { get; set; }
         public bool Completed { get; set; }
         public string Name { get; set; }
+        public int Priority { get; set; }
         public Product[] ProductsInStorage { get; set; }
         public override int Id { get; set; }
 

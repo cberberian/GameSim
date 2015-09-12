@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public int TotalUpgradeTime { get; set; }
         public int RemainingUpgradeTime { get; set; }
+        public int Priority { get; set; }
 
         public string RemainingUpgradeTimeString
         {

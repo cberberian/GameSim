@@ -336,6 +336,7 @@
     <Content Include="Scripts\pages\index3\Index3.js" />
     <Content Include="Scripts\pages\index3\partials\buildingManager.html" />
     <Content Include="Scripts\pages\index3\partials\manufacturingQueue.html" />
+    <Content Include="Scripts\pages\index3\services.js" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgrade.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgradeProductTooltip.html" />
     <Content Include="Scripts\pages\index3\templates\buildingUpgradeTooltip.html" />
@@ -420,6 +421,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\pages\index3\services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

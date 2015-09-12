@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildingUpgrade.cs" />
-    <Compile Include="DomainObject.cs" />
     <Compile Include="DomainObjectCollectionResolver.cs" />
     <Compile Include="ManufacturerTypeEnum.cs" />
     <Compile Include="ManufacturingQueueSlot.cs" />

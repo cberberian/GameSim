@@ -59,12 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataCollectionMapper.cs" />
     <Compile Include="Interface\IBuildingUpgradeRepository.cs" />
-    <Compile Include="Migrations\201508212041505_migration1.cs" />
-    <Compile Include="Migrations\201508212041505_migration1.Designer.cs">
-      <DependentUpon>201508212041505_migration1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Mock\FakeDbSet.cs" />
     <Compile Include="UnitOfWork\AbstractUnitOfWork.cs" />
     <Compile Include="UnitOfWork\CityUpdateUnitOfWork.cs" />
@@ -102,15 +97,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\cb.core\cb.core\cb.core.csproj">
+      <Project>{230f2023-afde-4246-993c-b9fe636d5109}</Project>
+      <Name>cb.core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimGame.Domain\SimGame.Domain.csproj">
       <Project>{a62c9439-0095-4838-91c9-43c5cab1ea0e}</Project>
       <Name>SimGame.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201508212041505_migration1.resx">
-      <DependentUpon>201508212041505_migration1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
