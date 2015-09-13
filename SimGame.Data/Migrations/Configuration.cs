@@ -355,6 +355,36 @@ namespace SimGame.Data.Migrations
                     Name = "Lighting System",
                     TimeToManufacture = 210,
                     RequiredProducts = RequiredLightingSystemProducts()
+                },
+                new ProductType
+                {
+                    ManufacturerTypeId = (int) ManufacturerTypeEnum.HomeAppliances,
+                    Id = (int) ProductTypeEnum.TV,
+                    Name = "TV",
+                    TimeToManufacture = 210,
+                    RequiredProducts = RequiredTvProducts()
+                }
+            };
+        }
+
+        private static ICollection<Product> RequiredTvProducts()
+        {
+            return new List<Product>
+            {
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Plastic
+                },
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.Glass
+                },
+                new Product
+                {
+                    Quantity = 2,
+                    ProductTypeId = (int) ProductTypeEnum.ElectricalComponent
                 }
             };
         }

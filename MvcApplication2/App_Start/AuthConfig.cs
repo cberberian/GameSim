@@ -1,6 +1,6 @@
 ﻿
 
-namespace MvcApplication2
+namespace SimGame.Website
 {
     public static class AuthConfig
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using AutoMapper;
 using MvcApplication1.Interfaces;
-using MvcApplication1.Models;
+using SimGame.WebApi.Models;
 using Product = SimGame.Domain.Product;
 using ProductType = SimGame.Domain.ProductType;
 
@@ -29,7 +29,7 @@ namespace MvcApplication1.Helpers
                     if (strgProd != null)
                     {
                         requiredProduct.StorageQuantity = strgProd.Quantity ?? 0;
-                        requiredProduct.RequiredProducts = prodType.RequiredProducts.ToArray().Select(Mapper.Map<Models.Product>).ToArray(); 
+                        requiredProduct.RequiredProducts = prodType.RequiredProducts.ToArray().Select(Mapper.Map<SimGame.WebApi.Models.Product>).ToArray(); 
                         var notInStorage = strgProd.Quantity < requiredProduct.Quantity;
                         var style = notInStorage
                             ? "display: block; color: red"

@@ -1,17 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SysComponent = System.ComponentModel.DataAnnotations;
 
-namespace MvcApplication2.Models
+namespace SimGame.Website.Models
 {
     public class Register
     {
-        [Required(ErrorMessage = "Username is required.")]
+        [SysComponent.RequiredAttribute(ErrorMessage = "Username is required.")]
 
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Username is required.")]
-        [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
+        [SysComponent.RequiredAttribute(ErrorMessage = "Username is required.")]
         public string Password { get; set; }
-        [Compare("Password", ErrorMessage = "Passwords Don't Match")]
+        [SysComponent.CompareAttribute("Password", ErrorMessage = "Passwords Don't Match")]
         public string ConfirmPassword { get; set; }
     }
 }

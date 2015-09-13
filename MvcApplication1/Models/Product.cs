@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MvcApplication1.Models
+namespace SimGame.WebApi.Models
 {
     public class Product
     {

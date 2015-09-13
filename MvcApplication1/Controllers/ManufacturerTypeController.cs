@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using MvcApplication1.Models;
 using SimGame.Handler.Interfaces;
 using HandlerEntities = SimGame.Handler.Entities;
+using ManufacturerType = SimGame.WebApi.Models.ManufacturerType;
+using ProductType = SimGame.WebApi.Models.ProductType;
 
-namespace MvcApplication1.Controllers
+namespace SimGame.WebApi.Controllers
 {
     public class ManufacturerTypeController : ApiController
     {

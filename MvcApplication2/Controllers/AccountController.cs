@@ -1,18 +1,15 @@
 ﻿using System;
-
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
 using System.Web.Mvc;
 using System.Web.Security;
-
-using MvcApplication2.Models;
 using SimGame.Data;
 using SimGame.Data.Interface;
+using SimGame.Website.Models;
 
-namespace MvcApplication2.Controllers
+namespace SimGame.Website.Controllers
 {
     public class AccountController : Controller
     {

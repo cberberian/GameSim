@@ -8,12 +8,13 @@ using Ninject;
 using Ninject.Web.Common;
 using SimGame.Data.Bootstrap;
 using SimGame.Handler.Bootstrap;
+using SimGame.WebApi;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
 
 
-namespace MvcApplication1
+namespace SimGame.WebApi
 {
     public static class NinjectWebCommon 
     {

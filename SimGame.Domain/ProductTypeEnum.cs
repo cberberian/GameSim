@@ -54,6 +54,7 @@
         GardenGnome = 50,
         Couch = 51,
         LightingSystem = 52,
-        LemonadeBottle = 53
+        LemonadeBottle = 53,
+        TV = 54
     }
 }

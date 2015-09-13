@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
 using MvcApplication1.Interfaces;
-using HandlerEntities = SimGame.Handler.Entities;
-using SimGame.Handler.Interfaces;
-using MvcApplication1.Models;
 using SimGame.Data;
-using SimGame.Data.Interface;
 using SimGame.Handler.Entities.Legacy;
+using SimGame.Handler.Interfaces;
+using BuildingUpgrade = SimGame.WebApi.Models.BuildingUpgrade;
+using City = SimGame.WebApi.Models.City;
+using CityStorage = SimGame.WebApi.Models.CityStorage;
+using HandlerEntities = SimGame.Handler.Entities;
+using Manufacturer = SimGame.WebApi.Models.Manufacturer;
+using Product = SimGame.WebApi.Models.Product;
 
-namespace MvcApplication1.Controllers
+namespace SimGame.WebApi.Controllers
 {
     public class CityController : ApiController
     {

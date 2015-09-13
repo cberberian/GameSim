@@ -1,4 +1,4 @@
-﻿using MvcApplication1.Models;
+﻿using SimGame.WebApi.Models;
 using ProductType = SimGame.Domain.ProductType;
 
 namespace MvcApplication1.Interfaces

@@ -1,4 +1,4 @@
-﻿namespace MvcApplication2
+﻿namespace SimGame.Website
 {
     public class MyExpirePageActionFilterAttribute : System.Web.Mvc.ActionFilterAttribute
     {

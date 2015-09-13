@@ -2,13 +2,21 @@
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using MvcApplication1.Models;
 using SimGame.Handler.Bootstrap;
+using SimGame.WebApi.Models;
+using BuildingUpgrade = SimGame.WebApi.Models.BuildingUpgrade;
+using City = SimGame.WebApi.Models.City;
+using CityStorage = SimGame.WebApi.Models.CityStorage;
 using HandlerEntities = SimGame.Handler.Entities;
 using DomainEntities = SimGame.Domain;
+using Manufacturer = SimGame.WebApi.Models.Manufacturer;
+using ManufacturerType = SimGame.WebApi.Models.ManufacturerType;
+using ManufacturingQueueSlot = SimGame.WebApi.Models.ManufacturingQueueSlot;
+using Product = SimGame.WebApi.Models.Product;
+using ProductType = SimGame.WebApi.Models.ProductType;
 
 
-namespace MvcApplication1
+namespace SimGame.WebApi
 {
     public class AutoMapperConfig
     {

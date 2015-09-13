@@ -22,11 +22,13 @@
         @Html.ActionLink("Register", "Register", "Account") | 
         @if (Context.User.Identity.IsAuthenticated)
         {
-            @Html.ActionLink("Logout", "Logout", "Account");
+            @Html.ActionLink("Logout", "Logout", "Account")
+            ;
         }
         @if (!Context.User.Identity.IsAuthenticated)
         {
-            @Html.ActionLink("Login", "Login", "Account");
+            @Html.ActionLink("Login", "Login", "Account")
+            ;
         }
     </div>
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">

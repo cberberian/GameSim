@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
-using MvcApplication2.Models;
 using SimGame.Data;
+using SimGame.Website.Models;
 
-namespace MvcApplication2.Controllers
+namespace SimGame.Website.Controllers
 {
     public class ProductController : Controller
     {

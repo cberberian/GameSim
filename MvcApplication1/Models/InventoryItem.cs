@@ -1,9 +1,7 @@
 ﻿using System.Linq;
 using SimGame.Domain;
-using SimGame.Handler.Entities;
-using SimGame.Handler.Entities.Legacy;
 
-namespace MvcApplication1.Models
+namespace SimGame.WebApi.Models
 {
     public class InventoryItem
     {

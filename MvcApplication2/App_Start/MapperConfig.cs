@@ -1,24 +1,23 @@
 ﻿using System.Text;
-using System.Web;
 using AutoMapper;
-using MvcApplication2.Models;
+using SimGame.Website.Models;
 
-namespace MvcApplication2
+namespace SimGame.Website
 {
     public class MapperConfig
     {
         public static void Configure()
         {
-            Mapper.CreateMap<Product, SimGame.Domain.Product>();
-            Mapper.CreateMap<ProductType, SimGame.Domain.ProductType>();
-            Mapper.CreateMap<ManufacturerType, SimGame.Domain.ManufacturerType>();
-            Mapper.CreateMap<BuildingUpgrade, SimGame.Domain.BuildingUpgrade>();
+            Mapper.CreateMap<Product, Domain.Product>();
+            Mapper.CreateMap<ProductType, Domain.ProductType>();
+            Mapper.CreateMap<ManufacturerType, Domain.ManufacturerType>();
+            Mapper.CreateMap<BuildingUpgrade, Domain.BuildingUpgrade>();
 
-            Mapper.CreateMap<SimGame.Domain.ProductType, ProductType>()
+            Mapper.CreateMap<Domain.ProductType, ProductType>()
                 .ForMember(x => x.RequiredProductsToolTip, opt => opt.ResolveUsing<RequiredProductTooltipResolve>());
-            Mapper.CreateMap<SimGame.Domain.ManufacturerType, ManufacturerType>();
-            Mapper.CreateMap<SimGame.Domain.BuildingUpgrade, BuildingUpgrade>();
-            Mapper.CreateMap<SimGame.Domain.Product, Product>()
+            Mapper.CreateMap<Domain.ManufacturerType, ManufacturerType>();
+            Mapper.CreateMap<Domain.BuildingUpgrade, BuildingUpgrade>();
+            Mapper.CreateMap<Domain.Product, Product>()
                 .ForMember(x=>x.Name, opt=> opt.MapFrom(y=>y.ProductType.Name))
                 .ForMember(x=>x.RequiredBy, opt=>opt.MapFrom(y=>y.RequiredBy != null ? y.RequiredBy.Name : string.Empty));
 

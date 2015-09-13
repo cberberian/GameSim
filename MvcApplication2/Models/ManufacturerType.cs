@@ -1,4 +1,4 @@
-﻿namespace MvcApplication2.Models
+﻿namespace SimGame.Website.Models
 {
     public class ManufacturerType
     {

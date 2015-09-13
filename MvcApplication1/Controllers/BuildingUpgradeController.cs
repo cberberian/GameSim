@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.OData.Query;
 using AutoMapper;
-using MvcApplication1.Models;
 using SimGame.Data;
+using SimGame.WebApi.Models;
 
-namespace MvcApplication1.Controllers
+namespace SimGame.WebApi.Controllers
 {
     public class BuildingUpgradeController : ApiController
     {

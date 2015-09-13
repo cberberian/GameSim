@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
-namespace MvcApplication2
+namespace SimGame.Website
 {
     public class BundleConfig
     {

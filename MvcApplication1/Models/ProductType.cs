@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MvcApplication1.Models
+namespace SimGame.WebApi.Models
 {
     public class ProductType
     {

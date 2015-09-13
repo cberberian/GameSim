@@ -2,13 +2,14 @@
 using System.Linq;
 using Moq;
 using MvcApplication1;
-using MvcApplication1.Controllers;
 using NUnit.Framework;
 using Should;
 using SimGame.Data.Interface;
 using SimGame.Data.Mock;
 using SimGame.Domain;
-using Product = MvcApplication1.Models.Product;
+using SimGame.WebApi;
+using SimGame.WebApi.Controllers;
+using Product = SimGame.WebApi.Models.Product;
 
 namespace SimGame.MvcApplication1Tests
 {
@@ -43,7 +44,7 @@ namespace SimGame.MvcApplication1Tests
             gameSimContext.Setup(x => x.Products).Returns(products);
             var controller = new ProductTypeController(gameSimContext.Object);
 
-            var productTypeToSave = new MvcApplication1.Models.ProductType
+            var productTypeToSave = new WebApi.Models.ProductType
             {
                 Name = "test",
                 RequiredProducts = new List<Product>
@@ -114,7 +115,7 @@ namespace SimGame.MvcApplication1Tests
             gameSimContext.Setup(x => x.ProductTypes).Returns(productTypes);
             var controller = new ProductTypeController(gameSimContext.Object);
 
-            var productTypeToSave = new MvcApplication1.Models.ProductType
+            var productTypeToSave = new WebApi.Models.ProductType
             {
                 Id = 1,
                 Name = "test",
@@ -149,7 +150,7 @@ namespace SimGame.MvcApplication1Tests
             gameSimContext.Setup(x => x.ProductTypes).Returns(productTypes);
             var controller = new ProductTypeController(gameSimContext.Object);
 
-            var productTypeToSave = new MvcApplication1.Models.ProductType
+            var productTypeToSave = new WebApi.Models.ProductType
             {
                 Id = 1,
                 Name = "test",

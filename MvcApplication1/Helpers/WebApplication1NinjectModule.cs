@@ -1,10 +1,10 @@
 ﻿using System.Configuration;
 using MvcApplication1.Interfaces;
-using MvcApplication1.Models;
 using Ninject.Modules;
 using SimGame.Handler.Calculators;
 using SimGame.Handler.Interfaces;
 using SimGame.Handler.Mock;
+using SimGame.WebApi.Models;
 using ProductType = SimGame.Domain.ProductType;
 
 namespace MvcApplication1.Helpers

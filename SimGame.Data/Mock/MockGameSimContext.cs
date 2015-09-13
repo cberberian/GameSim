@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 using cb.core.interfaces;
-using Moq;
 using SimGame.Data.Interface;
 using SimGame.Domain;
 

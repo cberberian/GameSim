@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 
-namespace MvcApplication2
+namespace SimGame.Website
 {
     public static class WebApiConfig
     {
