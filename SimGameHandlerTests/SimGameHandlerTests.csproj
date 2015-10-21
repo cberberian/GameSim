@@ -31,7 +31,23 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Local IIS|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug Local IIS\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\libs\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\libs\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -44,6 +60,15 @@
     <Reference Include="SpecsFor">
       <HintPath>..\..\libs\SpecsFor.4.3.2\lib\net40\SpecsFor.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\..\libs\structuremap.3.1.6.186\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.AutoMocking.Moq">
+      <HintPath>..\..\libs\structuremap.automocking.moq.3.1.5.154\lib\net40\StructureMap.AutoMocking.Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Net4">
+      <HintPath>..\..\libs\structuremap.3.1.6.186\lib\net40\StructureMap.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -51,7 +76,7 @@
     <Compile Include="BuildingUpgradProductConsolidatorTests.cs" />
     <Compile Include="CityStorageCalculatorTests.cs" />
     <Compile Include="FixtureHelper.cs" />
-    <Compile Include="InventoryFlattenerTests.cs" />
+    <Compile Include="RequiredProductFlattenerTests.cs" />
     <Compile Include="BuildingUpgradeDurationCalculatorTests.cs" />
     <Compile Include="BuildingUpgradeHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,7 +85,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\common\cb.core.csproj">
+    <ProjectReference Include="..\..\common\cb.core\cb.core.csproj">
       <Project>{230F2023-AFDE-4246-993C-B9FE636D5109}</Project>
       <Name>cb.core</Name>
     </ProjectReference>

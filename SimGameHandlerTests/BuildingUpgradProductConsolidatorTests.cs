@@ -4,208 +4,105 @@ using Moq;
 using NUnit.Framework;
 using Should;
 using SimGame.Data.Interface;
-using SimGame.Domain;
+using SimGame.Handler.Bootstrap;
 using SimGame.Handler.Calculators;
 using SimGame.Handler.Entities;
 using SimGame.Handler.Interfaces;
-using BuildingUpgrade = SimGame.Handler.Entities.BuildingUpgrade;
-using ManufacturerType = SimGame.Handler.Entities.ManufacturerType;
-using Product = SimGame.Handler.Entities.Product;
-using ProductType = SimGame.Handler.Entities.ProductType;
+using SpecsFor;
+using ProductType = SimGame.Domain.ProductType;
 
 namespace SimGameHandlerTests
 {
     [TestFixture]
     public class BuildingUpgradProductConsolidatorTests
     {
-
-        [Test]
-        public void null_request_returns_empty_response()
+        public BuildingUpgradProductConsolidatorTests()
         {
-            var uow = new Mock<IPropertyUpgradeUoW>();
-            var invFlattener = new Mock<IInventoryFlattener>();
-            var consolidator = new BuildingUpgradProductConsolidator(uow.Object, invFlattener.Object);
-            var ret = consolidator.GetConsolidatedProductQueue(null);
-
-            ret.ShouldNotBeNull();
-            ret.ConsolidatedRequiredProductQueue.ShouldNotBeNull();
-            ret.ConsolidatedRequiredProductQueue.Count.ShouldEqual(0);
-
+            HandlerAutomapper.Configure();
         }
 
-        /// <summary>
-        /// when 
-        ///     1 product
-        ///     1 minute time to manufacture
-        ///     parallel true
-        /// then 
-        ///     quantity should be 1
-        ///     total duration should be 1
-        /// </summary>
-        [Test]
-        public void scenario_1()
+        #region given_all_null_parameters
+        public class given_all_null_parameters : SpecsFor<BuildingUpgradProductConsolidator>
         {
-            //1 product quantity 1 returned from flattener
-            var flattenerResult = GetFlattenerResponse();
-            //product type matched time to manufacture 1
-            var productTypes = GetProductTypes();
-            var cityStorage = GetCityStorage();
-            var uow = new Mock<IPropertyUpgradeUoW>();
-            var invFlattener = new Mock<IInventoryFlattener>();
+            private BuildingUpgradeProductConsolidatorResponse _result;
 
-            invFlattener
-                .Setup(x => x.GetFlattenedInventory(It.IsAny<InventoryFlattenerRequest>()))
-                .Returns(flattenerResult);
-
-            var consolidator = new BuildingUpgradProductConsolidator(uow.Object, invFlattener.Object);
-
-            var request = new BuildingUpgradeProductConsoldatorRequest
+            protected override void When()
             {
-                BuildingUpgrades = new BuildingUpgrade[0],
-                ProductTypes = productTypes,
-                CityStorage = cityStorage
-                
-            };
-            var ret = consolidator.GetConsolidatedProductQueue(request);
-
-            ret.ConsolidatedRequiredProductQueue.Count.ShouldEqual(1);
-            ret.ConsolidatedRequiredProductQueue.First().Quantity.ShouldEqual(1);
-            ret.ConsolidatedRequiredProductQueue.First().TotalDuration.ShouldEqual(1);
-
-        }
-
-        private CityStorage GetCityStorage()
-        {
-            return new CityStorage
-            {
-                CurrentInventory = new Product[0]
-            };
-        }
-
-        private static ProductType[] GetProductTypes()
-        {
-            return new[]
-            {
-                new ProductType
+                var request = new BuildingUpgradeProductConsoldatorRequest
                 {
-                    Id = 1,
-                    Name = "test",
-                    RequiredProducts = new List<Product>(),
-                    TimeToManufacture = 1,
-                    ManufacturerType = new ManufacturerType
-                    {
-                        SupportsParallelManufacturing = true
-                    }
-                        
-                }
-            };
-        }
+                    CityStorage   = null,
+                    ProductTypes = null,
+                    BuildingUpgrades = null
+                };
+                _result = SUT.GetConsolidatedProductQueue(request);
+            }
 
-        private static InventoryFlattenerResponse GetFlattenerResponse()
+            [Test]
+            public void then_result_should_not_be_null()
+            {
+                _result.ShouldNotBeNull();
+            }
+
+            [Test]
+            public void then_AvailableStorage_should_be_0()
+            {
+                _result.AvailableStorage.Count.ShouldEqual(0);
+            }
+            [Test]
+            public void then_ConsolidatedRequiredProductQueue_should_be_0()
+            {
+                _result.ConsolidatedRequiredProductQueue.Count.ShouldEqual(0);
+            }
+            [Test]
+            public void then_ConsolidatedRequiredProductsInStorage_should_be_0()
+            {
+                _result.ConsolidatedRequiredProductsInStorage.Count.ShouldEqual(0);
+            }
+            [Test]
+            public void then_ConsolidatedTotalProductQueue_should_be_0()
+            {
+                _result.ConsolidatedTotalProductQueue.Count.ShouldEqual(0);
+            }
+
+        }
+        #endregion
+
+        #region given_null_productTypes
+        public class given_null_productTypes : SpecsFor<BuildingUpgradProductConsolidator>
         {
-            return new InventoryFlattenerResponse
+            private BuildingUpgradeProductConsolidatorResponse _result;
+
+            protected override void When()
             {
-                Products = new[]
+                IQueryable<ProductType> queryableProducts = new EnumerableQuery<ProductType>(FixtureHelper.GetDomainProductTypes());
+                GetMockFor<IPropertyUpgradeUoW>().Setup(x => x.ProductTypeRepository.Get())
+                    .Returns(queryableProducts);
+
+                RequiredProductFlattenerResponse response = new RequiredProductFlattenerResponse
                 {
-                    new Product
-                    {
-                        ProductTypeId = 1,
-                        Quantity = 1,
-                    }, 
-                }
-            };
-        }
+                    Products = new Product[0]
+                };
+                GetMockFor<IRequiredProductFlattener>()
+                    .Setup(x => x.GetFlattenedInventory(It.IsAny<RequiredProductFlattenerRequest>()))
+                    .Returns(response);
 
-
-        /// <summary>
-        /// when 
-        ///     2 products same product type 
-        ///         1 product quantity 1
-        ///         1 product quantity 2
-        ///     time to manufacture: 1
-        ///     manufacture parallel: true
-        /// then 
-        ///     quantity should be 3
-        ///     total duration should be 1
-        /// </summary>
-        [Test]
-        public void scenario_2()
-        {
-            //1 product quantity 1 returned from flattener
-            var flattenerResult = new InventoryFlattenerResponse
-            {
-                Products = new[]
+                var request = new BuildingUpgradeProductConsoldatorRequest
                 {
-                    new Product
-                    {
-                        ProductTypeId = 1,
-                        Quantity = 1,
-                    }, 
-                    new Product
-                    {
-                        ProductTypeId = 1,
-                        Quantity = 2
-                    }
-                }
-            };
-            //product type matched time to manufacture 1
-            var productTypes = new[]
+                    CityStorage = FixtureHelper.GetCityStorage(),
+                    ProductTypes = null,
+                    BuildingUpgrades = new BuildingUpgrade[0]
+                };
+                _result = SUT.GetConsolidatedProductQueue(request);
+            }
+
+            [Test]
+            public void then_producttypeRepository_should_be_called()
             {
-                new ProductType
-                {
-                    Id = 1,
-                    Name = "test",
-                    RequiredProducts = new List<Product>(),
-                    TimeToManufacture = 1,
-                    ManufacturerType = new ManufacturerType
-                    {
-                        SupportsParallelManufacturing = true
-                    }
-                        
-                }
-            };
-
-            var uow = new Mock<IPropertyUpgradeUoW>();
-            var invFlattener = new Mock<IInventoryFlattener>();
-            invFlattener
-                .Setup(x => x.GetFlattenedInventory(It.IsAny<InventoryFlattenerRequest>()))
-                .Returns(flattenerResult);
-
-
-
-            var consolidator = new BuildingUpgradProductConsolidator(uow.Object, invFlattener.Object);
-
-            var request = new BuildingUpgradeProductConsoldatorRequest
-            {
-                BuildingUpgrades = new BuildingUpgrade[0],
-                ProductTypes = productTypes,
-
-            };
-            var ret = consolidator.GetConsolidatedProductQueue(request);
-
-            ret.ConsolidatedRequiredProductQueue.Count.ShouldEqual(1);
-            ret.ConsolidatedRequiredProductQueue.First().Quantity.ShouldEqual(3);
-            ret.ConsolidatedRequiredProductQueue.First().TotalDuration.ShouldEqual(1);
+                GetMockFor<IPropertyUpgradeUoW>().Verify(x=>x.ProductTypeRepository.Get());
+            }
 
         }
-
-        /// <summary>
-        /// when 
-        ///     1 product quantity 2
-        ///     1 required product quanity 1
-        ///     time to manufacture: 1
-        ///     manufacture parallel: true
-        /// then 
-        ///     quantity should be 1
-        ///     required 
-        ///     total duration should be 1
-        /// </summary>
-        [Test]
-        public void scenario_3()
-        {
-
-        }
-
+        #endregion
 
     }
 }

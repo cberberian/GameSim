@@ -12,12 +12,12 @@ namespace SimGame.Handler.Calculators
         private ProductType[] _productTypes;
 
         private readonly IPropertyUpgradeUoW _propertyUpgradeUoW;
-        private readonly IInventoryFlattener _inventoryFlattener;
+        private readonly IRequiredProductFlattener _requiredProductFlattener;
 
-        public BuildingUpgradProductConsolidator(IPropertyUpgradeUoW propertyUpgradeUoW, IInventoryFlattener inventoryFlattener)
+        public BuildingUpgradProductConsolidator(IPropertyUpgradeUoW propertyUpgradeUoW, IRequiredProductFlattener requiredProductFlattener)
         {
             _propertyUpgradeUoW = propertyUpgradeUoW;
-            _inventoryFlattener = inventoryFlattener;
+            _requiredProductFlattener = requiredProductFlattener;
         }
 
         public BuildingUpgradeProductConsolidatorResponse GetConsolidatedProductQueue(BuildingUpgradeProductConsoldatorRequest request)
@@ -35,7 +35,7 @@ namespace SimGame.Handler.Calculators
             SetupProductTypes(request);
 
             //get flattened list including the dependencies.
-            var combinedProductList = GetFlattenedInventory(request, null).Products;
+            var combinedProductList = GetFlattenedProductRequirementList(request, null).Products;
             if (!combinedProductList.Any())
                 return new BuildingUpgradeProductConsolidatorResponse
                 {
@@ -51,7 +51,7 @@ namespace SimGame.Handler.Calculators
                 CurrentInventory = new Product[0]
             };
             // Get Required list by flattening the total with city storage. 
-            var requiredProductList = GetFlattenedInventory(request, cityStorage).Products;
+            var requiredProductList = GetFlattenedProductRequirementList(request, cityStorage).Products;
 
             //return the list in order by manufacturer type id then by how long to fulfill the item. 
             var availableStorageList = GetAvailableStorageList(cityStorage, combinedProductList);
@@ -104,21 +104,21 @@ namespace SimGame.Handler.Calculators
             return ret; 
         }
 
-        private InventoryFlattenerResponse GetFlattenedInventory(BuildingUpgradeProductConsoldatorRequest request, CityStorage cityStorage)
+        private RequiredProductFlattenerResponse GetFlattenedProductRequirementList(BuildingUpgradeProductConsoldatorRequest request, CityStorage cityStorage)
         {
-            var inventoryFlattenerRequest = new InventoryFlattenerRequest
+            var inventoryFlattenerRequest = new RequiredProductFlattenerRequest
             {
-                Products = request.BuildingUpgrades.SelectMany(x=>x.Products).ToArray(),
+                Products = request.BuildingUpgrades.Where(x=>x.CalculateInBuildingUpgrades).SelectMany(x=>x.Products).ToArray(),
                 ProductTypes = _productTypes,
                 CityStorage = cityStorage
             };
-            return _inventoryFlattener.GetFlattenedInventory(inventoryFlattenerRequest);
+            return _requiredProductFlattener.GetFlattenedInventory(inventoryFlattenerRequest);
         }
 
         private void SetupProductTypes(BuildingUpgradeProductConsoldatorRequest request)
         {
             if (request.ProductTypes == null)
-                request.ProductTypes = Enumerable.ToArray(_propertyUpgradeUoW.ProductTypeRepository.Get().Select(Mapper.Map<ProductType>));
+                request.ProductTypes = _propertyUpgradeUoW.ProductTypeRepository.Get().Select(Mapper.Map<ProductType>).ToArray();
             _productTypes = request.ProductTypes;
         }
     }

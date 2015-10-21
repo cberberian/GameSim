@@ -24,7 +24,8 @@ namespace SimGame.Handler.Calculators
                 {
                     BuildingUpgrade = upgrade,
                     ProductTypes = statisticsRequest.ProductTypes,
-                    CityStorage = statisticsRequest.CityStorage
+                    CityStorage = statisticsRequest.CityStorage.Clone(),
+                    DecrementPassedStorage = true
                 };
                 upgrade.RemainingUpgradeTime = _buildingUpgradeCalculator.CalculateRemainingTime(durationRequest).RemainingUpgradeTime;
             }

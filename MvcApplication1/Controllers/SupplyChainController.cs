@@ -1,11 +1,13 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using MvcApplication1.Interfaces;
+using cb.core;
+using log4net;
 using SimGame.Data.Interface;
 using SimGame.Handler.Entities;
 using SimGame.Handler.Entities.Legacy;
 using SimGame.Handler.Interfaces;
+using SimGame.WebApi.Interfaces;
 using SimGame.WebApi.Models;
 using BuildingUpgrade = SimGame.WebApi.Models.BuildingUpgrade;
 using City = SimGame.WebApi.Models.City;
@@ -22,7 +24,12 @@ namespace SimGame.WebApi.Controllers
         private readonly ICityStorageCalculator _cityStorageCalculator;
         private readonly IGameSimContext _dbContext;
         private readonly IBuildingUiInfoUpdater _buildingUiInfoUpdater;
+        private ILog _logger;
 
+        private ILog Logger
+        {
+            get { return _logger ?? (_logger = LogManager.GetLogger(GetType())); }
+        }
         public SupplyChainController(IBuildingUpgradeHandler buldingUpgradeHandler, ICityStorageCalculator cityStorageCalculator, IGameSimContext dbContext, IBuildingUiInfoUpdater buildingUiInfoUpdater)
         {
             _buldingUpgradeHandler = buldingUpgradeHandler;
@@ -42,6 +49,7 @@ namespace SimGame.WebApi.Controllers
         [HttpPost]
         public City Get(SupplyChainRequest request)
         {
+            var logStart = LogHelper.StartLog("Begin Supply Chain Get", Logger);
             //Get the current city from the database. 
             var currentCity = ConvertRequestToHandlerCity(request);
             var prodTypes = _dbContext.ProductTypes.ToArray();
@@ -49,7 +57,7 @@ namespace SimGame.WebApi.Controllers
             {
                 ReturnInventory = true,
                 ReturnFaciltiyAssignment = request.ReturnFacilityAssignment,
-                City = Mapper.Map<SimGame.Handler.Entities.City>(currentCity)
+                City = Mapper.Map<Handler.Entities.City>(currentCity)
             };
             var strgResults = CalculateNewCityStorageAmounts(request, calcRequest);
             
@@ -62,8 +70,8 @@ namespace SimGame.WebApi.Controllers
             var totalProducts = ret.TotalProductQueue.Select(Mapper.Map<Product>).ToArray();
             var availableStorage = ret.AvailableStorage.Select(Mapper.Map<Product>).ToArray();
             var buildingUpgrades = ret.OrderedUpgrades.Select(Mapper.Map<BuildingUpgrade>).ToArray();
-            UpdateBuildingUpgradeUiInfo(buildingUpgrades, currentCityStorage, prodTypes);
-            return new City
+            
+            var city = new City
             {
                 CurrentCityStorage = currentCityStorage,
                 RequiredProducts = requiredProducts,
@@ -72,24 +80,15 @@ namespace SimGame.WebApi.Controllers
                 AvailableStorage = availableStorage,
                 BuildingUpgrades = buildingUpgrades.OrderBy(x=>x.Name).ToArray()
             };
-//            return new SupplyChain
-//            {
-//                City = city,
-//                CurrentCityStorage = currentCityStorage,
-//                RequiredProducts = requiredProducts,
-//                RequiredProductsInCityStorage = requiredProductsInCityStorage,
-//                RequiredProducts = totalProducts,
-//                AvailableStorage = availableStorage,
-//                BuildingUpgrades = buildingUpgrades
-//
-//            };
+            UpdateBuildingUpgradeUiInfo(prodTypes, city);
+            return LogHelper.EndLog(logStart, city);
+
         }
 
-        private void UpdateBuildingUpgradeUiInfo(BuildingUpgrade[] buildingUpgrades, CityStorage currentCityStorage,
-            ProductType[] prodTypes)
+        private void UpdateBuildingUpgradeUiInfo(ProductType[] prodTypes, City city)
         {
 
-            _buildingUiInfoUpdater.Update(buildingUpgrades, currentCityStorage, prodTypes);
+            _buildingUiInfoUpdater.Update(prodTypes, city);
             
         }
 
@@ -105,7 +104,7 @@ namespace SimGame.WebApi.Controllers
             {
                 var calculateStorageRequest = new CalculateStorageRequest
                 {
-                    NewProductQuantities = request.RequiredProductUpdates.Select(Mapper.Map<SimGame.Handler.Entities.Product>).ToArray(),
+                    NewProductQuantities = request.RequiredProductUpdates.Select(Mapper.Map<Handler.Entities.Product>).ToArray(),
                     CityStorage = calcRequest.City.CurrentCityStorage
                 };
                 strgResults = _cityStorageCalculator.CalculateNewStorageAmounts(calculateStorageRequest);

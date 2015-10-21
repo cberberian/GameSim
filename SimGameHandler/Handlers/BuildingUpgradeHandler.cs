@@ -38,38 +38,36 @@ namespace SimGame.Handler.Handlers
                     OrderedUpgrades = new BuildingUpgrade[0],
                     AvailableStorage = new Product[0]
                 };
-            var handlerResponse = new BuildingUpgradeHandlerResponse
-            {
-                CityStorage = request.City.CurrentCityStorage
-            };
+
 
             var productTypes = _propertyUpgradeUoW.ProductTypeRepository.Get().AsEnumerable().ToArray();
+            
             _productTypes = productTypes.Select(Mapper.Map<ProductType>).ToArray();
 
-            //Get property upgrade orders in the order requested (currently only sorted by shortest to longest duration)
-            //  should be able to sort by priority etc... 
-            handlerResponse.OrderedUpgrades = ReorderUpgradesByDuration(request);
+            request.City.CurrentCityStorage.CurrentInventory = PopulateRequiredProducts(_productTypes, request.City.CurrentCityStorage.CurrentInventory);
+            var handlerResponse = new BuildingUpgradeHandlerResponse
+            {
+                CityStorage = request.City.CurrentCityStorage,
+                //Get property upgrade orders in the order requested (currently only sorted by shortest to longest duration)
+                //  should be able to sort by priority etc... 
+                OrderedUpgrades = ReorderUpgradesByDuration(request)
+            };
+            
 
             //Get the list of inventory items from the orders including prerequisites to be queued.
-            var buildingUpgradeProductConsoldatorRequest = new BuildingUpgradeProductConsoldatorRequest()
-            {
-                BuildingUpgrades = handlerResponse.OrderedUpgrades,
-                CityStorage = handlerResponse.CityStorage,
-                ProductTypes = _productTypes
-            };
 
             if (request.ReturnInventory)
             {
-                var buildingUpgradeProductConsolidatorResponse =
-                    _buildingUpgradeProductConsolidator.GetConsolidatedProductQueue(
-                        buildingUpgradeProductConsoldatorRequest);
-                handlerResponse.RequiredProductQueue =
-                    buildingUpgradeProductConsolidatorResponse.ConsolidatedRequiredProductQueue.ToArray();
-                handlerResponse.TotalProductQueue =
-                    buildingUpgradeProductConsolidatorResponse.ConsolidatedTotalProductQueue.ToArray();
-                handlerResponse.AvailableStorage = buildingUpgradeProductConsolidatorResponse.AvailableStorage.ToArray();
-                handlerResponse.RequiredProductsInCityStorageQueue =
-                    buildingUpgradeProductConsolidatorResponse.ConsolidatedRequiredProductsInStorage.ToArray();
+                var buildingUpgradeProductConsolidatorResponse = _buildingUpgradeProductConsolidator.GetConsolidatedProductQueue(new BuildingUpgradeProductConsoldatorRequest
+                {
+                    BuildingUpgrades = handlerResponse.OrderedUpgrades,
+                    CityStorage = handlerResponse.CityStorage,
+                    ProductTypes = _productTypes
+                });
+                handlerResponse.RequiredProductQueue = PopulateRequiredProducts(_productTypes, buildingUpgradeProductConsolidatorResponse.ConsolidatedRequiredProductQueue.ToArray());
+                handlerResponse.TotalProductQueue = PopulateRequiredProducts(_productTypes, buildingUpgradeProductConsolidatorResponse.ConsolidatedTotalProductQueue.ToArray());
+                handlerResponse.AvailableStorage = PopulateRequiredProducts(_productTypes, buildingUpgradeProductConsolidatorResponse.AvailableStorage.ToArray());
+                handlerResponse.RequiredProductsInCityStorageQueue = PopulateRequiredProducts(_productTypes, buildingUpgradeProductConsolidatorResponse.ConsolidatedRequiredProductsInStorage.ToArray());
             }
             else
             {
@@ -93,6 +91,16 @@ namespace SimGame.Handler.Handlers
             return handlerResponse;
         }
 
+        private static Product[] PopulateRequiredProducts(ProductType[] productTypes, Product[] products)
+        {
+            foreach (var rp in products)
+            {
+                var pd = productTypes.FirstOrDefault(x => x.Id == rp.ProductTypeId);
+                rp.RequiredProducts = pd != null ? pd.RequiredProducts.ToArray() : new Product[0];
+            }
+            return products;
+        }
+
         /// <summary>
         /// Get Upgrade Orders ordered by the order that takes the least time to process.
         /// </summary>
@@ -101,6 +109,13 @@ namespace SimGame.Handler.Handlers
         private BuildingUpgrade[] ReorderUpgradesByDuration(BuildingUpgradeHandlerRequest request)
         {
             var requestPropUpgrades = request.City.BuildingUpgrades;
+//                            var upgradeDurationCalculatorRequest = new BuildingUpgradeDurationCalculatorRequest
+//                            {
+//                                BuildingUpgrades = requestPropUpgrades,
+//                                ProductTypes = _productTypes,
+//                                CityStorage = request.City.CurrentCityStorage
+//                            };
+//            var propUpgradeDurationCalcResponse = _buildingUpgradeDurationCalculator.CalculateUpgradeTimes(upgradeDurationCalculatorRequest);
             foreach (var propUpgrade in requestPropUpgrades)
             {
                 var upgradeDurationCalculatorRequest = new BuildingUpgradeDurationCalculatorRequest

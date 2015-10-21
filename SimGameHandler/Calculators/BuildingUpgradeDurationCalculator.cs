@@ -42,6 +42,34 @@ namespace SimGame.Handler.Calculators
             };
         }
 
+
+        public BuildingUpgradeDurationCalculatorResponse CalculateUpgradeTimes(
+            BuildingUpgradeDurationCalculatorRequest upgradeDurationCalculatorRequest)
+        {
+//            if (InValidBuildingUpgrades(upgradeDurationCalculatorRequest))
+//                return new BuildingUpgradeDurationCalculatorResponse();
+
+            InitializeProductTypes(upgradeDurationCalculatorRequest);
+
+            //first calculate the total times. This also adds child required products 
+            var totalUpgradeTime = GetTotalUpgradeTime(upgradeDurationCalculatorRequest);
+            //now calculate the remaining time based on city storage. This will update the already added child required products 
+            var remainingUpgradeTime = GetRemainingUpgradeTime(upgradeDurationCalculatorRequest);
+
+            //update the building upgrade totals
+            upgradeDurationCalculatorRequest.BuildingUpgrade.TotalUpgradeTime = totalUpgradeTime;
+            upgradeDurationCalculatorRequest.BuildingUpgrade.RemainingUpgradeTime = remainingUpgradeTime;
+
+            return new BuildingUpgradeDurationCalculatorResponse
+            {
+                TotalUpgradeTime = totalUpgradeTime,
+                RemainingUpgradeTime = remainingUpgradeTime
+            };
+            //                propUpgrade.TotalUpgradeTime = propUpgradeDurationCalcResponse.TotalUpgradeTime;
+            //                propUpgrade.RemainingUpgradeTime = propUpgradeDurationCalcResponse.RemainingUpgradeTime;
+            //                propUpgrade.ProductsInStorage = GetProductsAlreadyInStorage(propUpgrade, request.City.CurrentCityStorage.CurrentInventory);            
+        }
+
         /// <summary>
         /// - Calculates the total upgrade time for the building upgrade and 
         /// - Adds the required sub products to the required products and updates their product total times 
@@ -133,13 +161,17 @@ namespace SimGame.Handler.Calculators
             };
         }
 
+
         private int GetRemainingUpgradeTime(BuildingUpgradeDurationCalculatorRequest durationRequest)
         {
             ICollection<int> typesAlreadyAdded = new List<int>();
             var sum = 0;
             foreach (var item in durationRequest.BuildingUpgrade.Products)
             {
-                var productRemainingDuration = CalculateInventoryItemDuration(item, typesAlreadyAdded, true, durationRequest.CityStorage.Clone());
+                //if decrement passed storage is true then we want to modify the passed city storage quantities rather than
+                //  cloning it. 
+                var cityStorage = durationRequest.DecrementPassedStorage ? durationRequest.CityStorage : durationRequest.CityStorage.Clone();
+                var productRemainingDuration = CalculateInventoryItemDuration(item, typesAlreadyAdded, true, cityStorage);
                 item.RemainingDuration = productRemainingDuration;
                 sum += productRemainingDuration;
             }

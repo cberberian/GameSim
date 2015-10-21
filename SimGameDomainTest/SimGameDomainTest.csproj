@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Local IIS|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug Local IIS\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\..\libs\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
@@ -44,7 +53,7 @@
     <Compile Include="SandBox.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\common\cb.core.csproj">
+    <ProjectReference Include="..\..\common\cb.core\cb.core.csproj">
       <Project>{230F2023-AFDE-4246-993C-B9FE636D5109}</Project>
       <Name>cb.core</Name>
     </ProjectReference>

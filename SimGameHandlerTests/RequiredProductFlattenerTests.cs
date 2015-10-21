@@ -10,11 +10,13 @@ using SpecsFor;
 namespace SimGameHandlerTests
 {
     [TestFixture]
-    public class InventoryFlattenerTests
+    public class RequiredProductFlattenerTests
     {
-        public class given_prouduct_4_quantity_1 : SpecsFor<InventoryFlattener>
+        #region given_prouduct_4_quantity_1
+
+        public class given_prouduct_4_quantity_1 : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -33,9 +35,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes
@@ -48,21 +50,25 @@ namespace SimGameHandlerTests
             {
                 _result.Products.Length.ShouldEqual(1);
             }
+
             [Test]
             public void then_products_quantity_should_equal_1()
             {
                 _result.Products.First().Quantity.ShouldEqual(1);
             }
+
             [Test]
             public void then_products_timeToFulfill_should_equal_10()
             {
                 _result.Products.First().TimeToFulfill.ShouldEqual(10);
             }
+
             [Test]
             public void then_products_totalDuration_should_equal_10()
             {
                 _result.Products.First().TotalDuration.ShouldEqual(10);
             }
+
             [Test]
             public void then_products_timeToFulfillPrequisites_should_equal_0()
             {
@@ -72,10 +78,13 @@ namespace SimGameHandlerTests
 
         }
 
-        
-        public class given_prouduct_3_quantity_1 : SpecsFor<InventoryFlattener>
+        #endregion
+
+        #region given_prouduct_3_quantity_1
+
+        public class given_prouduct_3_quantity_1 : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -94,9 +103,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes
@@ -168,10 +177,13 @@ namespace SimGameHandlerTests
 
         }
 
-        
-        public class given_prouduct_2_quantity_1 : SpecsFor<InventoryFlattener>
+        #endregion
+
+        #region given_prouduct_2_quantity_1
+
+        public class given_prouduct_2_quantity_1 : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -190,9 +202,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes
@@ -212,12 +224,13 @@ namespace SimGameHandlerTests
             {
                 _result.Products.Length.ShouldEqual(3);
             }
+
             [Test]
             public void then_productType2_quantity_should_equal_1()
             {
                 _result.Products.First(x => x.ProductTypeId == 2).Quantity.ShouldEqual(1);
             }
-  
+
             [Test]
             public void then_productType2_timeToFulfill_should_equal_10()
             {
@@ -293,10 +306,13 @@ namespace SimGameHandlerTests
             #endregion
         }
 
+        #endregion
 
-        public class given_prouduct_1_quantity_1 : SpecsFor<InventoryFlattener>
+        #region given_prouduct_1_quantity_1
+
+        public class given_prouduct_1_quantity_1 : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -315,9 +331,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes
@@ -340,21 +356,25 @@ namespace SimGameHandlerTests
             {
                 _result.Products.Length.ShouldEqual(4);
             }
+
             [Test]
             public void then_productType1_quantity_should_equal_1()
             {
                 _result.Products.First(x => x.ProductTypeId == 1).Quantity.ShouldEqual(1);
             }
+
             [Test]
             public void then_productType2_quantity_should_equal_1()
             {
                 _result.Products.First(x => x.ProductTypeId == 2).Quantity.ShouldEqual(1);
             }
+
             [Test]
             public void then_productType3_quantity_should_equal_3()
             {
                 _result.Products.First(x => x.ProductTypeId == 3).Quantity.ShouldEqual(3);
             }
+
             [Test]
             public void then_productType4_quantity_should_equal_6()
             {
@@ -362,9 +382,13 @@ namespace SimGameHandlerTests
             }
         }
 
-        public class given_prouduct_4_quantity_1_in_storage_1 : SpecsFor<InventoryFlattener>
+        #endregion
+
+        #region given_prouduct_4_quantity_1_in_storage_1
+
+        public class given_prouduct_4_quantity_1_in_storage_1 : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -383,9 +407,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes,
@@ -412,9 +436,13 @@ namespace SimGameHandlerTests
 
         }
 
-        public class given_prouduct_4_quantity_2_in_storage_1 : SpecsFor<InventoryFlattener>
+        #endregion
+
+        #region given_prouduct_4_quantity_2_in_storage_1
+
+        public class given_prouduct_4_quantity_2_in_storage_1 : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -433,9 +461,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes,
@@ -453,26 +481,31 @@ namespace SimGameHandlerTests
                 });
 
             }
+
             [Test]
             public void then_products_should_equal_1()
             {
                 _result.Products.Length.ShouldEqual(1);
             }
+
             [Test]
             public void then_products_quantity_should_equal_1()
             {
                 _result.Products.First().Quantity.ShouldEqual(1);
             }
+
             [Test]
             public void then_products_timeToFulfill_should_equal_10()
             {
                 _result.Products.First().TimeToFulfill.ShouldEqual(10);
             }
+
             [Test]
             public void then_products_totalDuration_should_equal_10()
             {
                 _result.Products.First().TotalDuration.ShouldEqual(10);
             }
+
             [Test]
             public void then_products_timeToFulfillPrequisites_should_equal_0()
             {
@@ -481,9 +514,13 @@ namespace SimGameHandlerTests
 
         }
 
-        public class given_prouduct_3_quantity_1_in_storage_1 : SpecsFor<InventoryFlattener>
+        #endregion
+
+        #region given_prouduct_3_quantity_1_in_storage_1
+
+        public class given_prouduct_3_quantity_1_in_storage_1 : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -502,9 +539,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes,
@@ -522,17 +559,22 @@ namespace SimGameHandlerTests
                 });
 
             }
+
             [Test]
             public void then_products_count_equals_0()
             {
                 _result.Products.Length.ShouldEqual(0);
             }
-            
+
         }
 
-        public class given_prouduct_3_quantity_1_product4_1_in_storage : SpecsFor<InventoryFlattener>
+        #endregion
+
+        #region given_prouduct_3_quantity_1_product4_1_in_storage
+
+        public class given_prouduct_3_quantity_1_product4_1_in_storage : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -551,9 +593,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes,
@@ -571,7 +613,7 @@ namespace SimGameHandlerTests
                 });
 
             }
-            
+
             [Test]
             public void then_products_count_equals_1()
             {
@@ -581,7 +623,7 @@ namespace SimGameHandlerTests
             [Test]
             public void then_productTyp4_count_equals_0()
             {
-                _result.Products.Any(x=>x.ProductTypeId==4).ShouldBeFalse();
+                _result.Products.Any(x => x.ProductTypeId == 4).ShouldBeFalse();
             }
 
             [Test]
@@ -610,9 +652,13 @@ namespace SimGameHandlerTests
 
         }
 
-        public class given_prouduct_3_quantity_2_product4_1_in_storage : SpecsFor<InventoryFlattener>
+        #endregion
+
+        #region given_prouduct_3_quantity_2_product4_1_in_storage
+
+        public class given_prouduct_3_quantity_2_product4_1_in_storage : SpecsFor<RequiredProductFlattener>
         {
-            private InventoryFlattenerResponse _result;
+            private RequiredProductFlattenerResponse _result;
 
             protected override void When()
             {
@@ -631,9 +677,9 @@ namespace SimGameHandlerTests
                     }
                 };
 
-                var productTypes = FixtureHelper.GetRepositoryProductTypes();
+                var productTypes = FixtureHelper.GetHandlerProductTypes();
 
-                _result = SUT.GetFlattenedInventory(new InventoryFlattenerRequest
+                _result = SUT.GetFlattenedInventory(new RequiredProductFlattenerRequest
                 {
                     Products = buildingUpgrades.SelectMany(x => x.Products).ToArray(),
                     ProductTypes = productTypes,
@@ -721,5 +767,8 @@ namespace SimGameHandlerTests
             #endregion
 
         }
+
+        #endregion
+
     }
 }

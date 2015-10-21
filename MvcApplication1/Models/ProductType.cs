@@ -11,18 +11,17 @@ namespace SimGame.WebApi.Models
         public string Name { get; set; }
         public int TimeToManufacture { get; set; }
         public int ManufacturerTypeId { get; set; }
+        public string ManufacturerName { get; set; }
         public string RequiredProductsToolTip { get; set; }
 
         public ManufacturerTypeWrapper ManufacturerTypeWrapper
         {
             get
             {
-                if (_manufacturerType == null)
-                    _manufacturerType = new ManufacturerTypeWrapper
-                    {
-                        Id = ManufacturerTypeId
-                    };
-                return _manufacturerType;
+                return _manufacturerType ?? (_manufacturerType = new ManufacturerTypeWrapper
+                {
+                    Id = ManufacturerTypeId
+                });
             }
             set
             {

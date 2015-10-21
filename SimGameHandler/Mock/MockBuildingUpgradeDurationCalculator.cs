@@ -20,5 +20,11 @@ namespace SimGame.Handler.Mock
         {
             throw new System.NotImplementedException();
         }
+
+        public BuildingUpgradeDurationCalculatorResponse CalculateUpgradeTimes(
+            BuildingUpgradeDurationCalculatorRequest upgradeDurationCalculatorRequest)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

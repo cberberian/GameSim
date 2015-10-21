@@ -5,21 +5,21 @@ using SimGame.Handler.Interfaces;
 
 namespace SimGame.Handler.Calculators
 {
-    public class InventoryFlattener : IInventoryFlattener
+    public class RequiredProductFlattener : IRequiredProductFlattener
     {
         private ProductType[] _productTypes;
         private CityStorage _cityStorage;
 
-        public InventoryFlattenerResponse GetFlattenedInventory(InventoryFlattenerRequest inventoryFlattenerRequest)
+        public RequiredProductFlattenerResponse GetFlattenedInventory(RequiredProductFlattenerRequest requiredProductFlattenerRequest)
         {
-            _productTypes = inventoryFlattenerRequest.ProductTypes;
-            _cityStorage = inventoryFlattenerRequest.CityStorage == null ? new CityStorage
+            _productTypes = requiredProductFlattenerRequest.ProductTypes;
+            _cityStorage = requiredProductFlattenerRequest.CityStorage == null ? new CityStorage
             {
                 CurrentInventory = new Product[0]
-            } : inventoryFlattenerRequest.CityStorage.Clone();
-//            var flattenedList = inventoryFlattenerRequest.Products.SelectMany(upgrade => GetFlattenedInventory(upgrade.Products)).ToArray();
-            var flattenedList = GetFlattenedInventory(inventoryFlattenerRequest.Products);
-            return new InventoryFlattenerResponse
+            } : requiredProductFlattenerRequest.CityStorage.Clone();
+//            var flattenedList = RequiredProductFlattenerRequest.Products.SelectMany(upgrade => GetFlattenedInventory(upgrade.Products)).ToArray();
+            var flattenedList = GetFlattenedInventory(requiredProductFlattenerRequest.Products);
+            return new RequiredProductFlattenerResponse
             {
                 Products = flattenedList
             };

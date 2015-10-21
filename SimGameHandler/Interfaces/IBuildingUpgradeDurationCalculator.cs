@@ -7,5 +7,6 @@ namespace SimGame.Handler.Interfaces
     {
         BuildingUpgradeDurationCalculatorResponse CalculateUpgradeTime(BuildingUpgradeDurationCalculatorRequest upgradeDurationCalculatorRequest);
         BuildingUpgradeDurationCalculatorResponse CalculateRemainingTime(BuildingUpgradeDurationCalculatorRequest durationRequest);
+        BuildingUpgradeDurationCalculatorResponse CalculateUpgradeTimes(BuildingUpgradeDurationCalculatorRequest upgradeDurationCalculatorRequest);
     }
 }

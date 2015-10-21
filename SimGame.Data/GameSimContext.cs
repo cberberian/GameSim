@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using cb.core.interfaces;
+using cb.core.data;
 using SimGame.Data.Interface;
 using SimGame.Domain;
 
 namespace SimGame.Data
 {
 
-    public class GameSimContext : DbContext, IGameSimContext
+    public class GameSimContext : AbstractContext, IGameSimContext
     {
         public GameSimContext()
             : base("GameSimContextConnection")
@@ -22,25 +21,6 @@ namespace SimGame.Data
         public IDbSet<ManufacturerType> ManufacturerTypes { get; set; }
         public IDbSet<Order> Orders { get; set; }
         public IDbSet<BuildingUpgrade> BuildingUpgrades { get; set; }
-
-        public IEntityContext Context { get; set; }
-
-        public void Commit()
-        {
-            SaveChanges();
-        }
-
-        public void SetValues<T>(T domainUpgrade, T changedUpgrade) where T : class
-        {
-            var entry = Entry(domainUpgrade);
-            entry.CurrentValues.SetValues(changedUpgrade);
-        }
-
-        public void Delete<T>(T domainObject) where T : class
-        {
-            var entry = Entry(domainObject);
-            entry.State = EntityState.Deleted;
-        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

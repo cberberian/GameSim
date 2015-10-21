@@ -20,6 +20,7 @@ namespace SimGame.WebApi
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             NinjectWebCommon.CreateKernel();
+            LoggingConfig.ConfigureLogging();
             
         }
     }

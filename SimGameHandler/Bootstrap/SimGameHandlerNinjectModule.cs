@@ -47,7 +47,7 @@ namespace SimGame.Handler.Bootstrap
             else
                 Bind<ICityStorageCalculator>().To<CityStorageCalculator>();
 
-            Bind<IInventoryFlattener>().To<InventoryFlattener>();
+            Bind<IRequiredProductFlattener>().To<RequiredProductFlattener>();
 
 
         }

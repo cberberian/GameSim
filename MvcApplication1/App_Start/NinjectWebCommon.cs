@@ -3,12 +3,12 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using MvcApplication1;
-using MvcApplication1.Helpers;
 using Ninject;
 using Ninject.Web.Common;
 using SimGame.Data.Bootstrap;
 using SimGame.Handler.Bootstrap;
 using SimGame.WebApi;
+using SimGame.WebApi.Helpers;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]

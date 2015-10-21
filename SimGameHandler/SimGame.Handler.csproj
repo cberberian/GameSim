@@ -32,10 +32,22 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Local IIS|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug Local IIS\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\libs\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\libs\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -56,16 +68,16 @@
     <Compile Include="Interfaces\ICityStorageCalculator.cs" />
     <Compile Include="Mock\MockCityUpdateHandler.cs" />
     <Compile Include="Handlers\CityUpdateHandler.cs" />
-    <Compile Include="Calculators\InventoryFlattener.cs" />
+    <Compile Include="Calculators\RequiredProductFlattener.cs" />
     <Compile Include="Calculators\BuildingUpgradProductConsolidator.cs" />
     <Compile Include="Entities\CityUpdateRequest.cs" />
     <Compile Include="Entities\CityUpdateResponse.cs" />
     <Compile Include="Interfaces\ICityUpdateHandler.cs" />
-    <Compile Include="Interfaces\IInventoryFlattener.cs" />
+    <Compile Include="Interfaces\IRequiredProductFlattener.cs" />
     <Compile Include="Entities\BuildingUpgradeProductConsoldatorRequest.cs" />
     <Compile Include="Bootstrap\HandlerAutomapper.cs" />
-    <Compile Include="Entities\InventoryFlattenerResponse.cs" />
-    <Compile Include="Interfaces\InventoryFlattenerRequest.cs" />
+    <Compile Include="Entities\RequiredProductFlattenerResponse.cs" />
+    <Compile Include="Interfaces\RequiredProductFlattenerRequest.cs" />
     <Compile Include="Mock\MockBuildingUpgradProductConsolidator.cs" />
     <Compile Include="Entities\BuildingUpgradeProductConsolidatorResponse.cs" />
     <Compile Include="Interfaces\IBuildingUpgradProductConsolidator.cs" />
@@ -123,7 +135,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\common\cb.core.csproj">
+    <ProjectReference Include="..\..\common\cb.core\cb.core.csproj">
       <Project>{230F2023-AFDE-4246-993C-B9FE636D5109}</Project>
       <Name>cb.core</Name>
     </ProjectReference>

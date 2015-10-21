@@ -40,7 +40,8 @@ namespace SimGame.WebApi
             Mapper.CreateMap<HandlerEntities.ManufacturingQueueSlot, ManufacturingQueueSlot>();
             Mapper.CreateMap<HandlerEntities.ProductType, ProductType>()
                 .ForMember(x=>x.RequiredProductsToolTip, opt=>opt.ResolveUsing<RequiredProductTypeTooltipResolve>());
-            Mapper.CreateMap<HandlerEntities.Product, Product>();
+            Mapper.CreateMap<HandlerEntities.Product, Product>()
+                 .ForMember(x => x.RequiredProductsToolTip, opt => opt.ResolveUsing<RequiredProduct2TooltipResolve>());
             Mapper.CreateMap<HandlerEntities.City, City>()
                 .ForMember(x=>x.BuildingUpgrades, opt=>opt.ResolveUsing<ModelCityBuildingUpgradesResolver>());
             Mapper.CreateMap<HandlerEntities.CityStorage, CityStorage>();
@@ -56,13 +57,42 @@ namespace SimGame.WebApi
                 .ForMember(x=>x.Name, opt=>opt.MapFrom(y=> y.ProductType==null ? string.Empty : y.ProductType.Name))
                 .ForMember(x => x.SalePriceInDollars, opt => opt.MapFrom(y => y.ProductType == null ? 0 : y.ProductType.SalePriceInDollars))
                 .ForMember(x=>x.ManufacturerTypeId, opt=>opt.MapFrom(y=> y.ProductType==null ? 0 : y.ProductType.ManufacturerTypeId));
-            Mapper.CreateMap<DomainEntities.ProductType, ProductType>();
+            Mapper.CreateMap<DomainEntities.ProductType, ProductType>()
+                .ForMember(x => x.Name, opt => opt.MapFrom(y => y.ManufacturerType == null ? string.Empty : y.ManufacturerType.Name));
             Mapper.CreateMap<DomainEntities.ManufacturerType, ManufacturerType>();
             Mapper.CreateMap<DomainEntities.Manufacturer, Manufacturer>();
             Mapper.CreateMap<DomainEntities.ManufacturingQueueSlot, ManufacturingQueueSlot>()
                 .ForMember(x => x.ProductName, opt => opt.MapFrom(y => y.Product == null ? "--available--" : y.Product.ProductType.Name));
             Mapper.CreateMap<DomainEntities.BuildingUpgrade, BuildingUpgrade>();
             HandlerAutomapper.Configure();
+        }
+    }
+
+    public class RequiredProduct2TooltipResolve : ValueResolver<HandlerEntities.Product, string>
+    {
+        protected override string ResolveCore(HandlerEntities.Product source)
+        {
+            try
+            {
+                var sb = new StringBuilder();
+                sb.Append("<div>");
+                
+                sb.AppendFormat("<b><u>{0}</u></b><br/>", source.Name);
+                if (source.RequiredProducts == null || !source.RequiredProducts.Any())
+                    sb.Append("No Dependent products");
+                else
+                    foreach (var x in source.RequiredProducts)
+                    {
+                        sb.AppendFormat("{0} {1}<br/>", x.Quantity, x.ProductType.Name);
+                    }
+                sb.Append("</div>");
+                return sb.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return string.Empty;
         }
     }
 

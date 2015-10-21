@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SimGame.WebApi.Models
 {
     public class Product
     {
+        public Product()
+        {
+            Keywords = new List<string>();
+        }
+
         private ProductTypeWrapper _productTypeWrapper;
         public int? Id { get; set; }
         public string Name { get; set; }
@@ -73,6 +79,8 @@ namespace SimGame.WebApi.Models
         public int? StorageQuantity { get; set; }
         public Product[] RequiredProducts { get; set; }
         public Product[] NextProducts { get; set; }
+        public string ManufacturerName { get; set; }
+        public List<string> Keywords { get; set; }
     }
 
     public class ProductTypeWrapper

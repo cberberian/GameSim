@@ -22,6 +22,7 @@ namespace SimGame.Handler.Entities
         public int Priority { get; set; }
         public Product[] ProductsInStorage { get; set; }
         public override int Id { get; set; }
+        public bool CalculateInBuildingUpgrades { get; set; }
 
         public void AddRequiredUpgradeItem(Product product)
         {

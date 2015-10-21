@@ -60,17 +60,6 @@ namespace SimGame.Handler.Handlers
                 {
                     Context = _cityUpdateUnitOfWork.EntityContext
                 });
-//                foreach (var src in upgrade.Products)
-//                {
-//                    var chng = Mapper.Map<Product>(src);
-//                    var dest = domainUpgrade.Products.FirstOrDefault(x => x.Id == src.Id && x.Id != 0);
-//                    if (dest == null)
-//                    {
-//                        domainUpgrade.Products.Add(chng);
-//                    }
-//                    else
-//                        _cityUpdateUnitOfWork.ProductRepository.SetValues(dest, chng);
-//                }
             }
 
             _cityUpdateUnitOfWork.Commit();

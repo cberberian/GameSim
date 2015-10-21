@@ -1,10 +1,10 @@
 ﻿using SimGame.WebApi.Models;
 using ProductType = SimGame.Domain.ProductType;
 
-namespace MvcApplication1.Interfaces
+namespace SimGame.WebApi.Interfaces
 {
     public interface IBuildingUiInfoUpdater
     {
-        void Update(BuildingUpgrade[] buildingUpgrades, CityStorage currentCityStorage, ProductType[] prodTypes);
+        void Update(ProductType[] prodTypes, City city);
     }
 }

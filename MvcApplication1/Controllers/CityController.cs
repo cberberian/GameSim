@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Web.Http;
 using AutoMapper;
-using MvcApplication1.Interfaces;
+using cb.core;
+using log4net;
 using SimGame.Data;
 using SimGame.Handler.Entities.Legacy;
 using SimGame.Handler.Interfaces;
+using SimGame.WebApi.Interfaces;
 using BuildingUpgrade = SimGame.WebApi.Models.BuildingUpgrade;
 using City = SimGame.WebApi.Models.City;
 using CityStorage = SimGame.WebApi.Models.CityStorage;
@@ -21,7 +23,17 @@ namespace SimGame.WebApi.Controllers
         private readonly GameSimContext _db = new GameSimContext();
         private readonly IBuildingUpgradeHandler _buildingUpgradeHandler;
         private readonly IBuildingUiInfoUpdater _buildingUiInfoUpdater;
+        private ILog _logger;
 
+        private ILog Logger
+        {
+            get
+            {
+                if (_logger == null)
+                    _logger = LogManager.GetLogger(GetType());
+                return _logger;
+            }
+        }
         public CityController(ICityUpdateHandler cityUpdateHandler, IBuildingUpgradeHandler buildingUpgradeHandler, IBuildingUiInfoUpdater buildingUiInfoUpdater)
         {
             _cityUpdateHandler = cityUpdateHandler;
@@ -32,6 +44,7 @@ namespace SimGame.WebApi.Controllers
         // GET api/city
         public City Get()
         {
+            var logStart = LogHelper.StartLog("Started BuildingUpgradeController.Get", Logger);
             var currentInventory = _db.Products.Where(x=>x.IsCityStorage)
                 .OrderBy(y=>y.ProductType.ManufacturerTypeId)
                 .ThenBy(z=>z.ProductTypeId).AsEnumerable()
@@ -68,8 +81,8 @@ namespace SimGame.WebApi.Controllers
 //            city.PendingInventory = ret.PendingInventory.Select(Mapper.Map<Product>).ToArray();
             city.TotalProductsRequired = ret.TotalProductQueue.Select(Mapper.Map<Product>).ToArray();
             city.Manufacturers = _db.Manufacturers.ToArray().Select(Mapper.Map<Manufacturer>).ToArray();
-            _buildingUiInfoUpdater.Update(city.BuildingUpgrades, city.CurrentCityStorage, _db.ProductTypes.ToArray());
-            return city;
+            _buildingUiInfoUpdater.Update(_db.ProductTypes.ToArray(), city);
+            return LogHelper.EndLog(logStart, city);
         }
 
         // GET api/city/5
@@ -81,6 +94,7 @@ namespace SimGame.WebApi.Controllers
         // POST api/city
         public City Post([FromBody]City value)
         {
+            var ret = LogHelper.StartLog("CityController Post", Logger);
             if (value==null)
                 throw new ApplicationException("Null Data passed to save city.");
             var request = new HandlerEntities.CityUpdateRequest
@@ -88,7 +102,14 @@ namespace SimGame.WebApi.Controllers
                 City = Mapper.Map<SimGame.Handler.Entities.City>(value)
             };
             _cityUpdateHandler.UpdateCity(request);
-            return Get();
+            LogHelper.EndLog(ret);
+            var city = Get();
+            foreach (var bu in city.BuildingUpgrades)
+            {
+                var firstOrDefault = value.BuildingUpgrades.FirstOrDefault(x=>x.Id == bu.Id);
+                bu.CalculateInBuildingUpgrades = firstOrDefault == null || firstOrDefault.CalculateInBuildingUpgrades;
+            }
+            return LogHelper.EndLog(ret, city);
         }
 
         // PUT api/city/5

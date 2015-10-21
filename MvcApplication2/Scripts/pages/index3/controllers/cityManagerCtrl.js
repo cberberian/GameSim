@@ -8,7 +8,8 @@
             CurrentInventory: []
         },
         BuildingUpgrades: [],
-        RequiredProducts: []
+        RequiredProducts: [],
+        NewManufacturingQueueSlots: []
     };
     $http.get("http://localhost:59892/api/ManufacturerType").success(function (data) {
         $scope.manufacturers = data;
@@ -69,6 +70,17 @@
         var newQuantity = product.OriginalQuantity - product.AdjustedQuantity;
         $scope.RequiredProductQuantityDirty = newQuantity !== product.OriginalQuantity;
         product.Quantity = newQuantity;
+        for (var i = 0; i < product.AdjustedQuantity; i++) {
+            $scope.city.NewManufacturingQueueSlots.push({
+                ProductId: product.ProductTypeId,
+                ProductName: product.Name
+            });
+        }
+    }
+
+    $scope.SetCalculateInBuildingUpgrades = function(group, $event)
+    {
+        $event.stopPropagation();
     }
 
     $scope.CityStorageQuantityChanged = function (product, originalQuantity) {
@@ -161,10 +173,24 @@
     $scope.onBuildingUpgradeProductChange = function () {
         console.log("build upgrade product change");
     }
+
     $scope.onUpdateStorage = function () {
         $scope.UpdateStorageFromOverstock();
         alert("Product Adjustments Complete");
     }
+
+    $scope.CheckUncheck = function () {
+        if ($scope.Checked) {
+            $scope.Checked = false;
+        } else {
+            $scope.Checked = true;
+        }
+        $.each($scope.city.BuildingUpgrades, function(index, bu) {
+            bu.CalculateInBuildingUpgrades = $scope.Checked;
+        });
+        
+    }
+
     $scope.UpdateStorageFromOverstock = function () {
         var removes = [];
         $.each($scope.city.AvailableStorage, function (index, product) {

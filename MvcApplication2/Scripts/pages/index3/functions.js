@@ -6,6 +6,7 @@ function GetBuildingUpgradesForPost(originalUpgrades) {
         {
             Id: bu.Id,
             Name: bu.Name,
+            CalculateInBuildingUpgrades: bu.CalculateInBuildingUpgrades,
             Products: GetProductUpgradesForPost(bu.Products)
         });
     });

@@ -1,13 +1,10 @@
 ﻿using System.Configuration;
-using MvcApplication1.Interfaces;
 using Ninject.Modules;
-using SimGame.Handler.Calculators;
-using SimGame.Handler.Interfaces;
-using SimGame.Handler.Mock;
+using SimGame.WebApi.Interfaces;
 using SimGame.WebApi.Models;
 using ProductType = SimGame.Domain.ProductType;
 
-namespace MvcApplication1.Helpers
+namespace SimGame.WebApi.Helpers
 {
     public class WebApplication1NinjectModule : NinjectModule
     {
@@ -24,7 +21,7 @@ namespace MvcApplication1.Helpers
 
     public class MockBuildingUiInfoUpdater : IBuildingUiInfoUpdater
     {
-        public void Update(BuildingUpgrade[] buildingUpgrades, CityStorage currentCityStorage, ProductType[] prodTypes)
+        public void Update(ProductType[] prodTypes, City city)
         {
             throw new System.NotImplementedException();
         }
