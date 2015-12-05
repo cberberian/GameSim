@@ -1,0 +1,6 @@
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug\SampleCode.exe.config
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug\SampleCode.exe
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug\SampleCode.pdb
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\obj\Debug\SampleCode.exe
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\obj\Debug\SampleCode.pdb
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\obj\Debug\SampleCode.csprojResolveAssemblyReference.cache

@@ -1,0 +1,9 @@
+﻿<div style="text-align: left">
+    <div>Currently In Storage: {{product.StorageQuantity}} </div>
+    <span style="font-weight: 600; text-decoration: underline">Requires:</span>
+    <div ng-repeat="rp in product.RequiredProducts">
+        <span ng-if="(product.Quantity - product.StorageQuantity) < 0">{{rp.Name}}: 0</span>
+        <span ng-if="(product.Quantity - product.StorageQuantity) >= 0">{{rp.Name}}: {{(product.Quantity - product.StorageQuantity)*rp.Quantity}}</span>
+        
+    </div>
+</div>

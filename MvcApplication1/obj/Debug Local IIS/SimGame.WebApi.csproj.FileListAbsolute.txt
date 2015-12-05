@@ -1,0 +1,45 @@
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.WebApi.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.WebApi.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\AutoMapper.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\cb.core.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\EntityFramework.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\EntityFramework.SqlServer.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\log4net.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\Ninject.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\Ninject.Web.Common.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.Data.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.Domain.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.Handler.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Http.OData.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Http.Tracing.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Mvc.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Optimization.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Providers.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.WebPages.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.WebPages.Razor.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\cb.core.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.Data.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.Domain.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\SimGame.Handler.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\AutoMapper.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\AutoMapper.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\EntityFramework.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\EntityFramework.SqlServer.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\log4net.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\Ninject.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\Ninject.Web.Common.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Mvc.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.WebPages.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.WebPages.Razor.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Http.Tracing.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\System.Web.Http.OData.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\obj\Debug Local IIS\SimGame.WebApi.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\obj\Debug Local IIS\SimGame.WebApi.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\obj\Debug Local IIS\SimGame.WebApi.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\Newtonsoft.Json.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\Newtonsoft.Json.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\AutoMapper.Net4.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication1\bin\AutoMapper.Net4.pdb

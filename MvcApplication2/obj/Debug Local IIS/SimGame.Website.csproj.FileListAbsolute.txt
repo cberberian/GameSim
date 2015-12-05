@@ -1,0 +1,39 @@
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\SimGame.Website.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\SimGame.Website.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\Antlr3.Runtime.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\AutoMapper.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\AutoMapper.Net4.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\cb.core.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\EntityFramework.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\EntityFramework.SqlServer.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\Newtonsoft.Json.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\SimGame.Data.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\SimGame.Domain.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.Mvc.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.Optimization.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.Providers.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.WebPages.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.WebPages.Razor.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\WebGrease.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\log4net.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\Ninject.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\cb.core.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\SimGame.Data.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\SimGame.Domain.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\AutoMapper.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\AutoMapper.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\AutoMapper.Net4.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\EntityFramework.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\EntityFramework.SqlServer.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\Newtonsoft.Json.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.Mvc.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.WebPages.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\System.Web.WebPages.Razor.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\log4net.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\bin\Ninject.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\obj\Debug Local IIS\SimGame.Website.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\obj\Debug Local IIS\SimGame.Website.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication2\obj\Debug Local IIS\SimGame.Website.pdb

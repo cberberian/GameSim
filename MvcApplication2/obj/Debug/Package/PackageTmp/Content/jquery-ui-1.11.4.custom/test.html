@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="jquery-ui.css" rel="stylesheet">
+    <script src="external/jquery/jquery.js"></script>
+    <script src="jquery-ui.js"></script>
+    <script>
+        $(document).ready(
+            function () {
+                $(".inventory-list").menu();
+                $(".inventory-item-count-spinner").spinner();
+                $("#factoryItems, #upgradeItems").sortable({
+                    connectWith: ".inventory-list"
+                }).disableSelection();
+            }
+
+            );
+    </script>
+</head>
+<body>
+<div>
+    <h1>Hello World</h1>
+    <div>
+        <table width="1000px">
+            <tr>
+                <td class="left-pane">Available</td>
+                <td class="left-pane">Select</td>
+            </tr>
+            <tr>
+                <td class="left-pane">
+                    <div class="inventory-list-left-container">
+                        <div>
+                            <h3>Factory Items</h3>
+                            <ul id="factoryItems" class="inventory-list">
+                                <li><span class="inventory-item-name">Metal</span><input id="metalCount" class="inventory-item-count-spinner"></li>
+                                <li><span class="inventory-item-name">Wood</span><input id="woodCount" class="inventory-item-count-spinner"></li>
+                                <li><span class="inventory-item-name">Plastic</span><input id="plasticCount" class="inventory-item-count-spinner"></li>
+                                <li><span class="inventory-item-name">Seeds</span><input id="seedsCount" class="inventory-item-count-spinner"></li>
+                                <li><span class="inventory-item-name">Minerals</span><input id="mineralsCount" class="inventory-item-count-spinner"></li>
+                                <li><span class="inventory-item-name">Chemicals</span><input id="chemicalsCount" class="inventory-item-count-spinner"></li>
+                                <li><span class="inventory-item-name">Textiles</span><input id="textilesCount" class="inventory-item-count-spinner"></li>
+                                <li><span class="inventory-item-name">Sugar and Spice</span><input id="sugarAndSpiceCount" class="inventory-item-count-spinner"></li>
+                            </ul>
+                            <h3>Hardware Store</h3>
+                            <ul id="hardwareStoreItems" class="inventory-list">
+                                <li>Hammer</li>
+                                <li>Measuring Tape</li>
+                                <li>Shovel</li>
+                                <li>Cooking Utensils</li>
+                            </ul>
+                            <h3>Building Supply Store</h3>
+                            <ul id="buildingSupplyStoreItems" class="inventory-list">
+                                <li>Nails</li>
+                                <li>Planks</li>
+                                <li>Bricks</li>
+                                <li>Cement</li>
+                                <li>Glue</li>
+                            </ul>
+                            <h3>Furniture Store Store</h3>
+                            <ul id="furnitureStoreItems" class="inventory-list">
+                                <li>Chair</li>
+                                <li>Table</li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+                <td class="left-pane">
+                    <h3>Upgrade List</h3>
+                    <ul id="upgradeItems" class="inventory-list">
+
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

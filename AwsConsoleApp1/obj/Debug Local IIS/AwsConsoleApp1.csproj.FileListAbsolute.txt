@@ -1,0 +1,11 @@
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\AwsConsoleApp1.exe.config
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\AwsConsoleApp1.exe
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\AwsConsoleApp1.pdb
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\AWSSDK.dll
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug Local IIS\AWSSDK.pdb
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\obj\Debug Local IIS\AwsConsoleApp1.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\obj\Debug Local IIS\AwsConsoleApp1.exe
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\obj\Debug Local IIS\AwsConsoleApp1.pdb

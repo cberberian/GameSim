@@ -1,0 +1,15 @@
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\SimGameDomainTest.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\SimGameDomainTest.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\nunit.framework.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\SimGame.Domain.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\SimGame.Domain.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\nunit.framework.xml
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\obj\Debug\SimGameDomainTest.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\obj\Debug\SimGameDomainTest.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\obj\Debug\SimGameDomainTest.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\EntityFramework.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\SimGameDomainTest.dll.config
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\cb.core.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\cb.core.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\log4net.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGameDomainTest\bin\Debug\log4net.xml

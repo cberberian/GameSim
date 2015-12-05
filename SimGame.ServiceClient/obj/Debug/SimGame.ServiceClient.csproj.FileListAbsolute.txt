@@ -1,0 +1,10 @@
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\bin\Debug\SimGame.ServiceClient.exe.config
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\bin\Debug\SimGame.ServiceClient.exe
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\bin\Debug\SimGame.ServiceClient.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\bin\Debug\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\bin\Debug\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\bin\Debug\Topshelf.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\bin\Debug\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\obj\Debug\SimGame.ServiceClient.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\obj\Debug\SimGame.ServiceClient.exe
+H:\dev\vs2012\AwsConsoleApp1\SimGame.ServiceClient\obj\Debug\SimGame.ServiceClient.pdb

@@ -1,0 +1,12 @@
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\SimGame.Domain.dll.config
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\SimGame.Domain.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\SimGame.Domain.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\EntityFramework.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\EntityFramework.xml
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\obj\Release\SimGame.Domain.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\obj\Release\SimGame.Domain.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\cb.core.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\log4net.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\cb.core.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\bin\Release\log4net.xml
+H:\dev\vs2012\AwsConsoleApp1\SimGame.Domain\obj\Release\SimGame.Domain.csprojResolveAssemblyReference.cache

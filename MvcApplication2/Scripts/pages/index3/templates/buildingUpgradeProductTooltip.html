@@ -1,0 +1,7 @@
+﻿<div style="text-align: left" ng-if="product.Quantity > product.StorageQuantity">
+    <span style="text-decoration: underline; font-weight: bold">Required Products:</span><br/>
+    <div style="text-align: left; white-space: nowrap" ng-repeat="product in product.RequiredProducts" product="product" product-quantity-warning>{{product.Quantity}} {{product.Name}} of {{product.StorageQuantity}} in storage</div><br/>
+</div>
+<div style="text-align: left" ng-if="product.Quantity <= product.StorageQuantity">
+    {{product.Name}} is Complete
+</div>

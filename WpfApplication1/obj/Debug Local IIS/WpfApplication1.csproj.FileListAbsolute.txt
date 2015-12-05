@@ -1,0 +1,17 @@
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\bin\Debug Local IIS\WpfApplication1.exe.config
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\bin\Debug Local IIS\WpfApplication1.exe
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\bin\Debug Local IIS\WpfApplication1.pdb
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\bin\Debug Local IIS\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\bin\Debug Local IIS\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\bin\Debug Local IIS\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\MainWindow.baml
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\MainWindow.g.cs
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\App.g.cs
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1_Content.g.cs
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1_MarkupCompile.cache
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1.g.resources
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1.Properties.Resources.resources
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1.csproj.GenerateResource.Cache
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1.exe
+H:\dev\vs2012\AwsConsoleApp1\WpfApplication1\obj\Debug Local IIS\WpfApplication1.pdb

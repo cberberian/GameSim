@@ -1,0 +1,8 @@
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug\AwsConsoleApp1.exe.config
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug\AwsConsoleApp1.exe
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug\AwsConsoleApp1.pdb
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug\AWSSDK.dll
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\obj\Debug\AwsConsoleApp1.exe
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\obj\Debug\AwsConsoleApp1.pdb
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\bin\Debug\AWSSDK.pdb
+H:\dev\vs2012\AwsConsoleApp1\AwsConsoleApp1\obj\Debug\AwsConsoleApp1.csprojResolveAssemblyReference.cache

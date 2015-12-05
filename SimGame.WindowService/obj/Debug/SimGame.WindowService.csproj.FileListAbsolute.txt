@@ -1,0 +1,14 @@
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\SimGame.WindowService.exe.config
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\SimGame.WindowService.exe
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\SimGame.WindowService.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\SimGame.Contract.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\SimGame.Service.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\Topshelf.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\SimGame.Contract.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\bin\Debug\SimGame.Service.pdb
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\obj\Debug\SimGame.WindowService.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\obj\Debug\SimGame.WindowService.exe
+H:\dev\vs2012\AwsConsoleApp1\SimGame.WindowService\obj\Debug\SimGame.WindowService.pdb

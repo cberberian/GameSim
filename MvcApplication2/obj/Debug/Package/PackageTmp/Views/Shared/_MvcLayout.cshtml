@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+    
+
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+<body>
+<header>
+    <div class="content-wrapper">
+        <h1>City Manager</h1>
+    </div>
+</header>
+<link href="~/Content/jquery-ui-1.11.4.custom/jquery-ui.css" rel="stylesheet"/>
+<link href="~/Content/styles.css" rel="stylesheet"/>
+<div id="rootTabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <div class="top-navigation">
+        @Html.ActionLink("Register", "Register", "Account") | 
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Logout", "Logout", "Account")
+            ;
+        }
+        @if (!Context.User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Login", "Login", "Account")
+            ;
+        }
+    </div>
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li id="bldingUprgrdMgrTab" style="text-align: center; vertical-align: middle; height: 20px; width: 150px" class="ui-state-default ui-corner-top">
+            <a href="~/Manage/Index">Manage Upgrades</a>
+        </li>
+        <li id="bldingUprgrdMgr2Tab" style="text-align: center; vertical-align: middle; height: 20px; width: 150px" class="ui-state-default ui-corner-top">
+            <a href="~/Manage/Index2">Manage Upgrades 2</a>
+        </li>
+        <li id="bldingUprgrdMgr3Tab" style="text-align: center; vertical-align: middle; height: 20px; width: 150px" class="ui-state-default ui-corner-top">
+            <a href="~/Manage/Index3">Manage Upgrades 3</a>
+        </li>
+        <li id="mngPrdType" style="text-align: center; vertical-align: middle; height: 20px; width: 150px" class="ui-state-default ui-corner-top">
+            <a href="~/ProductType/Index">Manage Product Types</a>
+        </li>
+    </ul>
+</div>
+<div id="cityManagerContainer" style="display: none">
+<div class="ui-widget-content">
+    @RenderBody()
+</div>
+</div>
+</body>
+</html>
+<script>
+    //    $("#rootTabs").tabs();
+    // ui-tabs-active ui-state-active
+    if (window.location.pathname.indexOf("/Manage/Index3") > -1) {
+        $("#bldingUprgrdMgr3Tab").addClass("ui-tabs-active");
+        $("#bldingUprgrdMgr3Tab").addClass("ui-state-active");
+    }
+    else if (window.location.pathname.indexOf("/Manage/Index2") > -1) {
+        $("#bldingUprgrdMgr2Tab").addClass("ui-tabs-active");
+        $("#bldingUprgrdMgr2Tab").addClass("ui-state-active");
+    } else if (window.location.pathname.indexOf("/ProductType") > -1) {
+        $("#mngPrdType").addClass("ui-tabs-active");
+        $("#mngPrdType").addClass("ui-state-active");
+    } else if (window.location.pathname.indexOf("/Product/") > -1) {
+        $("#mngPrdType").addClass("ui-tabs-active");
+        $("#mngPrdType").addClass("ui-state-active");
+    }
+    else {
+        $("#bldingUprgrdMgrTab").addClass("ui-tabs-active");
+        $("#bldingUprgrdMgrTab").addClass("ui-state-active");
+    }
+
+
+</script>

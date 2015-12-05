@@ -1,0 +1,9 @@
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug Local IIS\SampleCode.exe.config
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug Local IIS\SampleCode.exe
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug Local IIS\SampleCode.pdb
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug Local IIS\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug Local IIS\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\bin\Debug Local IIS\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\obj\Debug Local IIS\SampleCode.exe
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\obj\Debug Local IIS\SampleCode.pdb
+H:\dev\vs2012\AwsConsoleApp1\SampleCode\obj\Debug Local IIS\SampleCode.csprojResolveAssemblyReference.cache

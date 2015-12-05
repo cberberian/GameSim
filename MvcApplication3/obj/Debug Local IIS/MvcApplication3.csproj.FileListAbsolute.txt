@@ -1,0 +1,23 @@
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\MvcApplication3.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\MvcApplication3.pdb
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\DotNetOpenAuth.AspNet.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\EntityFramework.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\HibernatingRhinos.Profiler.Appender.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\Microsoft.Web.Infrastructure.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\Microsoft.Web.WebPages.OAuth.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\System.Web.Mvc.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\System.Web.Optimization.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\System.Web.WebPages.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\System.Web.WebPages.Razor.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\WebActivatorEx.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\WebMatrix.WebData.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\System.Web.Mvc.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\System.Web.WebPages.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\System.Web.WebPages.Razor.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\EntityFramework.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\Microsoft.Web.WebPages.OAuth.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\DotNetOpenAuth.AspNet.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\bin\WebMatrix.WebData.xml
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\obj\Debug Local IIS\MvcApplication3.csprojResolveAssemblyReference.cache
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\obj\Debug Local IIS\MvcApplication3.dll
+H:\dev\vs2012\AwsConsoleApp1\MvcApplication3\obj\Debug Local IIS\MvcApplication3.pdb

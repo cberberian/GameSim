@@ -1,0 +1,37 @@
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/angular")
+@{
+    ViewBag.Title = "Building Manager 3";
+    Layout = "~/views/shared/_angularLayout.cshtml";
+}
+<!DOCTYPE html>
+<html ng-app="cityManagerApp">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/simGame.css" rel="stylesheet" />
+    <link href="~/Content/ui-grid.min.css" rel="stylesheet"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/csv.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/pdfmake.js"></script>
+    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
+</head>
+<body>
+<div id="layoutContainer" class="ui-widget-content">
+    <div id="rootTabs-tab-container"ng-controller="TabsCtrl">
+        <tabset>
+            <tab heading="Manage Upgrade jquery" ng-click="Goto('http://localhost:59153/Manage/Index')"></tab>
+            <tab heading="Manage Upgrade asp.net MVC" ng-click="Goto('http://localhost:59153/Manage/Index2')"></tab>
+            <tab heading="Manage Upgrade asp.net Angular" active="true" ng-click="Goto('/buildingManager')"></tab>
+            <tab heading="Product Types" ng-click="Goto('/productTypes')"></tab>
+            <tab heading="Manufacturing Queue" ng-click="Goto('/manufacturingQueue')"></tab>
+        </tabset>
+    </div>
+    <div ng-view></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+﻿body {
+
+}
+
+.city-manager-table {
+    margin: 4px;
+    padding: 4px;
+    width: 1170px;
+}
+.city-manager-accordion {
+    width: 100%; 
+    overflow: scroll; 
+    height: 540px
+}
+
+.building-manager-accordion {
+    float: right;
+}
+
+#layoutContainer {
+    position: absolute;
+    top: 10px
+}
+#rootTabs-tab-container {
+    position: fixed;
+    width: 100%;
+    background-color: white
+}
+
+
+/*Floating header bar classes */
+.city-manager-floating-bar-container {
+    empty-cells: show;
+    white-space: nowrap;
+    height:80px;
+}
+.city-manager-floating-bar {
+    white-space: nowrap;
+    position: fixed;
+    width: 100%;
+    background-color: #FFFFFF;
+    top: 50px;
+}
+#hdrAvailableProducts {
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    width:46%
+}
+#hdrBuildingUpgrades {
+    display: inline-block;
+    width:170px
+}
+#hdrToolbar {
+    display: inline-block;
+}
+
+/**/
+.progress-bar-container {
+    width: 300px;
+    height: 8px;
+    display: inline-block;
+}
+
+.city-manager-nav-icon {
+    width: 45px;
+    height: 38px;
+}
+.city-manager-left-pane {
+    width: 50%;
+    vertical-align: top;
+    text-align: left
+}
+.city-manager-right-pane {
+    width: 50%;
+    vertical-align: top;
+}
+.city-manager-section-header {
+    width: 460px;
+    vertical-align: top;
+}
+/*
+    building upgrade list styles
+*/
+.building-upgrade-name-input {
+    font-size: 14px
+}
+
+/*
+    product select list styles
+*/
+.entity-list-container {
+    border-radius: 25px;
+    padding: 10px;
+    background-color: #E1F0FF;
+    text-align: center;
+}
+.entity-list {
+    width: 90%;
+    min-height: 20px;
+    max-height: 100px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+    text-align: left;
+}
+.entity-list-item {
+    border-width: 2px;
+    border-color: #E1F0FF;
+    margin: 2px;
+    padding: 3px;
+    cursor: pointer;
+    width: 400px;
+    display: block;
+    font-size: 12px;
+    height: 20px;
+}
+.entity-list-item:hover {
+    border-width: 2px;
+    border-color: black;
+    margin: 2px;
+    padding: 3px;
+    cursor: pointer;
+    width: 400px;
+    display: block;
+    font-size: 12px;
+    height: 20px;
+    color: #0099CC;
+    background-color: #0D1764;
+}
+
+/* for product type view */
+.product-type-floating-bar {
+
+}
+
+.product-list-item-counter {
+    float: right;
+    width: 70px
+}
+.product-detail-container {
+    width: 500px;
+    border-radius: 25px;
+    padding: 10px;
+    background-color: #E1F0FF;
+    text-align: center;
+}
+
+.product-detail {
+    width: 90%;
+    margin: 0;
+    padding: 5px 0 0 0;
+    margin-right: 10px;
+    overflow-x: hidden;
+    text-align: left;
+}
+
+.product-name {
+    float: left;
+    height: 20px;
+    width: 150px;
+    display: block;
+    vertical-align: bottom;
+    font-size: 12px;
+}
+
+/* Labels and input for tabular and detail input */
+.item-header1 {
+    text-decoration: underline;
+    font-size: 12px
+}
+
+.item-cell {
+    padding: 2px;
+    margin: 2px;
+}
+
+.item-label {
+    float: left;
+    height: 25px;
+    width: 150px;
+    display: block;
+    vertical-align: bottom;
+    font-size: 12px;
+}
+.item-label-bold {
+    text-decoration: underline;
+}
+
+.item-input-nowrap, .item-input {
+    white-space: nowrap
+}
+
+.item-input {
+    float: left;
+    height: 20px;
+    width: 150px;
+    display: block;
+    vertical-align: bottom;
+    font-size: 12px;
+}
+
+.update-inventory {
+    float: right;
+}
+
+.btn-complete-upgrade {
+    font-size: 10px
+}
+
+.product-Grid {
+    width: 450px;
+    height: 100px;
+  }
+

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+<h2>City Manager</h2>
+<div class="ui-widget-content">
+    @RenderBody()
+</div>
+</body>
+</html>
+<script>
+    //    $("#rootTabs").tabs();
+    // ui-tabs-active ui-state-active
+    if (window.location.pathname.indexOf("/Manage/Index3") > -1) {
+        $("#bldingUprgrdMgr3Tab").addClass("ui-tabs-active");
+        $("#bldingUprgrdMgr3Tab").addClass("ui-state-active");
+    }
+    else if (window.location.pathname.indexOf("/Manage/Index2") > -1) {
+        $("#bldingUprgrdMgr2Tab").addClass("ui-tabs-active");
+        $("#bldingUprgrdMgr2Tab").addClass("ui-state-active");
+    } else if (window.location.pathname.indexOf("/ProductType") > -1) {
+        $("#mngPrdType").addClass("ui-tabs-active");
+        $("#mngPrdType").addClass("ui-state-active");
+    } else if (window.location.pathname.indexOf("/Product/") > -1) {
+        $("#mngPrdType").addClass("ui-tabs-active");
+        $("#mngPrdType").addClass("ui-state-active");
+    }
+    else {
+        $("#bldingUprgrdMgrTab").addClass("ui-tabs-active");
+        $("#bldingUprgrdMgrTab").addClass("ui-state-active");
+    }
+
+
+</script>

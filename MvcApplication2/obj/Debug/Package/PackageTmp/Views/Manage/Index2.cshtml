@@ -1,0 +1,174 @@
+﻿@model MvcApplication2.Models.City
+@{
+    ViewBag.Title = "City Manager 2";
+    Layout = "~/Views/Shared/_MvcLayout.cshtml";
+}
+@Scripts.Render("~/bundles/index2")
+<link href="~/Content/jquery-ui-1.11.4.custom/jquery-ui.css" rel="stylesheet"/>
+<link href="~/Content/styles.css" rel="stylesheet"/>
+<script>
+    $(document).ready(
+        function() {
+            InitializePage();
+            $("#cityManagerContainer").fadeIn();
+        }
+    );
+</script>
+<div id="cityManagerContainer">
+<div>
+    <div id="tabs">
+        <div id="buildingUpgrades">
+            <table style="width: 1100px">
+                <tr>
+                    <td class="left-pane">
+                        <h2>Available Products</h2></td>
+                    <td class="left-pane">
+                        <h2>Building Upgrades</h2>
+                    </td>
+                    <td style="text-align: right; white-space: nowrap">
+                        <a style="cursor: pointer" id="btnSave" onclick="SaveCity()"><img id="divSave" src="~/Images/save.gif"/></a>
+                        <img id="divTrash" src="~/Images/trash.gif" alt=""/>
+                        <a style="cursor: pointer" onclick="NewBuildingUpgrade()"><img src="~/Images/add.gif"/></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="left-pane">
+                        <div class="inventory-list-container ">
+                            <!-- main inventory div -->
+                            <div id="factoryItemsAccordian" class="main-accordian">
+                              @foreach (var manufacturer in Model.ManufacturerTypes) {
+                                    <h3>@manufacturer.Name</h3>
+                                    <div>
+                                        <ul class="inventory-list inventory-source">
+                                            @foreach (var product in manufacturer.ProductTypes)
+                                            {
+                                                <li>
+                                                    <span class="inventory-item-name" title="">@product.Name</span>
+                                                    <span class="inventory-item-type inventory-item-type-id">@product.Id</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }                                
+                            </div>
+                        </div>
+                    </td>
+
+                    <td id="upgradeListContainer" class="left-pane" colspan="2">
+                        <div id="upgradeListAccordian" class="upgrade-list-accordian main-accordian">
+                            <h3 class="accordian-definition">Required Updgrade Products (Minus City Storeage)</h3>
+                            <div class="upgrade-list-div combined-list-div accordian-definition">
+                                <ul class="combined-list-ul"></ul>
+                            </div>
+                            <h3 class="accordian-definition">Total Upgrade Products</h3>
+                            <div class="upgrade-list-div combined-list-div accordian-definition">
+                                <ul class="total-combined-list-ul"></ul>
+                            </div>
+                            <h3 class="accordian-definition">Available Storage</h3>
+                            <div class="upgrade-list-div available-storage-div accordian-definition">
+                                <ul class="available-storage-list-ul"></ul>
+                            </div>
+                            <h3 class="accordian-definition">Required in Storage</h3>
+                            <div class="upgrade-list-div required-in-storage-div accordian-definition">
+                                <ul class="required-in-storage-list-ul"></ul>
+                            </div>
+                            <h3 class="accordian-definition">City Storage</h3>
+                            <div class="upgrade-list-div combined-list-div accordian-definition">
+                                <span class="property-upgrade-name property-upgrade-hidden">City Storage</span>
+                                <ul class="inventory-list storage-list-ul upgrade-list">
+                                    @foreach (var product in Model.CurrentCityStorage.CurrentInventory)
+                                    {
+                                        <li>
+                                            <span class="inventory-item-name">@product.Name</span>
+                                            <span class="inventory-item-type inventory-item-type-id">@product.ProductTypeId</span>
+                                            @Html.TextBox(string.Format("storageListProductAmount{0}", product.ProductTypeId), product.Quantity, new Dictionary<string, object>() { {"class", "inventory-item-count-spinner"} })
+                                        </li>
+                                    }
+                                </ul>
+
+                            </div>
+                            @foreach (var upgrade in Model.BuildingUpgrades) {
+                                <h3 class="property-upgrade-h3 accordian-definition">
+                                    
+                                    <input class="property-upgrade-name" value="@upgrade.Name" />&nbsp;&nbsp;
+                                    <span class="progress-bar-tooltip" title="">
+                                        <span class="progress-bar-container"></span>
+                                    </span>
+                                    <a class="btn-complete-upgrade" onclick="onBtnCompleteUpgradeClick(this)">
+                                        <span style="display: inline-block; height: 20px; width: 20px">
+                                            <span class="ui-icon ui-icon-check" title="Complete Upgrade"></span>
+                                        </span>
+                                    </a>
+                                    <a class="btn-move-up" onclick="onMoveUpClick(this)">
+                                        <span style="display: inline-block; height: 20px; width: 20px">
+                                        <span class="ui-icon ui-icon-arrow-1-n" title="Move Up"></span>
+                                    </span>
+                                    </a>
+                                    <a class="btn-move-down" onclick="onMoveDownClick(this)">
+                                        <span style="display: inline-block; height: 20px; width: 20px">
+                                            <span class="ui-icon ui-icon-arrow-1-s" title="Move Down"></span>
+                                        </span>
+                                    </a>
+                                </h3>
+                                <div class="upgrade-list-div accordian-definition">
+                                    <span class="property-upgrade-name property-upgrade-hidden">@upgrade.Name</span>
+                                    <span class="property-upgrade-id" style="display: none">@upgrade.Id</span>
+                                    <ul class="inventory-list inventory-source">
+                                        @foreach (var product in upgrade.Products)
+                                        {
+                                            <li>
+                                                <span title="@product.Name"><span class="inventory-item-name">@product.Name</span></span>
+                                                <span class="inventory-item-upgrade-id property-upgrade-hidden">@upgrade.Id</span>
+                                                <span class="inventory-item-type inventory-item-type-id">@product.ProductTypeId</span>
+                                                <span class="inventory-item-id" style="display: none">@product.Id</span>
+                                                @Html.TextBox("upgradeProduct", product.Quantity, new Dictionary<string, object>() { {"class", "inventory-item-count-spinner"} })
+@*                                                <input class="inventory-item-count-spinner" type="text" value="@product.Quantity" />*@
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            } 
+                        </div>
+                        <div class="bottom-right-toolbox"><a id="btnUpdateSupplyChain" onclick="UpdateSupplyChain()">Update Supply Chain</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="facilities">
+
+        </div>
+    </div>
+</div>
+<div id="upgradeListTemplate" style="display: none">
+    <h3 class="property-upgrade-h3 accordian-definition">
+        <input class="property-upgrade-name" title=""/>&nbsp;&nbsp;
+        <span class="progress-bar-tooltip" title=""><span class="progress-bar-container"></span></span>
+        <a class="btn-complete-upgrade" onclick="onBtnCompleteUpgradeClick(this)">
+            <span style="display: inline-block; height: 20px; width: 20px">
+            <span class="ui-icon ui-icon-check" title="Complete Upgrade"></span>
+        </span>
+        </a>
+        <a class="btn-move-up" onclick="onMoveUpClick(this)">
+            <span style="display: inline-block; height: 20px; width: 20px">
+            <span class="ui-icon ui-icon-arrow-1-n" title="Move Up"></span>
+        </span>
+        </a>
+        <a class="btn-move-down" onclick="onMoveDownClick(this)">
+            <span style="display: inline-block; height: 20px; width: 20px">
+            <span class="ui-icon ui-icon-arrow-1-s" title="Move Down"></span>
+        </span>
+        </a>
+    </h3>
+    <div class="upgrade-list-div accordian-definition">
+        <span class="upgrade-list-template-id"></span><span class="inventory-item-upgrade-id property-upgrade-hidden"></span>
+        <span class="property-upgrade-id" style="display: none"></span>
+        <span class="property-upgrade-name property-upgrade-hidden"></span>
+        <ul class="inventory-list upgrade-list"></ul>
+    </div>
+</div>
+<div id="inventoryItemDialogue" title="Item Details">
+    <div id="itemName"></div>
+    <div id="prerequisites"></div>
+</div>
+</div>
